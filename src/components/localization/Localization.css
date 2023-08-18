@@ -1,0 +1,19 @@
+.localization{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.localization-button{
+    color: #3153CA;
+}
+.localization-button.active {
+    background-color: #3153CA;
+    color: #fff;
+}
+
+
+@media screen and (min-width: 970px){
+    .localization{
+        gap: 16px;
+    }
+}
