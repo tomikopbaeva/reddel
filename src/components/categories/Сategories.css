@@ -1,0 +1,41 @@
+.categories{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.categories-list{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.h2{
+    font-size: 18px;
+}
+
+.categories-list span{
+    padding: 6px 12px;
+    border-radius: 10px;
+    background: transparent;
+    border: 0.50px #3153CA solid;
+    color: #3153CA;
+    font-size: 12px;
+    line-height: 25px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+@media screen and (min-width: 970px){
+    .categories{
+        gap: 24px;
+    }
+    .h2{
+        font-size: 32px;
+    }
+    .categories-list span{
+        font-size: 24px;
+        background: #fff;
+        padding: 10px 20px;
+    }
+}

@@ -14,6 +14,18 @@ h1{
     word-wrap: break-word
 }
 
+h2{
+    color: #18181B;
+    font-weight: 800;
+    word-wrap: break-word
+}
+
+h3{
+    color: #18181B;
+    font-weight: 800;
+    word-wrap: break-word;
+}
+
 P{
     color: #18181B;
     font-size: 20px;

@@ -1,12 +1,9 @@
-
-
 .banner-desk{
     display: none;
 }
 
 .banner-mob{
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 
@@ -31,12 +28,12 @@
     border-radius: 0 24px 24px 0;
 }
 
-@media screen and (min-width: 1200px){
+@media screen and (min-width: 970px){
     .banner-desk{
         display: flex;
         align-items: center;
         justify-content: center;
-        max-width: 1296px;
+        max-width: 1300px;
         background-color: #fff;
         border-radius: 24px;
     }

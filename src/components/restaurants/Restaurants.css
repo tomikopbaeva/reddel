@@ -1,0 +1,51 @@
+.place .desk{
+    display: none;
+}
+
+.place .mob{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;   
+}
+
+.mob .splide__list {
+    gap: 12px;
+}
+
+
+.place-header{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.place-button{
+    padding-bottom: 3px;
+    border: none;
+    background-color: transparent;
+    color: #3153CA;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+
+.place-list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+}
+
+@media screen and (min-width: 970px){
+    .place .desk{
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .place .mob{
+        display: none;
+    }
+
+}

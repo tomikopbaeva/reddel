@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Search.css'; 
-import search from '../../assets/Search.svg';
+import search from '../../assets/Search2.svg';
 
 function Search() {
   return (

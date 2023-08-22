@@ -1,0 +1,159 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 12px 0 12px;
+    width: 100%;
+    gap: 16px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 18px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.06);
+    position: relative;
+}
+
+.card-header{
+    color: #fff;
+    background-color: #3153CA;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 16px;
+    border: 2px solid #fff;
+    font-weight: 600;
+    margin-bottom: -58px;
+    margin-left: 10px;
+    z-index: 2  ;
+    box-sizing: border-box;
+}
+
+.card-header + img{
+    max-width: 194px;
+    border-radius: 12px;
+}
+
+.tags{
+    margin-top: -55px;
+    margin-left: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+.tag{
+    padding: 4px 10px;
+    background-color: #EDB92E;
+    color: #18181B;
+    font-size: 16px;
+    font-weight: 600;
+    word-wrap: break-word;
+    border-radius: 12px;
+}
+
+.card-body{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.card-body img{
+    border-radius: 8px;
+}
+
+.card-body h3{
+    font-size: 14px;
+}
+
+.card-text{
+    font-size: 16px;
+}
+
+p{
+    line-height: 1;
+}
+
+span, .tag{
+    font-size: 12px;
+}
+
+.location{
+    padding: 8px 12px;
+    background-color: #F0F0F0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.location span{
+    color: #18181B;
+    font-weight: 400;
+}
+
+.card-footer .card-button:last-child{
+    display: none   
+}
+
+.card-button:first-child{
+    position: absolute;
+    top: 20px;
+    right: 26px;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 6.25px;
+}
+
+.card-footer img{
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+@media screen and (min-width: 970px){
+    .card{
+        padding: 20px 18px ;
+
+    }
+    .card-footer img{
+        width: 26px;
+    }
+    .card-footer{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 16px;
+    }
+    
+    .card-footer .card-button:first-child{
+        padding: 11px 19px;
+        position: static;
+    }
+    
+    .card-footer .card-button:last-child{
+        display: block;
+        padding: 15px 54px 15px 53px;
+        box-sizing: border-box;
+        background-color: #3153CA;
+        color: #fff;
+        border-radius: 10px;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+    .card-header + img{
+        max-width: 100%;
+        border-radius: 18px;
+    }
+    .card-body h3{
+        font-size: 18px;
+    }
+    span, .tag{
+        font-size: 16px;
+    }
+    .card-button.liked {
+        background: rgba(49.12, 82.88, 201.88, 0.10);
+    }
+}
