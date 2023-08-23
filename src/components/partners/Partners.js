@@ -3,6 +3,7 @@ import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import "./Partners.css";
 import Card from "../card/Card";
+import MobSlider from "../mobSlider/MobSlider";
 
 function Partners() {
   const cardArray = [];
@@ -19,19 +20,7 @@ function Partners() {
       <div className='desk'>
         <div className="partners-list">{cardArray}</div>
       </div>
-      <div className='mob'>
-            <Splide options={{
-                type: 'loop',
-                drag: 'free',
-                focus: 'start',
-                perPage: 2,
-                arrows: false,
-                pagination: false,
-                fixedWidth: '218px',
-            }}>
-                {cardArray.map((card) => <SplideSlide><Card key={card.id} {...card}/></SplideSlide>)}
-            </Splide>
-      </div>
+      <MobSlider cardArray={cardArray} />
     </section>
   );
 }

@@ -3,6 +3,9 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import React, { useState } from 'react';
 import './Restaurants.css';
 import Card from '../card/Card';
+import MobSlider from '../mobSlider/MobSlider';
+
+
 function Restaurants() {
   const [shownCount, setShownCount] = useState(9); // Изначально показано 9 элементов
 
@@ -17,29 +20,16 @@ function Restaurants() {
 
   return (
     <section className='place'>
-        <div className='desk'>
-            <div className='place-header'>
-                <h2 className='h2'>Заведения</h2>
-                <button className='place-button' onClick={handleShowAll}>Показать все</button>
-            </div>
-            <div className='place-list'>
-                {cardArray.slice(0, shownCount)} {/* Отображаем элементы с 0 до shownCount */}
-            </div>
+      <div className='place-header'>
+          <h2 className='h2'>Заведения</h2>
+          <button className='place-button' onClick={handleShowAll}>Показать все</button>
       </div>
-      <div className='mob'>
-        <h2 className='h2'>Заведения</h2>
-        <Splide options={{
-            type: 'loop',
-            drag: 'free',
-            focus: 'start',
-            perPage: 3,
-            arrows: false,
-            pagination: false,
-            fixedWidth: '218px',
-        }}>
-            {cardArray.map((movieReq) => <SplideSlide><Card key={movieReq.id} {...movieReq}/></SplideSlide>)}
-        </Splide>
+      <div className='desk'>
+        <div className='place-list'>
+            {cardArray.slice(0, shownCount)} {/* Отображаем элементы с 0 до shownCount */}
+        </div>
       </div>
+      <MobSlider cardArray={cardArray} />
     </section>
   );
 }

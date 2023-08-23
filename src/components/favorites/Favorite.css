@@ -1,0 +1,43 @@
+.empty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 625px;
+    margin: 18px auto 0;
+}
+.favorite-item{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 18px;
+}
+.favorite-text{
+    text-align: center;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.empty button{
+    background: #3153CA;
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 10px;
+    line-height: 14px;
+    width: 50%;
+}
+
+
+@media screen and (min-width: 970px){
+    .favorite-text{
+        font-size: 20px;
+    }
+    
+    .empty button{
+        font-size: 20px;
+        line-height: 28px;
+        padding: 12px 16px;
+    }
+}

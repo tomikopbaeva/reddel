@@ -36,8 +36,10 @@
 }
 
 .partners-list{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr; */
+    display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: 12px;
 }

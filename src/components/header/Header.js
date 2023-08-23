@@ -12,7 +12,7 @@ import Localization from '../localization/Localization';
 import Search from '../search/Search';
 import './Header.css';
 
-function Header() {
+function Header({favoriteItems}) {
   return (
     <header className="header">
       <div className="header-desk">

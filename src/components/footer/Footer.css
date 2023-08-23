@@ -3,8 +3,12 @@
 }
 
 .footer .mob{
+    background-color: #fff;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;; 
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .mob-item{
@@ -104,6 +108,7 @@
         background-color: #0F172A;
         color: #fff;
         display: block;
+        position: static;
     }
     .footer .mob{
         display: none;

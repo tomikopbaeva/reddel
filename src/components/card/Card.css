@@ -115,6 +115,7 @@ span, .tag{
 
 @media screen and (min-width: 970px){
     .card{
+        width: 32%;
         padding: 20px 18px ;
 
     }
@@ -135,17 +136,18 @@ span, .tag{
     
     .card-footer .card-button:last-child{
         display: block;
-        padding: 15px 54px 15px 53px;
+        padding: 13px 0;
         box-sizing: border-box;
         background-color: #3153CA;
         color: #fff;
         border-radius: 10px;
+        font-size: 16px;
         font-weight: 800;
-        white-space: nowrap;
+        width: 100%;
     }
     .card-header + img{
         max-width: 100%;
-        border-radius: 18px;
+        border-radius: 12px;
     }
     .card-body h3{
         font-size: 18px;
