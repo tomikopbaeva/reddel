@@ -1,0 +1,96 @@
+.mobile-cart-main{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 16px;
+    border-radius: 18px 18px 0 0;
+    background-color: #fff;
+    box-sizing: border-box;
+    padding-bottom: 80px;
+}
+
+.card-main-header{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-tags{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.card-main-link{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.card-main-link div{
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.06); border-radius: 12px; border: 0.50px #DEDEDE solid; flex-direction: column;
+}
+
+.card-main-link div img{
+    width: 24px;
+    height: 24px;
+}
+
+.card-main-link div span{
+    white-space: nowrap;
+}
+
+.card-main-item h2{
+    font-size: 14px
+}
+
+.main-info-p{
+    font-size: 12px;
+}
+
+.card-main-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.icon-item{
+    background: white; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.06); 
+    border-radius: 18px; 
+    border: 0.50px #3153CA solid; 
+    padding: 24px;
+    width: 100%;
+}
+
+.icon-item h4{
+    text-align: center;
+    line-height: 10px;
+}
+
+.info h5{
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.info span{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.time{
+    align-items: flex-start;
+}
+
+.info-time{
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}

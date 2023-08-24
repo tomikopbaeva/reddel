@@ -12,6 +12,7 @@
     position: relative;
 }
 
+
 .card-header{
     color: #fff;
     background-color: #3153CA;
@@ -52,6 +53,8 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    text-decoration: none;
+
 }
 
 .card-body img{
@@ -64,10 +67,9 @@
 
 .card-text{
     font-size: 16px;
-}
-
-p{
+    text-decoration: none;
     line-height: 1;
+    color: #18181B;
 }
 
 span, .tag{
@@ -81,6 +83,7 @@ span, .tag{
     display: flex;
     align-items: center;
     gap: 4px;
+    text-decoration: none;
 }
 
 .location span{

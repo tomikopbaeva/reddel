@@ -1,3 +1,4 @@
+
 .footer .desk{
     display: none;
 }
@@ -17,6 +18,16 @@
     flex-direction: column;
     gap: 2px;
     padding: 16px 0;
+    text-decoration: none;
+}
+
+.mob-item:nth-child(2) img::after{
+    content: '.';
+    position: absolute;
+    width: 10px;
+    height: 24px;
+    background-color: #FF602E;
+    z-index: 3;
 
 }
 
@@ -28,9 +39,8 @@
 .mob-item span{
     color: #3153CA;
     font-size: 10px;
-    font-family: Open Sans;
     font-weight: 600;
-    word-wrap: break-word
+    word-wrap: break-word;
 }
 
 .footer-section{

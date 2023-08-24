@@ -1,0 +1,10 @@
+.favorites .mobile{
+    background-color: #3153CA;
+}
+
+@media screen and (min-width: 970px) {
+    .favorites .mobile{
+        display: none;
+    }
+}
+    

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import instagram from '../../assets/instagram.svg';
 import whatsapp from '../../assets/whatsapp.svg';
 import mail from '../../assets/mail.svg';
@@ -49,7 +51,9 @@ function Header({favoriteItems}) {
         </div>
         <div className="header-bottom">
           <div className="header-left">
-            <img src={Logo} alt="" />
+            <Link to="/">
+              <img src={Logo} alt="" />
+            </Link>
             <div className="header-left-bnt">
               <button className='btn'>
                 <img src={icon} alt="icon" />
@@ -60,19 +64,19 @@ function Header({favoriteItems}) {
             </div>
           </div>
           <div className="header-right">
-            <div className="header-right-item">
+            <Link to="/favorites" className="header-right-item">
               <img src={heart} alt="heart" />
               <span>Избранное</span>
-            </div>
-            <div className="header-right-item">
+            </Link>
+            <Link to="/" className="header-right-item">
               <img src={profile} alt="profile" />
               <span>Профиль</span>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
       <div className='header-mob'>
-        <img src={Logo} alt="" />
+      <Link to="/"><img src={Logo} alt="" /></Link>
         <div className="link">
           <img src={location} alt="location" />
           <span>Алматы</span>

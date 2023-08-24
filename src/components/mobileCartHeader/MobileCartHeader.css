@@ -1,0 +1,12 @@
+.mobile-cart-header{
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3153CA;
+    color: #fff;
+}
+.mobile-cart-header .localization button{
+    border: 0.29px solid #fff;
+
+}

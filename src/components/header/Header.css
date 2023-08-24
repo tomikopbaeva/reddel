@@ -92,10 +92,14 @@
     align-items: center;
     flex-direction: column;
     padding: 0 12px;
+    text-decoration: none;
 }
 
 .header-right-item span{
     font-size: 12px;
+    color: #3153CA;
+    font-weight: 500;
+    line-height: 24px;
 }
 
 

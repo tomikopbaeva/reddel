@@ -1,5 +1,6 @@
 import './Footer.css'; 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Logo2 from '../../assets/Logo2.svg';
 import instagram from '../../assets/instagram2.svg';
@@ -24,14 +25,17 @@ function Footer() {
       });
     
       const handleMobItemClick = (clickedIcon) => {
-        const newActiveIcons = { ...activeIcons };
-    
-        for (const icon in newActiveIcons) {
-          newActiveIcons[icon] = icon === clickedIcon;
-        }
-    
-        setActiveIcons(newActiveIcons);
+        setActiveIcons((prevActiveIcons) => {
+          const newActiveIcons = { ...prevActiveIcons };
+      
+          for (const icon in newActiveIcons) {
+            newActiveIcons[icon] = icon === clickedIcon;
+          }
+      
+          return newActiveIcons;
+        });
       };
+      
   return (
     <footer className="footer">
         <div className="desk">
@@ -68,22 +72,22 @@ function Footer() {
             </div>
         </div>
         <div className="mob">
-        <div className={`mob-item ${activeIcons.home ? 'active' : ''}`} onClick={() => handleMobItemClick('home')}>
-          <img src={activeIcons.home ? home2 : home} alt="logo" />
-          <span>Главная</span>
-        </div>
-        <div className={`mob-item ${activeIcons.search ? 'active' : ''}`} onClick={() => handleMobItemClick('search')}>
-          <img src={activeIcons.search ? search : search} alt="logo" />
-          <span>Поиск</span>
-        </div>
-        <div className={`mob-item ${activeIcons.heart ? 'active' : ''}`} onClick={() => handleMobItemClick('heart')}>
-          <img src={activeIcons.heart ? heart2 : heart} alt="logo" />
-          <span>Избранное</span>
-        </div>
-        <div className={`mob-item ${activeIcons.profile ? 'active' : ''}`} onClick={() => handleMobItemClick('profile')}>
-          <img src={activeIcons.profile ? profile2 : profile} alt="logo" />
-          <span>Профиль</span>
-        </div>
+          <Link to="/" className={`mob-item ${activeIcons.home ? 'active' : ''}`} onClick={() => handleMobItemClick('home')}>
+            <img src={activeIcons.home ? home2 : home} alt="logo" />
+            <span>Главная</span>
+          </Link>
+          <div className={`mob-item ${activeIcons.search ? 'active' : ''}`} onClick={() => handleMobItemClick('search')}>
+            <img src={activeIcons.search ? search : search} alt="logo" />
+            <span>Поиск</span>
+          </div>
+          <Link to="/favorites" className={`mob-item ${activeIcons.heart ? 'active' : ''}`} onClick={() => handleMobItemClick('heart')}>
+            <img src={activeIcons.heart ? heart2 : heart} alt="logo" />
+            <span>Избранное</span>
+          </Link>
+          <div className={`mob-item ${activeIcons.profile ? 'active' : ''}`} onClick={() => handleMobItemClick('profile')}>
+            <img src={activeIcons.profile ? profile2 : profile} alt="logo" />
+            <span>Профиль</span>
+          </div>
       </div>
     </footer>
   );
