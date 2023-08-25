@@ -84,11 +84,11 @@ function Footer() {
             <img src={activeIcons.heart ? heart2 : heart} alt="logo" />
             <span>Избранное</span>
           </Link>
-          <div className={`mob-item ${activeIcons.profile ? 'active' : ''}`} onClick={() => handleMobItemClick('profile')}>
+          <Link to="/profile" className={`mob-item ${activeIcons.profile ? 'active' : ''}`} onClick={() => handleMobItemClick('profile')}>
             <img src={activeIcons.profile ? profile2 : profile} alt="logo" />
             <span>Профиль</span>
-          </div>
-      </div>
+          </Link>
+        </div>
     </footer>
   );
 }

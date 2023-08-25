@@ -1,20 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import instagram from '../../assets/instagram.svg';
-import whatsapp from '../../assets/whatsapp.svg';
-import mail from '../../assets/mail.svg';
-import location from '../../assets/location.svg';
-import Logo from '../../assets/Logo.svg';
-import icon from '../../assets/icon.svg';
-import profile from '../../assets/profile.svg';
-import heart from '../../assets/heart.svg';
+import instagram from "../../assets/instagram.svg";
+import whatsapp from "../../assets/whatsapp.svg";
+import mail from "../../assets/mail.svg";
+import location from "../../assets/location.svg";
+import Logo from "../../assets/Logo.svg";
+import icon from "../../assets/icon.svg";
+import profile from "../../assets/profile.svg";
+import heart from "../../assets/heart.svg";
 
-import Localization from '../localization/Localization';
-import Search from '../search/Search';
-import './Header.css';
+import Localization from "../localization/Localization";
+import Search from "../search/Search";
+import "./Header.css";
 
-function Header({favoriteItems}) {
+function Header({ favoriteItems }) {
   return (
     <header className="header">
       <div className="header-desk">
@@ -43,7 +43,7 @@ function Header({favoriteItems}) {
             <div className="info">
               <div className="link">
                 <img src={location} alt="location" />
-                <span>Алматы</span>
+                <span className="link-span">Алматы</span>
               </div>
               <Localization />
             </div>
@@ -55,10 +55,10 @@ function Header({favoriteItems}) {
               <img src={Logo} alt="" />
             </Link>
             <div className="header-left-bnt">
-              <button className='btn'>
+              <Link to="/" className="btn">
                 <img src={icon} alt="icon" />
                 Каталог
-              </button>
+              </Link>
               <a>Для Бизнеса</a>
               <Search />
             </div>
@@ -68,15 +68,17 @@ function Header({favoriteItems}) {
               <img src={heart} alt="heart" />
               <span>Избранное</span>
             </Link>
-            <Link to="/" className="header-right-item">
+            <Link to="/profile" className="header-right-item">
               <img src={profile} alt="profile" />
               <span>Профиль</span>
             </Link>
           </div>
         </div>
       </div>
-      <div className='header-mob'>
-      <Link to="/"><img src={Logo} alt="" /></Link>
+      <div className="header-mob">
+        <Link to="/">
+          <img src={Logo} alt="" />
+        </Link>
         <div className="link">
           <img src={location} alt="location" />
           <span>Алматы</span>

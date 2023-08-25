@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import './MobileCartMain.css';
+import CerfModal from '../cerfModal/CerfModal';
 
 import image from '../../assets/image.png';
 import call from '../../assets/call.svg';
@@ -11,14 +12,20 @@ import Rectangle from '../../assets/Rectangle.png';
 import heart2 from '../../assets/heart2.svg';
 
 
+
 function MobileCartMain() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const images = [Rectangle, Rectangle, Rectangle];
 
   const handleThumbnailClick = (index) => {
     setActiveIndex(index);
+  };
+
+  const handleCertificateButtonClick = () => {
+    setIsModalOpen(true); 
   };
 
   const handleFavoriteClick = () => {
@@ -97,7 +104,11 @@ function MobileCartMain() {
                 <img src={image} alt={`Thumbnail ${index}`} />
               </div>
             ))}
-          </div>
+        </div>
+        <button className='certificate-button' onClick={handleCertificateButtonClick}>
+          Оформить
+        </button>
+        {isModalOpen && <CerfModal onClose={() => setIsModalOpen(false)} />}
       </div>
   );
 }

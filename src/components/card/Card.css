@@ -66,7 +66,7 @@
 }
 
 .card-text{
-    font-size: 16px;
+    font-size: 12px;
     text-decoration: none;
     line-height: 1;
     color: #18181B;
@@ -160,5 +160,8 @@ span, .tag{
     }
     .card-button.liked {
         background: rgba(49.12, 82.88, 201.88, 0.10);
+    }
+    .card-text{
+        font-size: 16px;
     }
 }

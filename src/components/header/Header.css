@@ -53,7 +53,7 @@
     border-radius: 50%;
 }
 
-.link span{
+.link-span{
     font-size: 16px;
 }
 
@@ -81,6 +81,8 @@
     gap: 8px;
     padding: 12px 16px 12px 12px;
     box-sizing: border-box;
+    border-radius: 10px;
+    text-decoration: none;
 }
 
 .header-right{
@@ -111,4 +113,6 @@
     .header-mob{
         display: none;
     }
+
+
 }

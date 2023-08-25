@@ -1,5 +1,6 @@
 .favorites .mobile{
     background-color: #3153CA;
+    padding-bottom: 30px;
 }
 
 @media screen and (min-width: 970px) {
