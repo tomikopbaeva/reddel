@@ -80,6 +80,11 @@
     cursor: pointer;
 }
 
+.footer-link a{
+    text-decoration: none;
+    color: #fff;
+}
+
 .footer-network{
     display: flex;
     gap: 16px;

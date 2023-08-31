@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './Search.css'; 
 import search from '../../assets/Search2.svg';
 
-function Search() {
+function Search({ placeholder}) {
   return (
     <div className="search">
         <img src={search} alt="" />
-        <input type="text" placeholder="Я ищу..." />
+        <input className='search-input' type="text" placeholder={placeholder} />
     </div>
   );
 }

@@ -38,7 +38,9 @@ function Card() {
         <button className={`card-button ${isLiked ? 'liked' : ''}`} onClick={handleLikeClick}>
           <img src={isLiked ? heart3 : hearts} alt="heart" />
         </button>
-        <button className="card-button">Посетить в рассрочку</button>
+        <Link to="/restauran" className="card-button">
+          <button className="card-button">Посетить в рассрочку</button>
+        </Link>
       </div>
     </div>
   );

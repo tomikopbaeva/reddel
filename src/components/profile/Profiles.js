@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import ProfileChanges from "../profileChanges/ProfileChanges";
+import Certificate from "../certificate/Certificate";
 import "./Profiles.css";
 
 import instagram from "../../assets/instagram3.svg";
@@ -8,7 +10,16 @@ import edit from "../../assets/edit.svg";
 import done from "../../assets/done.svg";
 
 function Profiles() {
-    const hasCertificates = false;
+    const [isCertificateVisible, setCertificateVisible] = useState(false);
+    const hasCertificates = true;
+
+    const handleCertificateClick = () => {
+        setCertificateVisible(!isCertificateVisible);
+    };
+
+    const closeCertificate = () => {
+        setCertificateVisible(false);
+    };
   return (
     <section className="profile">
         <div className="profile-header">
@@ -20,34 +31,11 @@ function Profiles() {
             </div>
         </div>
         <div className="profile-main">
-            <div className="shadow">
-                <h2 className="h2">Личные данные</h2>
-                <div className="profile-edit">
-                    <img src={edit} alt="edit" />
-                    <span>Изменить</span>
-                </div>
-                <div className='info'>
-                    <span>Имя</span>
-                    <h5>Марат</h5>
-                </div>
-                <div className='info'>
-                    <span>Фамилия</span>
-                    <h5>Муртазин</h5>
-                </div>
-                <div className='info'>
-                    <span>Телефон</span>
-                    <h5>+7 777 123 45 67</h5>
-                </div>
-                <div className='info'>
-                    <span>Email</span>
-                    <h5>marat_murt91@mail.ru</h5>
-                </div>
-
-            </div>
+            <ProfileChanges />
             <div className="shadow">
                 <h2 className="h2">Мои сертификаты</h2>
                 {hasCertificates ? (
-                <div className="profile-cert">
+                <div className="profile-cert" onClick={handleCertificateClick}>
                     <h3 className="h3">Сертификат Лесная Сказка</h3>
                     <div className="profile-cert-img">
                         <img src={done} alt="done" />
@@ -60,6 +48,7 @@ function Profiles() {
                 )}
             </div>
         </div>
+        {isCertificateVisible && <Certificate onClose={closeCertificate} />}
     </section>
   );
 }

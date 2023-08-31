@@ -60,7 +60,7 @@ function Header({ favoriteItems }) {
                 Каталог
               </Link>
               <a>Для Бизнеса</a>
-              <Search />
+              <Search placeholder="Я ищу..." />
             </div>
           </div>
           <div className="header-right">
