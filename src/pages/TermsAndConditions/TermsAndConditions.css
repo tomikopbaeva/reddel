@@ -1,15 +1,16 @@
 .conditions{
-    background-color: #F8FAFC;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    position: absolute;
+    background-color: #fff;
 }
 .conditions-main{
     width: 100%;
-    height: 100%;
+    height: 95%;
     overflow-y: auto;
-    padding: 12px;
+    padding: 16px;
     background-color: #fff;
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.03);
     border-radius: 20px;
@@ -20,8 +21,9 @@
 
 .conditions-h2{
     color: #090914;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 600;
+    text-align: center;
 }
 
 .conditions p{
@@ -45,9 +47,13 @@
     cursor: pointer;
     background-color: #3153CA;
     color: #fff;
+    font-size: 14px;
 }
 
 @media screen and (min-width: 970px){
+    .conditions{
+        background-color: #F8FAFC;
+    }
     .conditions-main{
         width: 40%;
         height: 555px;
@@ -70,6 +76,7 @@
     }
     .conditions .link-btn + button{
         padding: 10px 104px;
+        font-size: 16px;
     }
 
 }

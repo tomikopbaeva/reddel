@@ -29,10 +29,10 @@ export const router = createBrowserRouter([
             path: "/search",
             element: <MobileSearch/>,
         },
-        {
-            path: "/terms",
-            element: <TermsAndConditions/>,
-        },
+        // {
+        //     path: "/terms",
+        //     element: <TermsAndConditions/>,
+        // },
         {
             path: "/registration",
             element: <Registration/>,

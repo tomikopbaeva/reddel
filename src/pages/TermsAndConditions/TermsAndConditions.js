@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./TermsAndConditions.css";
 
-function TermsAndConditions() {
+function TermsAndConditions({ onClose }) {
   const [showFullText, setShowFullText] = useState(false);
 
   const toggleFullText = () => {
@@ -34,7 +34,7 @@ function TermsAndConditions() {
                         <button className="link-btn" onClick={toggleFullText}>Читать полностью</button>
                     </>
                 )}
-        <button>Ознакомлен</button>
+        <button onClick={onClose}>Ознакомлен</button>
       </div>
     </div>
   );

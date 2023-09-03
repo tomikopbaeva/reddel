@@ -1,9 +1,16 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Registration.css";
-import Error from "../../components/error/Error";
+import TermsAndConditions from "../TermsAndConditions/TermsAndConditions";
 
 function Registration() {
-    return (
+  const [showTermsAndConditions, setShowTermsAndConditions] = useState(false);
+
+  const closeTermsAndConditions = () => {
+    setShowTermsAndConditions(false);
+  };
+
+  return (
     <div className="cerf-modal">
       <section className="registration">
         <form className="registration-form">
@@ -16,13 +23,16 @@ function Registration() {
           <input type="email" placeholder="Email" />
           <div className="registration-checkbox">
             <input type="checkbox" className="custom-checkbox" id="checkbox" name="checkbox" />
-            <label for="checkbox"> Я согласен с <Link to="/terms">&nbsp; Условиями и Правилами &nbsp;</Link> Reddell</label>
+            <label htmlFor="checkbox">
+              Я согласен с <a onClick={() => setShowTermsAndConditions(true)}>Условиями и Правилами</a> Reddell
+            </label>
           </div>
-          <Link to="/">          
+          <Link to="/">
             <button className="registration-button">Продолжить</button>
           </Link>
         </form>
       </section>
+      {showTermsAndConditions && <TermsAndConditions onClose={closeTermsAndConditions} />}
     </div>
   );
 }
