@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import ProfileChanges from "../profileChanges/ProfileChanges";
 import Certificate from "../certificate/Certificate";
 import "./Profiles.css";
@@ -20,6 +20,8 @@ function Profiles() {
     const closeCertificate = () => {
         setCertificateVisible(false);
     };
+
+
   return (
     <section className="profile">
         <div className="profile-header">

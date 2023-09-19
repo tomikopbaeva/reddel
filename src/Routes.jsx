@@ -1,4 +1,4 @@
-import {createBrowserRouter, Route, Routes} from "react-router-dom";
+import {createBrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Main from "./pages/Main/Main";
 import Favorites from "./pages/Favorites/Favorites";
 import Restauran from "./pages/Restauran/Restauran";
@@ -7,6 +7,7 @@ import MobileSearch from "./pages/MobileSearch/MobileSearch";
 import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions";
 import Registration from "./pages/Registration/Registration";
 import Login from "./pages/Login/Login";
+import login from "./pages/Login/Login";
 
 export const router = createBrowserRouter([
         {
@@ -37,9 +38,9 @@ export const router = createBrowserRouter([
             path: "/registration",
             element: <Registration/>,
         },
-        {
-            path: "/login",
-            element: <Login/>,
-        },
+    {
+        path: "/login",
+        element: <Login/> // Pass the user's login status
+    },
     ]
 );
