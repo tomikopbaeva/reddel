@@ -16,7 +16,7 @@ function Profiles() {
     const [certificateArray, setCertificateArray] = useState([]);
     useEffect(() => {
         console.log(123)
-        fetch('http://127.0.0.1:8000/get_certificates_by_id/' + localStorage.getItem('userId'), {
+        fetch('http://185.146.1.93:8000/get_certificates_by_id/' + localStorage.getItem('userId'), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

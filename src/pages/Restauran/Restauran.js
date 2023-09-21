@@ -12,7 +12,7 @@ function Restauran() {
     let { id } = useParams();
     const [data,setData] = useState(0)
     useState( () => {
-        fetch("http://127.0.0.1:8000/get_restaurant_by_slug/" + id, {
+        fetch("http://185.146.1.93:8000/get_restaurant_by_slug/" + id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ function Restauran() {
           <CartHeader title={data.title}
                       tags={data.tags}/>
           <CartMain description={data.description}
-                    item_image={"http://127.0.0.1:8000/"+data.image}
+                    item_image={"http://185.146.1.93:8000/"+data.image}
                     location={data.location}
                     phone_number={data.phone}
                     kitchen={data.kitchen}

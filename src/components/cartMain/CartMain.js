@@ -39,7 +39,7 @@ function CartMain(props) {
                 })
                     .then((response) => {
                         if (response.ok) {
-                            fetch('http://127.0.0.1:8000/create_certificate', {
+                            fetch('http://185.146.1.93:8000/create_certificate', {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json',
