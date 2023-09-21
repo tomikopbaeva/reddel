@@ -10,7 +10,7 @@ function Partners() {
 
     useEffect(() => {
         const fetchData = () => {
-            fetch('http://127.0.0.1:8000/getAllRestaurants', {
+            fetch('http://185.146.1.93:8000/getAllRestaurants', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
