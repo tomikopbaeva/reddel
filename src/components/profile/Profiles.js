@@ -8,10 +8,30 @@ import whatsapp from "../../assets/whatsapp3.svg";
 import mail from "../../assets/mail3.svg";
 import edit from "../../assets/edit.svg";
 import done from "../../assets/done.svg";
+import {SplideSlide} from "@splidejs/react-splide";
 
 function Profiles() {
     const [isCertificateVisible, setCertificateVisible] = useState(false);
-    const hasCertificates = true;
+    const [hasCertificates, setHasCertificates] = useState(false);
+    const [certificateArray, setCertificateArray] = useState([]);
+    useEffect(() => {
+        console.log(123)
+        fetch('http://127.0.0.1:8000/get_certificates_by_id/' + localStorage.getItem('userId'), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                console.log(data)
+                setCertificateArray(data.certificates)
+                if (certificateArray.length > 0)
+                    setHasCertificates(true)
+            })
+    }, []);
 
     const handleCertificateClick = () => {
         setCertificateVisible(!isCertificateVisible);
@@ -36,18 +56,20 @@ function Profiles() {
             <ProfileChanges />
             <div className="shadow">
                 <h2 className="h2">Мои сертификаты</h2>
-                {hasCertificates ? (
-                <div className="profile-cert" onClick={handleCertificateClick}>
-                    <h3 className="h3">Сертификат Лесная Сказка</h3>
-                    <div className="profile-cert-img">
-                        <img src={done} alt="done" />
-                        <span>Активируйте до 29.12.2023</span>
-                    </div>
-                    <h4>100 000 ₸</h4>
-                </div>)
-                : (
-                    <p className="p">Здесь будут ваши сертификаты</p>
-                )}
+                {certificateArray.map((certificate) =>(
+                        <div className="profile-cert" onClick={handleCertificateClick}>
+                            <h3 className="h3">Сертификат Лесная Сказка</h3>
+                            <div className="profile-cert-img">
+                                <img src={done} alt="done" />
+                                <span>Активируйте до 29.12.2023</span>
+                            </div>
+                            <h4>{certificate.sum}₸</h4>
+                        </div>
+                ))}
+
+                {/*// : (*/}
+                {/*//     <p className="p">Здесь будут ваши сертификаты</p>*/}
+                {/*// )}*/}
             </div>
         </div>
         {isCertificateVisible && <Certificate onClose={closeCertificate} />}

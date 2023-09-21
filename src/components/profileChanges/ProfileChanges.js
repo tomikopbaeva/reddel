@@ -84,6 +84,7 @@ function ProfileChanges() {
       </div>
       {showVerificationCode && <VerificationCode />}
     </div>
+
   );
 }
 

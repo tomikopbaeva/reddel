@@ -238,3 +238,7 @@
     font-size: 18px;
     font-weight: 700;
 }
+
+.selected-price {
+    background-color: #3153CA;
+}

@@ -9,14 +9,60 @@ import Book from '../../assets/book.svg';
 import Star from '../../assets/star.svg';
 import Whatsapp from '../../assets/whatsapp4.svg';
 import Frame from '../../assets/Frame.svg';
+import api from "../../api";
 
-function CartMain() {
+function CartMain(props) {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const images = [Rectangle, Rectangle, Rectangle];
-  
+
+    const [selectedPrice, setSelectedPrice] = useState(null);
+
+    const handlePriceSelection = (price) => {
+        console.log(price)
+        setSelectedPrice(price);
+    };
     const handleThumbnailClick = (index) => {
       setActiveIndex(index);
+    };
+    const create_certificate = async (e) => {
+
+        e.preventDefault();
+        try {
+            if(localStorage.getItem('userId') && localStorage.getItem('accessToken')){
+                fetch('http://86.107.44.200:8076/api/v1/users/' + localStorage.getItem('userId'), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer_' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
+                    }
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            fetch('http://127.0.0.1:8000/create_certificate', {
+                                method: "POST",
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    'price': selectedPrice,
+                                    'user_id': localStorage.getItem('userId')
+                                })
+                            })
+                                .then((response) => {
+                                    return response.json()
+                                })
+                                .then((data) =>{
+                                console.log(data)
+                            })
+                        }
+                    })
+            }
+
+        } catch (error) {
+            console.log(error.messages);
+            alert("Неверный логин или пароль");
+        }
     };
   return (
     <div className="cart-main">
@@ -54,22 +100,22 @@ function CartMain() {
             <div className="cart-main-left-bottom shadow">
                 <div className='card-info'>
                     <h2>О заведении:</h2>
+                    <p>{props.description}</p>
                     <div className="location">
                         <img src={location} alt="random" />
-                        <span>Указать адрес</span>
+                        <span>{props.location}</span>
                     </div>
-                    <p>Одно из лучших караоке в Алматы. Скидки именинникам и компаниям от 15-и человек.Караоке, VIP кабинки, бесплатная парковка</p>
                     <div className='info'>
                         <h5>Cредний чек:</h5>
-                        <span>от 6000 ₸</span>
+                        <span>{props.average}</span>
                     </div>
                     <div className='info'>
                         <h5>Кухня:</h5>
-                        <span>Европейская, Азиатская</span>
+                        <span>{props.kitchen}</span>
                     </div>
                     <div className='info'>
                         <h5>Телефон:</h5>
-                        <span>+7 (776) 048‒03‒03</span>
+                        <span>{props.phone_number}</span>
                     </div>
                     <h4>Часы работы:</h4>
                     <div className='times'>
@@ -103,17 +149,21 @@ function CartMain() {
             <div className="cart-main-right-top shadow">
                 <h2 className='cart-h2'>Сертификат в рассрочку на сумму</h2>
                 <div className='price'>
-                    <span>30 000 ₸</span>
-                    <span>50 000 ₸</span>
-                    <span>100 000 ₸</span>
-                    <span>150 000 ₸</span>
-                    <span>200 000 ₸</span>
+                    {props.prices && props.prices.map((item, index) => (
+                        <span
+                            key={index}
+                            onClick={() => handlePriceSelection(item)}
+                            className={selectedPrice === item ? 'selected-price' : ''}
+                        >
+                            <p>{item} ₸</p>
+                        </span>
+                    ))}
                 </div>
                 <div className='certificate'>
                     <img src={Frame} alt="random" />
                     <span>Сертификатом можно оплатить 1 счет</span>
                 </div>
-                <button className='certificate-button'>Оформить</button>
+                <button className='certificate-button' onClick={create_certificate}>Оформить</button>
             </div>
             <div className="cart-main-right-bottom shadow">
                 <h2 className='cart-h2'>Важно!</h2>

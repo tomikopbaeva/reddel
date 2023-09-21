@@ -5,20 +5,50 @@ import CartHeader from "../../components/cartHeader/CartHeader";
 import CartMain from "../../components/cartMain/CartMain";
 import MobileCartHeader from "../../components/mobileCartHeader/MobileCartHeader";
 import MobileCartMain from "../../components/mobileCartMain/MobileCartMain";
+import { useParams } from "react-router-dom";
+import {useState} from "react";
 
 function Restauran() {
+    let { id } = useParams();
+    const [data,setData] = useState(0)
+    useState( () => {
+        fetch("http://127.0.0.1:8000/get_restaurant_by_slug/" + id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then((response) =>{
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((data) =>{
+                setData(data.data)
+                console.log(data.data)
+            })
+    },[]);
   return (
     <div className="favorites">
       <div className="desk">
         <Header className='res' />
         <div className="main-content">
-          <CartHeader />
-          <CartMain />
+          <CartHeader title={data.title}
+                      tags={data.tags}/>
+          <CartMain description={data.description}
+                    item_image={"http://127.0.0.1:8000/"+data.image}
+                    location={data.location}
+                    phone_number={data.phone}
+                    kitchen={data.kitchen}
+                    average={data.average}
+                    prices={data.prices}
+          />
         </div>
       </div>
         <div className="mobile">
           <MobileCartHeader/>
-          <MobileCartMain/>
+          <MobileCartMain />
         </div>
       <Footer />
     </div>

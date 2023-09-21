@@ -10,7 +10,7 @@ import heart3 from '../../assets/heart3.svg';
 
 import image from '../../assets/image.png';
 
-function Card() {
+function Card(props) {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLikeClick = () => {
@@ -20,25 +20,27 @@ function Card() {
   return (
     <div className={`card ${isLiked ? 'liked' : ''}`}>
       <span className='card-header'>0-0-6</span>
-      <img src={Regtangle} alt="random" />
+      <img src={props.item_image} alt="random" />
       <div className='tags'>
-        <span className='tag'>Тег 1</span>
-        <span className='tag'>Тег 2</span>
+          {props.tags && props.tags.map((item, index) => (
+              <span key={index} className='tag'>{item}</span>
+          ))}
       </div>
-        <Link to="/restauran" className="card-body">
+        <Link to={props.slug} className="card-body">
+
           <img src={image} alt="" />
-          <h3>Название заведения</h3>
+          <h3>{props.title} </h3>
         </Link>
-        <Link to="/restauran" className="card-text">Краткая информация в 2 строки. Не более. Об акции, спец предложениях и т.д.</Link>
-        <Link to="/restauran" className="location">
+        <Link to={props.slug} className="card-text">{props.description}</Link>
+        <Link to={props.slug} className="location">
           <img src={location} alt="random" />
-          <span>Указать адрес</span>
+          <span>{props.location}</span>
         </Link>
       <div className="card-footer">
         <button className={`card-button ${isLiked ? 'liked' : ''}`} onClick={handleLikeClick}>
           <img src={isLiked ? heart3 : hearts} alt="heart" />
         </button>
-        <Link to="/restauran" className="card-button">
+        <Link to={props.slug} className="card-button">
           <button className="card-button">Посетить в рассрочку</button>
         </Link>
       </div>

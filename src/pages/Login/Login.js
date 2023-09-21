@@ -26,14 +26,9 @@ function Login() {
       }
     })
         .then((response) => {
-          // Check if the response status code indicates success (status code 200)
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
+          if (response.ok) {
+            navigate("/profile")
           }
-          return response.json();
-        })
-        .then((data) => {
-          navigate('/profile')
         })
   }, []);
 
@@ -58,7 +53,6 @@ function Login() {
           <h2 className="registration-h2">Добро пожаловать!</h2>
           <input type="text" name="username" value={credentials.username} onChange={handleInputChange} placeholder="Логин" />
           <input type="password" name="password" value={credentials.password} onChange={handleInputChange} placeholder="Пароль" />
-          {/*<Link to="/">          */}
             <button className="registration-button" type="submit">Продолжить</button>
           <p>У вас еще нет аккаунта? <Link to="/registration"> Зарегистрироваться</Link></p>
         </form>
