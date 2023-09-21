@@ -30,7 +30,7 @@ function Restaurants() {
                         console.log("127.0.0.1:8000"+data['restaurants'][i].image)
                         newCardArray.push(
                             <Card
-                                item_image={"http://185.146.1.93/:8000/"+data['restaurants'][i].image}
+                                item_image={"http://185.146.1.93:8000/"+data['restaurants'][i].image}
                                 title={data['restaurants'][i].title}
                                 id={data['restaurants'][i].id}
                                 slug={"/restauran/" + data['restaurants'][i].slug}
