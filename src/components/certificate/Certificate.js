@@ -41,24 +41,24 @@ function Certificate(props) {
             </div> */}
             <h4>Поздравляем! <br/> Вы успешно оформили уникальный сертификат </h4>
             <p>Ваш код:</p>
-            <h3>12345H2O</h3>
+            <h3>{props.certificate.encode}</h3>
             <p>Покажите его администратору заведения  </p>
             <div className='info last'>
                 <span>Сумма сертификата</span>
-                <h5>100 000 ₸</h5>
+                <h5>{props.certificate.sum} ₸</h5>
             </div>
             <div className='info last'>
                 <span>Клиент</span>
-                <h5>Муртазин Марат</h5>
+                <h5>{props.user.firstName} {props.user.lastName}</h5>
             </div>
             <div className='info last'>
                 <span>Телефон</span>
-                <h5>+7 777 123 45 67</h5>
+                <h5>{props.user.phone}</h5>
             </div>
-            <div className='info'>
-                <span>В заведении</span>
-                <h5>Рыба моей мечты (на Айманова)</h5>
-            </div>
+            {/*<div className='info'>*/}
+            {/*    <span>В заведении</span>*/}
+            {/*    <h5>Рыба моей мечты (на Айманова)</h5>*/}
+            {/*</div>*/}
             <div className='attention'>
                 <img src={Frame2} alt="frame" />
                 <ul>

@@ -7,48 +7,16 @@ import { useNavigate  } from "react-router-dom";
 import login from "../../pages/Login/Login";
 
 
-function ProfileChanges() {
+function ProfileChanges(props) {
   const navigate = useNavigate ();
   const [isEditing, setIsEditing] = useState(false);
   const [showVerificationCode, setShowVerificationCode] = useState(false);
-  let [user, setUser] = useState({
-    "email": "",
-    "firstName": "",
-    "lastName": "",
-    "username": ""
-  });
   const handleEditClick = () => {
     if (isEditing) {
       setShowVerificationCode(true);
     }
     setIsEditing(!isEditing);
   };
-  useEffect(() => {
-    console.log(localStorage.getItem('accessToken') + " token")
-    fetch('http://86.107.44.200:8076/api/v1/users/' + localStorage.getItem('userId'), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
-      }
-    })
-        .then((response) => {
-          // Check if the response status code indicates success (status code 200)
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setUser(data);
-          console.log(user.firstName)
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error(error); // Handle any errors that occurred during the fetch
-          navigate('/login')
-        });
-  }, []);
 
 
   return (
@@ -67,11 +35,11 @@ function ProfileChanges() {
         </div>
         <div className="info">
           <span>Имя</span>
-          <input className="profile-input" type="text" placeholder="Введите новый email" value={user.firstName}/>
+          <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.firstName}/>
         </div>
         <div className="info">
           <span>Фамилия</span>
-          <input className="profile-input" type="text" placeholder="Введите новый email" value={user.lastName}/>
+          <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.lastName}/>
         </div>
         <div className="info">
           <span>Телефон</span>
@@ -79,7 +47,7 @@ function ProfileChanges() {
         </div>
         <div className="info">
           <span>Email</span>
-          <input className="profile-input" type="text" placeholder="Введите новый email" value={user.email} />
+          <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.email} />
         </div>
       </div>
       {showVerificationCode && <VerificationCode />}

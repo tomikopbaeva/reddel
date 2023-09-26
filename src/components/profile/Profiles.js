@@ -10,7 +10,7 @@ import edit from "../../assets/edit.svg";
 import done from "../../assets/done.svg";
 import {SplideSlide} from "@splidejs/react-splide";
 
-function Profiles() {
+function Profiles(props) {
     const [certificateArray, setCertificateArray] = useState([]);
     const [certificateId, setCertificateId] = useState(-1)
     useEffect(() => {
@@ -25,6 +25,7 @@ function Profiles() {
                 return response.json()
             })
             .then((data) => {
+                console.log(data)
                 setCertificateArray(data.certificates)
             })
     }, []);
@@ -49,7 +50,7 @@ function Profiles() {
             </div>
         </div>
         <div className="profile-main">
-            <ProfileChanges />
+            <ProfileChanges user={props.user}/>
             <div className="shadow">
                 <h2 className="h2">Мои сертификаты</h2>
                 {certificateArray.map((certificate) =>(
@@ -67,7 +68,7 @@ function Profiles() {
         </div>
 
         {certificateArray.map((certificate) =>
-            certificate.id == certificateId ? <Certificate onClose={closeCertificate}/> : <span></span>
+            certificate.id == certificateId ? <Certificate onClose={closeCertificate} certificate={certificate} user={props.user}/> : <span></span>
         )}
     </section>
   );
