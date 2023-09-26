@@ -8,13 +8,13 @@ import done3 from '../../assets/done3.svg';
 
 import Frame2 from '../../assets/Frame2.svg';
 
-function Certificate({ onClose }) {
+function Certificate(props) {
     const certificateRef = useRef();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (certificateRef.current && !certificateRef.current.contains(event.target)) {
-                onClose();
+                props.onClose();
             }
         };
 
@@ -22,7 +22,7 @@ function Certificate({ onClose }) {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [onClose]);
+    }, [props.onClose]);
     return (
     <div className="cerf-modal">
         <div ref={certificateRef} className="certification">

@@ -29,7 +29,7 @@ function ProfileChanges() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer_' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
       }
     })
         .then((response) => {

@@ -14,7 +14,7 @@ function MobSlider({ cardArray }) {
                 pagination: false,
                 fixedWidth: '218px',
             }}>
-                {cardArray.map((res) => <SplideSlide><Card key={res.id} {...res}/></SplideSlide>)}
+                {cardArray.map((res) => <SplideSlide>{res}</SplideSlide>)}
             </Splide>
         </div>
     );

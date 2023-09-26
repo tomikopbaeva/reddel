@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import {RouterProvider,} from "react-router-dom";
 import {router} from "./Routes";
+import './fonts/manrope/Manrope-Regular.ttf';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

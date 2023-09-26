@@ -11,9 +11,8 @@ import done from "../../assets/done.svg";
 import {SplideSlide} from "@splidejs/react-splide";
 
 function Profiles() {
-    const [isCertificateVisible, setCertificateVisible] = useState(false);
-    const [hasCertificates, setHasCertificates] = useState(false);
     const [certificateArray, setCertificateArray] = useState([]);
+    const [certificateId, setCertificateId] = useState(-1)
     useEffect(() => {
         console.log(123)
         fetch('http://185.146.1.93:8000/get_certificates_by_id/' + localStorage.getItem('userId'), {
@@ -26,19 +25,16 @@ function Profiles() {
                 return response.json()
             })
             .then((data) => {
-                console.log(data)
                 setCertificateArray(data.certificates)
-                if (certificateArray.length > 0)
-                    setHasCertificates(true)
             })
     }, []);
 
-    const handleCertificateClick = () => {
-        setCertificateVisible(!isCertificateVisible);
+    const handleCertificateClick = (id:number) => {
+        setCertificateId(id)
     };
 
     const closeCertificate = () => {
-        setCertificateVisible(false);
+        setCertificateId(-1)
     };
 
 
@@ -57,8 +53,8 @@ function Profiles() {
             <div className="shadow">
                 <h2 className="h2">Мои сертификаты</h2>
                 {certificateArray.map((certificate) =>(
-                        <div className="profile-cert" onClick={handleCertificateClick}>
-                            <h3 className="h3">Сертификат Лесная Сказка</h3>
+                        <div className="profile-cert" onClick={ () => handleCertificateClick(certificate.id) }>
+                            <h3 className="h3">Выберите ресторан из списка доступных</h3>
                             <div className="profile-cert-img">
                                 <img src={done} alt="done" />
                                 <span>Активируйте до 29.12.2023</span>
@@ -66,13 +62,13 @@ function Profiles() {
                             <h4>{certificate.sum}₸</h4>
                         </div>
                 ))}
-
-                {/*// : (*/}
-                {/*//     <p className="p">Здесь будут ваши сертификаты</p>*/}
-                {/*// )}*/}
+                <p className="p">Здесь будут ваши сертификаты</p>
             </div>
         </div>
-        {isCertificateVisible && <Certificate onClose={closeCertificate} />}
+
+        {certificateArray.map((certificate) =>
+            certificate.id == certificateId ? <Certificate onClose={closeCertificate}/> : <span></span>
+        )}
     </section>
   );
 }

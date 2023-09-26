@@ -22,7 +22,7 @@ function Login() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer_' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
+        'Authorization': 'Bearer  ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
       }
     })
         .then((response) => {
@@ -36,13 +36,14 @@ function Login() {
 
     e.preventDefault();
     try {
+      console.log(credentials)
       const response = await api.post('/api/v1/auth/login', credentials);
       localStorage.setItem('userId', response.data.id)
       localStorage.setItem('accessToken', response.data.token);
       if(response.status == 200)
         navigate('/profile');
     } catch (error) {
-      console.log(error.messages);
+      console.log(error);
       alert("Неверный логин или пароль");
     }
   };

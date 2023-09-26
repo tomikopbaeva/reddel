@@ -34,7 +34,7 @@ function CartMain(props) {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer_' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
+                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
                     }
                 })
                     .then((response) => {
@@ -79,9 +79,12 @@ function CartMain(props) {
               fixedWidth: '620px',
             }}
           >
+                <SplideSlide key={0}>
+                    <img width="100%" src={props.item_image} alt="Slide" />
+                </SplideSlide>
             {images.map((image, index) => (
-              <SplideSlide key={index}>
-                <img src={image} alt={`Slide ${index}`} />
+              <SplideSlide key={1}>
+                <img src={image} id={index} width="100%" alt="Slide" />
               </SplideSlide>
             ))}
           </Splide>

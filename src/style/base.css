@@ -1,5 +1,5 @@
-p, h1, h2, h3, h4, h5, span, button, a, input {
-    font-family: 'Manrope', sans-serif;
+p, h1, h2, h3, h4, h5, span, button, a, input, li {
+    font-family: 'Manrope',sans-serif;
 }
 
 span{
@@ -10,20 +10,20 @@ span{
 h1{
     color: #18181B;
     font-size: 32px;
-    font-weight: 800;
+    font-weight: 700;
     word-wrap: break-word
 }
 
 h2{
     color: #18181B;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 44px;
     word-wrap: break-word
 }
 
 h3{
     color: #18181B;
-    font-weight: 800;
+    font-weight: 600;
     word-wrap: break-word;
 }
 

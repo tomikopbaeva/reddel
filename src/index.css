@@ -5,4 +5,9 @@
 @import url('./style/buttons.css');
 @import url('./style/base.css');
 
-
+@font-face {
+    font-family: 'Manrope';
+    src: local('manrope'),
+    url('./fonts/manrope/Manrope-Bold.ttf') format('truetype');
+    font-weight: bold;
+}

@@ -38,6 +38,54 @@ function Partners() {
                                 location={data['restaurants'][i].location}
                             />
                         );
+                        newCardArray.push(
+                            <Card
+                                item_image={"http://185.146.1.93:8000/"+data['restaurants'][i].image}
+                                title={data['restaurants'][i].title + '1'}
+                                id={data['restaurants'][i].id}
+                                slug={"/restauran/" + data['restaurants'][i].slug}
+                                tags={data['restaurants'][i].tags}
+                                description={data['restaurants'][i].description}
+                                key={i}
+                                location={data['restaurants'][i].location}
+                            />
+                        );
+                        newCardArray.push(
+                            <Card
+                                item_image={"http://185.146.1.93:8000/"+data['restaurants'][i].image}
+                                title={data['restaurants'][i].title  + '2'}
+                                id={data['restaurants'][i].id}
+                                slug={"/restauran/" + data['restaurants'][i].slug}
+                                tags={data['restaurants'][i].tags}
+                                description={data['restaurants'][i].description}
+                                key={i}
+                                location={data['restaurants'][i].location}
+                            />
+                        );
+                        newCardArray.push(
+                            <Card
+                                item_image={"http://185.146.1.93:8000/"+data['restaurants'][i].image}
+                                title={data['restaurants'][i].title  + '3'}
+                                id={data['restaurants'][i].id}
+                                slug={"/restauran/" + data['restaurants'][i].slug}
+                                tags={data['restaurants'][i].tags}
+                                description={data['restaurants'][i].description}
+                                key={i}
+                                location={data['restaurants'][i].location}
+                            />
+                        );
+                        newCardArray.push(
+                            <Card
+                                item_image={"http://185.146.1.93:8000/"+data['restaurants'][i].image}
+                                title={data['restaurants'][i].title  + '4'}
+                                id={data['restaurants'][i].id}
+                                slug={"/restauran/" + data['restaurants'][i].slug}
+                                tags={data['restaurants'][i].tags}
+                                description={data['restaurants'][i].description}
+                                key={i}
+                                location={data['restaurants'][i].location}
+                            />
+                        );
                     }
                     setCardArray(newCardArray);
                 })
