@@ -51,8 +51,8 @@ function CerfModal({ onClose, prices }) {
                 'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1ODgyMDY0LCJqdGkiOiJkODQ2OWVkMGIyNWY0ZThiOTJlNTQ5ZGJmYTI3ODA1OSIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.cKCzD94sftgINuR2lsoQYdeME0zvKmhyx3_ntCMxkeQ"
             },
             body: JSON.stringify({
-                'iin': "020716550669",
-                'mobile_phone': "+77082420482",
+                'iin': "020716550660",
+                'mobile_phone': "+77712527247",
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
         })
