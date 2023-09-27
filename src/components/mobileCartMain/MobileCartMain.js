@@ -10,21 +10,27 @@ import instagram from '../../assets/instagram3.svg';
 import heart from '../../assets/heart3.svg';
 import Rectangle from '../../assets/Rectangle.png';
 import heart2 from '../../assets/heart2.svg';
+import {useNavigate} from "react-router-dom";
+import VerificationCode from "../verificationCode/VerificationCode";
+import axios from "axios";
 
 
 
-function MobileCartMain() {
+function MobileCartMain(props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const images = [Rectangle, Rectangle, Rectangle];
+  const [showVerification, setShowVerification] = useState(false)
+  const [selectedPrice, setSelectedPrice] = useState(null);
 
   const handleThumbnailClick = (index) => {
     setActiveIndex(index);
   };
-
   const handleCertificateButtonClick = () => {
+      if(selectedPrice != null){
+          setShowVerification(true)
+      }
     setIsModalOpen(true); 
   };
 
@@ -37,10 +43,11 @@ function MobileCartMain() {
           <div className="card-body">
             <img src={image} alt="" />
             <div>
-              <h3>Название заведения</h3>
+              <h3>{props.title}</h3>
               <div className='card-tags'>
-                <span className='tag'>Тег 1</span>
-                <span className='tag'>Тег 2</span>
+                  {props.tags && props.tags.map((item, index) => (
+                      <span key={index} className='tag'>{item}</span>
+                  ))}
               </div>
             </div>
           </div>
@@ -64,7 +71,7 @@ function MobileCartMain() {
         </div>
         <div className="card-main-info">
           <h2>О заведении:</h2>
-          <p className='main-info-p'>Одно из лучших караоке в Алматы. Скидки именинникам и компаниям от 15-и человек. Караоке, VIP кабинки, бесплатная парковка</p>
+          <p className='main-info-p'>{props.description}</p>
         </div>
         <div className="card-main-item">
           <button className='icon-item'>
@@ -77,15 +84,15 @@ function MobileCartMain() {
         <div className="card-main-body"></div>
         <div className='info'>
             <h5>Cредний чек:</h5>
-            <span>от 6000 ₸</span>
+            <span>{props.average}₸</span>
         </div>
         <div className='info'>
             <h5>Кухня:</h5>
-            <span>Европейская, Азиатская</span>
+            <span>{props.kitchen}</span>
         </div>
         <div className='info'>
             <h5>Телефон:</h5>
-            <span>+7 (776) 048‒03‒03</span>
+            <span>{props.phone_number}</span>
         </div>
         <div className='info time'>
             <h5>Часы работы:</h5>
@@ -108,7 +115,9 @@ function MobileCartMain() {
         <button className='certificate-button' onClick={handleCertificateButtonClick}>
           Оформить
         </button>
-        {isModalOpen && <CerfModal onClose={() => setIsModalOpen(false)} />}
+          {isModalOpen && <CerfModal onClose={() => setIsModalOpen(false)}
+                                     prices={props.prices}/>}
+
       </div>
   );
 }

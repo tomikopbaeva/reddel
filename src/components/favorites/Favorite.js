@@ -3,11 +3,25 @@ import "./Favorite.css";
 import heart1 from "../../assets/heart1.svg";
 import Card from "../card/Card";
 import MobSlider from "../mobSlider/MobSlider";
+import {useNavigate} from "react-router-dom";
 
 
 function Favorite() {
     const [favoriteItems,setFavoriteItems] = useState([])
+    const navigate = useNavigate ();
+
     useEffect(() => {
+        fetch('http://86.107.44.200:8076/api/v1/users/' + localStorage.getItem('userId'), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
+            }
+        })
+            .catch((error) => {
+                console.error(error); // Handle any errors that occurred during the fetch
+                navigate('/login')
+            });
         const fetchData = () => {
             fetch('http://185.146.1.93:8000/get_favourites/' + localStorage.getItem('userId'), {
                 method: 'GET',

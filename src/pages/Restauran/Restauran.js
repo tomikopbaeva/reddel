@@ -6,12 +6,12 @@ import CartMain from "../../components/cartMain/CartMain";
 import MobileCartHeader from "../../components/mobileCartHeader/MobileCartHeader";
 import MobileCartMain from "../../components/mobileCartMain/MobileCartMain";
 import { useParams } from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function Restauran() {
     let { id } = useParams();
     const [data,setData] = useState(0)
-    useState( () => {
+    useEffect( () => {
         fetch("http://185.146.1.93:8000/get_restaurant_by_slug/" + id, {
             method: 'GET',
             headers: {
@@ -48,7 +48,15 @@ function Restauran() {
       </div>
         <div className="mobile">
           <MobileCartHeader/>
-          <MobileCartMain />
+          <MobileCartMain title={data.title}
+                          tags={data.tags}
+                          description={data.description}
+                          item_image={"http://185.146.1.93:8000/"+data.image}
+                          location={data.location}
+                          phone_number={data.phone}
+                          kitchen={data.kitchen}
+                          average={data.average}
+                          prices={data.prices} />
         </div>
       <Footer />
     </div>

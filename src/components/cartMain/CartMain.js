@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import axios from 'axios';
 
 import './CartMain.css';
 import location from '../../assets/location2.svg';
@@ -22,10 +23,42 @@ function CartMain(props) {
     const [selectedPrice, setSelectedPrice] = useState(null);
     const [showIIN, setShowIIN] = useState(false)
     const [showVerification, setShowVerification] = useState(false)
+    const [showOkText, setShowOkText] = useState(false)
+    const [showErrorText, setShowErrorText] = useState(false)
+
     const handlePriceSelection = (price) => {
         console.log(price)
         setShowIIN(true)
         setSelectedPrice(price);
+    };
+    const waitForRedirect = async () => {
+        try {
+            const interval = 1000; // Интервал в миллисекундах (1 секунда)
+            const maxAttempts = 60; // Максимальное количество попыток (60 секунд ожидания)
+
+            let attempts = 0;
+            const pollRedirectUrl = async () => {
+                try {
+                    const response = await axios.get('http://185.146.1.93:8000/redirect_user');
+                    const url = response.data.url;
+
+                    if (url) {
+                        window.location.href = url;
+                    } else if (attempts < maxAttempts) {
+                        attempts++;
+                        setTimeout(pollRedirectUrl, interval);
+                    } else {
+                        console.error('Превышено максимальное время ожидания.');
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+
+            pollRedirectUrl();
+        } catch (error) {
+            console.error(error);
+        }
     };
     const handleThumbnailClick = (index) => {
       setActiveIndex(index);
@@ -45,6 +78,7 @@ function CartMain(props) {
         })
             .then((response) =>{
                 console.log(response)
+                console.log("apply")
                 fetch('https://fastcash-back.trafficwave.kz/ffc-api-public/universal/apply/apply-lead', {
                     method: 'POST',
                     headers: {
@@ -52,8 +86,8 @@ function CartMain(props) {
                         'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1ODgyMDY0LCJqdGkiOiJkODQ2OWVkMGIyNWY0ZThiOTJlNTQ5ZGJmYTI3ODA1OSIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.cKCzD94sftgINuR2lsoQYdeME0zvKmhyx3_ntCMxkeQ"
                     },
                     body: JSON.stringify({
-                        'iin': "020716550669",
-                        'mobile_phone': "+77082420482",
+                        'iin': '020716550669',
+                        'mobile_phone': '+77082420482',
                         'product': 'REDDEL',
                         'channel': 'REDDEL_WEB',
                         'partner': 'REDDEL',
@@ -61,32 +95,34 @@ function CartMain(props) {
                             'period': '3',
                             'principal' : selectedPrice,
                         },
-                        'additional_infromation': {
-                            'hook_url': 'http://185.146.1.93:8000/save_job',
-                            'success_url': 'http://185.146.1.93:8000/save_job',
-                            'failure_url': 'http://185.146.1.93:8000/save_job'
+                        'additional_information': {
+                            'hook_url': 'http://185.146.1.93:8000/handle',
+                            'success_url': 'http://185.146.1.93:8000/handle',
+                            'failure_url': 'http://185.146.1.93:8000/handle'
                         },
-                        'credit_good':{
-                            'cost': selectedPrice
-                        },
-                        'verification_sms':{
-                            'verification_sms_code': id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString(),
-                            'verification_sms_data_time': new Date().toISOString()
-                        },
-                        'merchant': {
-                            'bin': '12312312312'
-                        },
-                        'multiple_installment_params':{
-                            'period': '3',
-                            "principal": selectedPrice
-                        }
-
+                        'credit_goods': [{'cost': selectedPrice}]
                     })
                 })
+                    .then((response) =>{
+                        if(response.ok){
+                            alert('На указанный номер было отправлено sms сообщение\n' +
+                                '\n' +
+                                'Для завершения оформления сертификата, пройдите по полученной ссылке')
+                            waitForRedirect();
+                        }
+                        else{
+                            setShowErrorText(true)
+                        }
+                    })
+                    .catch((error) =>{
+                        console.log(error.message)
+                    })
             })
 
     }
     const create_certificate = async (e) => {
+        if(selectedPrice==null)
+            return
         e.preventDefault();
         fetch('https://fastcash-back.trafficwave.kz/ffc-api-public/universal/general/send-otp', {
             method: 'POST',
