@@ -3,15 +3,19 @@ import {Link, useNavigate} from "react-router-dom";
 import "./Registration.css";
 import TermsAndConditions from "../TermsAndConditions/TermsAndConditions";
 import api from "../../api";
+import VerificationCode from "../../components/verificationCode/VerificationCode";
 
 function Registration() {
   const [formData, setFormData] = useState({
     "email": "",
     "firstName": "",
     "lastName": "",
-    "password": "",
-    "username": ""
+    "phone_number": "",
+    "username": "username123",
+    "password": "qwerty123",
+    agreementChecked: false
   });
+  const [showVerificationCode, setShowVerificationCode] = useState(false);
 
   const navigate = useNavigate();
 
@@ -29,6 +33,10 @@ function Registration() {
     });
   };
 
+  const handleVerification = async (e) => {
+
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,9 +51,9 @@ function Registration() {
       const response = await api.post("api/v1/auth/logup", formData);
 
       if (response.status == "200") {
-        // Handle successful registration here
-        alert("Registration successful!");
-        navigate('/login');
+        console.log(response.data)
+        console.log(response)
+        setShowVerificationCode(true)
       } else {
         // Handle registration errors here
         alert("Registration failed. Please try again.");
@@ -78,24 +86,10 @@ function Registration() {
               />
             </div>
             <input
-                type="username"
-                name="username"
-                placeholder="Логин"
-                value={formData.username}
-                onChange={handleInputChange}
-            />
-            <input
-                type="password"
-                name="password"
-                placeholder="Пароль"
-                value={formData.password}
-                onChange={handleInputChange}
-            />
-            <input
                 type="text"
-                name="phoneNumber"
+                name="phone_number"
                 placeholder="+7 (___) ___-__-__"
-                value={formData.phoneNumber}
+                value={formData.phone_number}
                 onChange={handleInputChange}
             />
             <input
@@ -130,6 +124,7 @@ function Registration() {
         {showTermsAndConditions && (
             <TermsAndConditions onClose={closeTermsAndConditions} />
         )}
+        {showVerificationCode && <VerificationCode handleVerification={handleVerification}/>}
       </div>
   );
 }

@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 
 function Profile() {
     const navigate = useNavigate ();
-
+    const [certificateArray, setCertificateArray] = useState([]);
     let [user, setUser] = useState({
         "email": "",
         "firstName": "",
@@ -15,7 +15,6 @@ function Profile() {
         "username": ""
     });
     useEffect(() => {
-        console.log(localStorage.getItem('accessToken') + " token")
         fetch('http://86.107.44.200:8076/api/v1/users/' + localStorage.getItem('userId'), {
             method: 'GET',
             headers: {
@@ -24,16 +23,27 @@ function Profile() {
             }
         })
             .then((response) => {
-                // Check if the response status code indicates success (status code 200)
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
+                if(!response.ok)
+                    navigate('/login')
                 return response.json();
             })
             .then((data) => {
+                console.log(data)
                 setUser(data);
-                console.log(user.firstName)
-                console.log(data);
+                console.log(123)
+                fetch('http://185.146.1.93:8000/get_certificates_by_id/' + localStorage.getItem('userId'), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then((response) => {
+                        return response.json()
+                    })
+                    .then((data) => {
+                        console.log(data)
+                        setCertificateArray(data.certificates)
+                    })
             })
             .catch((error) => {
                 console.error(error); // Handle any errors that occurred during the fetch
@@ -44,7 +54,7 @@ function Profile() {
     <div className="favorites">
       <Header />
       <div className="main-content">
-        <Profiles user={user}/>
+        <Profiles user={user} certificates={certificateArray}/>
       </div>
       <Footer />
     </div>

@@ -27,7 +27,6 @@ function Restaurants() {
                 .then((data) => {
                     const newCardArray = [];
                     for (let i = 0; i < data['restaurants'].length; ++i) {
-                        console.log("127.0.0.1:8000"+data['restaurants'][i].image)
                         newCardArray.push(
                             <Card
                                 item_image={"http://185.146.1.93:8000/"+data['restaurants'][i].image}
@@ -41,7 +40,6 @@ function Restaurants() {
                             />
                         );
                     }
-                    console.log(newCardArray)
                     setCardArray(newCardArray);
                 })
                 .catch((error) => {

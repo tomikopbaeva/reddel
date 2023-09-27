@@ -1,40 +1,59 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./Favorite.css";
 import heart1 from "../../assets/heart1.svg";
 import Card from "../card/Card";
 import MobSlider from "../mobSlider/MobSlider";
 
-const favoriteItems = [
-  {
-    id: 1,
-    name: "Заведение 1",
-    description: "Описание первого заведения...",
-    imageUrl: "url_1",
-  },
-  {
-    id: 2,
-    name: "Заведение 2",
-    description: "Описание второго заведения...",
-    imageUrl: "url_2",
-  },
-];
-
 
 function Favorite() {
+    const [favoriteItems,setFavoriteItems] = useState([])
+    useEffect(() => {
+        const fetchData = () => {
+            fetch('http://185.146.1.93:8000/get_favourites/' + localStorage.getItem('userId'), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    const newCardArray = [];
+                    for (let i = 0; i < data['restaurants'].length; ++i) {
+                        newCardArray.push(
+                            <Card
+                                item_image={"http://185.146.1.93:8000/"+data['restaurants'][i].image}
+                                title={data['restaurants'][i].title}
+                                id={data['restaurants'][i].id}
+                                slug={"/restauran/" + data['restaurants'][i].slug}
+                                tags={data['restaurants'][i].tags}
+                                description={data['restaurants'][i].description}
+                                key={i}
+                                location={data['restaurants'][i].location}
+                                isLiked={true}
+                            />
+                        );
+                    }
+                    setFavoriteItems(newCardArray);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        };
+
+        fetchData();
+    }, []);
   return (
     <section className="favorite">
       <h2 className="h2">Избранное</h2>
       <div className="desk">
         {favoriteItems.length > 0 ? (
           <div className="favorite-item">
-            {favoriteItems.map((item) => (
-              <Card
-                key={item.id}
-                name={item.name}
-                description={item.description}
-                imageUrl={item.imageUrl}
-              />
-            ))}
+            {favoriteItems}
           </div>
         ) : (
           <div className="empty">

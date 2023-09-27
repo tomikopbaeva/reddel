@@ -11,24 +11,7 @@ import done from "../../assets/done.svg";
 import {SplideSlide} from "@splidejs/react-splide";
 
 function Profiles(props) {
-    const [certificateArray, setCertificateArray] = useState([]);
     const [certificateId, setCertificateId] = useState(-1)
-    useEffect(() => {
-        console.log(123)
-        fetch('http://185.146.1.93:8000/get_certificates_by_id/' + localStorage.getItem('userId'), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => {
-                return response.json()
-            })
-            .then((data) => {
-                console.log(data)
-                setCertificateArray(data.certificates)
-            })
-    }, []);
 
     const handleCertificateClick = (id:number) => {
         setCertificateId(id)
@@ -53,7 +36,7 @@ function Profiles(props) {
             <ProfileChanges user={props.user}/>
             <div className="shadow">
                 <h2 className="h2">Мои сертификаты</h2>
-                {certificateArray.map((certificate) =>(
+                {props.certificates.map((certificate) =>(
                         <div className="profile-cert" onClick={ () => handleCertificateClick(certificate.id) }>
                             <h3 className="h3">Выберите ресторан из списка доступных</h3>
                             <div className="profile-cert-img">
@@ -67,7 +50,7 @@ function Profiles(props) {
             </div>
         </div>
 
-        {certificateArray.map((certificate) =>
+        {props.certificates.map((certificate) =>
             certificate.id == certificateId ? <Certificate onClose={closeCertificate} certificate={certificate} user={props.user}/> : <span></span>
         )}
     </section>

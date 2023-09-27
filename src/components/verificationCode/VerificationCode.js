@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./VerificationCode.css";
 
 const KEYBOARDS = {
@@ -7,7 +7,7 @@ const KEYBOARDS = {
   arrowRight: 39,
 };
 
-function VerificationCode() {
+function VerificationCode(props) {
   const [inputValues, setInputValues] = useState(Array(4).fill(""));
   const inputRefs = Array(4).fill(null).map(() => React.createRef());
 
@@ -22,6 +22,16 @@ function VerificationCode() {
       inputRefs[index - 1].current.focus();
     }
   };
+  useEffect(() => {
+    if (
+        inputValues[1] &&
+        inputValues[2] &&
+        inputValues[3] &&
+        inputValues[3]
+    ) {
+      props.handleVerification(inputValues);
+    }
+  }, [inputValues]);
 
   const handleKeyDown = (e, index) => {
     switch (e.keyCode) {
@@ -62,7 +72,7 @@ function VerificationCode() {
           ))}
         </div>
         <p className="code-text">Отправить повторно через: 30 сек.</p>
-        <a>Изменить номер телефона</a>
+        <a href={"/profile"}>Изменить номер телефона</a>
       </form>
     </div>
   );
