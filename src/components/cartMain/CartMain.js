@@ -17,15 +17,23 @@ import {useNavigate} from "react-router-dom";
 
 function CartMain(props) {
     const [activeIndex, setActiveIndex] = useState(0);
-
     const images = [Rectangle, Rectangle, Rectangle];
     const navigate = useNavigate();
     const [selectedPrice, setSelectedPrice] = useState(null);
     const [showIIN, setShowIIN] = useState(false)
+    const [phone, setPhone] = useState("")
+    const [iinOk, setIINOk] = useState(true)
     const [showVerification, setShowVerification] = useState(false)
     const [showOkText, setShowOkText] = useState(false)
     const [showErrorText, setShowErrorText] = useState(false)
+    const [iin, setIIN] = useState("")
 
+    const handleIINChange = (e) => {
+        setIIN(e.target.value);
+    };
+    const handlePhoneChange = (e) => {
+        setPhone(e.target.value);
+    };
     const handlePriceSelection = (price) => {
         console.log(price)
         setShowIIN(true)
@@ -39,7 +47,7 @@ function CartMain(props) {
             let attempts = 0;
             const pollRedirectUrl = async () => {
                 try {
-                    const response = await axios.get('http://185.146.1.93:8000/redirect_user');
+                    const response = await axios.get('http://185.146.1.93:8000/redirect_user/' + localStorage.getItem('userId'));
                     const url = response.data.url;
 
                     if (url) {
@@ -52,6 +60,7 @@ function CartMain(props) {
                     }
                 } catch (error) {
                     console.error(error);
+                    setTimeout(pollRedirectUrl, 1000);
                 }
             };
 
@@ -71,8 +80,8 @@ function CartMain(props) {
                 'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
             },
             body: JSON.stringify({
-                'iin': "020716550669",
-                'mobile_phone': "+77082420482",
+                'iin': iin,
+                'mobile_phone': phone,
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
         })
@@ -86,8 +95,8 @@ function CartMain(props) {
                         'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
                     },
                     body: JSON.stringify({
-                        'iin': '020716550669',
-                        'mobile_phone': '+77082420482',
+                        'iin': iin,
+                        'mobile_phone': phone,
                         'product': 'REDDEL',
                         'channel': 'REDDEL_WEB',
                         'partner': 'REDDEL',
@@ -97,8 +106,8 @@ function CartMain(props) {
                         },
                         'additional_information': {
                             'hook_url': 'http://185.146.1.93:8000/handle',
-                            'success_url': 'http://185.146.1.93:8000/handle',
-                            'failure_url': 'http://185.146.1.93:8000/handle'
+                            'success_url': 'http://reddel.kz/profile',
+                            'failure_url': 'https://reddel.kz/profile'
                         },
                         'credit_goods': [{'cost': selectedPrice}]
                     })
@@ -116,12 +125,16 @@ function CartMain(props) {
                     })
                     .catch((error) =>{
                         console.log(error.message)
+
                     })
+            })
+            .catch((error) =>{
+                console.log(error)
             })
 
     }
     const create_certificate = async (e) => {
-        if(selectedPrice==null)
+        if(selectedPrice==null || iin.length < 12)
             return
         e.preventDefault();
         fetch('https://fastcash-back.trafficwave.kz/ffc-api-public/universal/general/send-otp', {
@@ -131,15 +144,21 @@ function CartMain(props) {
                 'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
             },
             body: JSON.stringify({
-                'iin': "020716550669",
-                'mobile_phone': "+77082420482"
+                'iin': iin,
+                'mobile_phone': phone
             })
         })
             .then((response) =>{
                 console.log(response)
+
+                if(showIIN) {
+                    setShowVerification(response.ok)
+                    setIINOk(response.ok)
+                }
             })
-        if(showIIN)
-            setShowVerification(true)
+            .catch((error) =>{
+                console.log(('error'))
+            })
         // try {
         //     if(localStorage.getItem('userId') && localStorage.getItem('accessToken')){
         //         fetch('http://86.107.44.200:8076/api/v1/users/' + localStorage.getItem('userId'), {
@@ -279,11 +298,31 @@ function CartMain(props) {
                     <span>Сертификатом можно оплатить 1 счет</span>
                 </div>
                 { showIIN ? (
-                    <div>
-                        <a>Введите свой иин</a>
-                        <input></input>
-                    </div>) : (<a>Выберите сумму</a>) }
-                <button className='certificate-button' onClick={create_certificate}>Оформить</button>
+                    <form>
+                        <label htmlFor="inputField">Введите иин:</label>
+                        <br></br>
+                        <br></br>
+                        <input type="text" value={iin} onChange={handleIINChange} name="code" minLength="12" maxLength="12" required></input>
+                        <br></br>
+                        <br></br>
+                        <label htmlFor="inputField">Номер телефона:</label>
+                        <br></br>
+                        <br></br>
+                        <input type="text" value={phone} onChange={handlePhoneChange} name="code" minLength="12" maxLength="12" required></input>
+                        <br></br>
+                        <br></br>
+                        { !iinOk ? <a className={'error'}>Данные введены неверно</a> : <p></p>}
+                        <br></br>
+                        <br></br>
+
+                        <button className='certificate-button' type={"submit"} onClick={create_certificate}>Оформить</button>
+                    </form>) : (
+                    <a>Выберите сумму</a>
+                    )
+
+                }
+                { !showIIN ? <button className='certificate-button' onClick={create_certificate}>Оформить</button> : (<a></a>)}
+
                 {showVerification && <VerificationCode handleVerification={handleVerification}/>}
             </div>
             <div className="cart-main-right-bottom shadow">

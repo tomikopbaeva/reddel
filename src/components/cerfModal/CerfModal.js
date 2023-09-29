@@ -10,9 +10,19 @@ function CerfModal({ onClose, prices }) {
     const navigate = useNavigate();
     const [selectedPrice, setSelectedPrice] = useState(null);
     const [showVerification, setShowVerification] = useState(false)
+    const [showIIN, setShowIIN] = useState(false)
+    const [phone, setPhone] = useState("")
+    const [iinOk, setIINOk] = useState(true)
+    const [iin, setIIN] = useState("")
+    const handleIINChange = (e) => {
+        setIIN(e.target.value);
+    };
+    const handlePhoneChange = (e) => {
+        setPhone(e.target.value);
+    };
     const waitForRedirect = async () => {
         try {
-            const interval = 1000; // Интервал в миллисекундах (1 секунда)
+            const interval = 2000; // Интервал в миллисекундах (1 секунда)
             const maxAttempts = 60; // Максимальное количество попыток (60 секунд ожидания)
 
             let attempts = 0;
@@ -25,12 +35,13 @@ function CerfModal({ onClose, prices }) {
                         window.location.href = url;
                     } else if (attempts < maxAttempts) {
                         attempts++;
-                        setTimeout(pollRedirectUrl, interval);
+                        setTimeout(pollRedirectUrl, 1000);
                     } else {
                         console.error('Превышено максимальное время ожидания.');
                     }
                 } catch (error) {
                     console.error(error);
+                    setTimeout(pollRedirectUrl, 1000);
                 }
             };
 
@@ -41,6 +52,7 @@ function CerfModal({ onClose, prices }) {
     };
     const handlePriceSelection = (price) => {
         console.log(price)
+        setShowIIN(true)
         setSelectedPrice(price);
     };
     const handleVerification = (id) => {
@@ -65,8 +77,8 @@ function CerfModal({ onClose, prices }) {
                         'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
                     },
                     body: JSON.stringify({
-                        'iin': '020716550669',
-                        'mobile_phone': '+77082420482',
+                        'iin': iin,
+                        'mobile_phone': phone,
                         'product': 'REDDEL',
                         'channel': 'REDDEL_WEB',
                         'partner': 'REDDEL',
@@ -99,7 +111,7 @@ function CerfModal({ onClose, prices }) {
 
     }
     const create_certificate = async (e) => {
-        if(selectedPrice==null)
+        if(selectedPrice==null || iin.length < 12)
             return
         e.preventDefault();
         fetch('https://fastcash-back.trafficwave.kz/ffc-api-public/universal/general/send-otp', {
@@ -109,14 +121,17 @@ function CerfModal({ onClose, prices }) {
                 'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
             },
             body: JSON.stringify({
-                'iin': "020716550669",
-                'mobile_phone': "+77082420482"
+                'iin': iin,
+                'mobile_phone': phone
             })
         })
             .then((response) =>{
                 console.log(response)
+                if(showIIN) {
+                    setShowVerification(response.ok)
+                    setIINOk(response.ok)
+                }
             })
-            setShowVerification(true)
     };
     // useEffect(() => {
     //   const handleClickOutside = (event) => {
@@ -150,7 +165,31 @@ function CerfModal({ onClose, prices }) {
                 <img src={Frame} alt="random" />
                 <span>Сертификатом можно оплатить 1 счет</span>
             </div>
-            <button className='certificate-button' onClick={create_certificate}>Оформить</button>
+            { showIIN ? (
+                <form>
+                    <label htmlFor="inputField">Введите иин:</label>
+                    <br></br>
+                    <br></br>
+                    <input type="text" value={iin} onChange={handleIINChange} name="code" minLength="12" maxLength="12" required></input>
+                    <br></br>
+                    <br></br>
+                    <label htmlFor="inputField">Номер телефона:</label>
+                    <br></br>
+                    <br></br>
+                    <input type="text" value={phone} onChange={handlePhoneChange} name="code" minLength="12" maxLength="12" required></input>
+                    <br></br>
+                    <br></br>
+                    { !iinOk ? <a className={'error'}>Данные введены неверно</a> : <p></p>}
+                    <br></br>
+                    <br></br>
+
+                    <button className='certificate-button' type={"submit"} onClick={create_certificate}>Оформить</button>
+                </form>) : (
+                <a>Выберите сумму</a>
+            )
+
+            }
+            { !showIIN ? <button className='certificate-button' onClick={create_certificate}>Оформить</button> : (<a></a>)}
         </div>
         {showVerification && <VerificationCode handleVerification={handleVerification}/>}
     </div>

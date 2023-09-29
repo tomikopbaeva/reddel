@@ -1,6 +1,9 @@
 .selected-price {
     background-color: #3153CA;
 }
+.error{
+    color:red;
+}
 .cerf-modal{
     position: fixed;
     z-index: 1; 
