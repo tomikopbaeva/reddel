@@ -37,7 +37,7 @@ function Restauran() {
           <CartHeader title={data.title}
                       tags={data.tags}/>
           <CartMain description={data.description}
-                    item_image={"http://185.146.1.93:8000/"+data.image}
+                    item_image={"http://185.146.1.93:8000"+data.image}
                     location={data.location}
                     phone_number={data.phone}
                     kitchen={data.kitchen}
@@ -51,7 +51,7 @@ function Restauran() {
           <MobileCartMain title={data.title}
                           tags={data.tags}
                           description={data.description}
-                          item_image={"http://185.146.1.93:8000/"+data.image}
+                          item_image={"http://185.146.1.93:8000"+data.image}
                           location={data.location}
                           phone_number={data.phone}
                           kitchen={data.kitchen}
