@@ -190,6 +190,7 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    color: #3153CA;
 }
 
 .price span{
@@ -201,6 +202,9 @@
     font-weight: 800;
     line-height: 26px;
     cursor: pointer;
+}
+.price span p{
+    color: #3153CA;
 }
 
 .certificate{
@@ -242,5 +246,5 @@
 }
 
 .selected-price {
-    background-color: #3153CA;
+    background-color: #C1CBEF;
 }

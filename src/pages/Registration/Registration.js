@@ -4,6 +4,7 @@ import "./Registration.css";
 import TermsAndConditions from "../TermsAndConditions/TermsAndConditions";
 import api from "../../api";
 import VerificationCode from "../../components/verificationCode/VerificationCode";
+import InputMask from "react-input-mask";
 
 function Registration() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ function Registration() {
     "password": "qwerty123",
     agreementChecked: false
   });
+  const [phone, setPhone] = useState('')
+
   const [showVerificationCode, setShowVerificationCode] = useState(false);
 
   const navigate = useNavigate();
@@ -85,12 +88,12 @@ function Registration() {
                   onChange={handleInputChange}
               />
             </div>
-            <input
-                type="text"
-                name="phone_number"
-                placeholder="+7 (___) ___-__-__"
-                value={formData.phone_number}
-                onChange={handleInputChange}
+            <InputMask
+                mask="+7 (***) ***-**-**" // Define your desired phone number mask
+                maskChar="_" // Use underscore (_) or any character you prefer for unfilled positions
+                placeholder="+7 (___) ___-__-__" // Display a placeholder for user guidance
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
             />
             <input
                 type="email"

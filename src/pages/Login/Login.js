@@ -3,12 +3,19 @@ import "./Login.css";
 import api from "../../api";
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
+import InputMask from 'react-input-mask';
+import cerfModal from "../../components/cerfModal/CerfModal";
+import CerfModal from "../../components/cerfModal/CerfModal";
+import VerificationCode from "../../components/verificationCode/VerificationCode";
+
 
 function Login() {
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
   });
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [openCerf, setOpenCerf] = useState(false)
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -35,25 +42,33 @@ function Login() {
   const handleLogin = async (e) => {
 
     e.preventDefault();
-    try {
-      console.log(credentials)
-      const response = await api.post('/api/v1/auth/login', credentials);
-      localStorage.setItem('userId', response.data.id)
-      localStorage.setItem('accessToken', response.data.token);
-      if(response.status == 200)
-        navigate('/profile');
-    } catch (error) {
-      console.log(error);
-      alert("Неверный логин или пароль");
-    }
+    console.log(phoneNumber.replaceAll('(','').replaceAll(')','').replaceAll('-', '').replaceAll(' ', ''));
+    setOpenCerf(true)
+    // try {
+    //   console.log(credentials)
+    //   const response = await api.post('/api/v1/auth/login', credentials);
+    //   localStorage.setItem('userId', response.data.id)
+    //   localStorage.setItem('accessToken', response.data.token);
+    //   if(response.status == 200)
+    //     navigate('/profile');
+    // } catch (error) {
+    //   console.log(error);
+    //   alert("Неверный логин или пароль");
+    // }
   };
     return (
     <div className="cerf-modal">
       <section className="registration">
         <form className="registration-form" onSubmit={handleLogin}>
           <h2 className="registration-h2">Добро пожаловать!</h2>
-          <input type="text" name="username" value={credentials.username} onChange={handleInputChange} placeholder="Логин" />
-          <input type="password" name="password" value={credentials.password} onChange={handleInputChange} placeholder="Пароль" />
+          <InputMask
+              mask="+7 (***) ***-**-**" // Define your desired phone number mask
+              maskChar="_" // Use underscore (_) or any character you prefer for unfilled positions
+              placeholder="+7 (___) ___-__-__" // Display a placeholder for user guidance
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+          {openCerf && <VerificationCode />}
             <button className="registration-button" type="submit">Продолжить</button>
           <p>У вас еще нет аккаунта? <Link to="/registration"> Зарегистрироваться</Link></p>
         </form>

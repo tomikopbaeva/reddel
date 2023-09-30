@@ -19,7 +19,7 @@ function CartMain(props) {
     const [activeIndex, setActiveIndex] = useState(0);
     const images = [Rectangle, Rectangle, Rectangle];
     const navigate = useNavigate();
-    const [selectedPrice, setSelectedPrice] = useState(null);
+    const [selectedPrice, setSelectedPrice] = useState(0);
     const [showIIN, setShowIIN] = useState(false)
     const [phone, setPhone] = useState("")
     const [iinOk, setIINOk] = useState(true)
@@ -27,17 +27,21 @@ function CartMain(props) {
     const [showOkText, setShowOkText] = useState(false)
     const [showErrorText, setShowErrorText] = useState(false)
     const [iin, setIIN] = useState("")
+    const [month, setMonth] = useState(-1)
 
     const handleIINChange = (e) => {
         setIIN(e.target.value);
+    };
+    const handleMonth = (price) => {
+        setMonth(price);
+        setShowIIN(price > 0 && selectedPrice > 0)
     };
     const handlePhoneChange = (e) => {
         setPhone(e.target.value);
     };
     const handlePriceSelection = (price) => {
-        console.log(price)
-        setShowIIN(true)
         setSelectedPrice(price);
+        setShowIIN(month > 0 && price > 0)
     };
     const waitForRedirect = async () => {
         try {
@@ -289,9 +293,18 @@ function CartMain(props) {
                             onClick={() => handlePriceSelection(item)}
                             className={selectedPrice === item ? 'selected-price' : ''}
                         >
-                            <p>{item} ₸</p>
+                            <p> {item} ₸</p>
                         </span>
                     ))}
+                </div>
+                <h2 className='cart-h2'> На срок</h2>
+                <div className='price'>
+                        <span className={month === 3 ? 'selected-price' : ''} onClick={()  => handleMonth(3)}>
+                            <p>3 месяца</p>
+                        </span>
+                        <span className={month === 6 ? 'selected-price' : ''} onClick={()  => handleMonth(6)}>
+                            <p>6 месяцев</p>
+                        </span>
                 </div>
                 <div className='certificate'>
                     <img src={Frame} alt="random" />
@@ -303,14 +316,6 @@ function CartMain(props) {
                         <br></br>
                         <br></br>
                         <input type="text" value={iin} onChange={handleIINChange} name="code" minLength="12" maxLength="12" required></input>
-                        <br></br>
-                        <br></br>
-                        <label htmlFor="inputField">Номер телефона:</label>
-                        <br></br>
-                        <br></br>
-                        <input type="text" value={phone} onChange={handlePhoneChange} name="code" minLength="12" maxLength="12" required></input>
-                        <br></br>
-                        <br></br>
                         { !iinOk ? <a className={'error'}>Данные введены неверно</a> : <p></p>}
                         <br></br>
                         <br></br>
