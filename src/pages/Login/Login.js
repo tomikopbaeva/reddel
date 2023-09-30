@@ -42,8 +42,9 @@ function Login() {
   const handleLogin = async (e) => {
 
     e.preventDefault();
-    console.log(phoneNumber.replaceAll('(','').replaceAll(')','').replaceAll('-', '').replaceAll(' ', ''));
-    setOpenCerf(true)
+    setPhoneNumber(phoneNumber.replaceAll('(','').replaceAll(')','').replaceAll('-', '').replaceAll(' ', '').replace('+', ''))
+    console.log('phone_number : ' + phoneNumber);
+    const response = await api.post("api/v1/auth/login", {'phone_number': phoneNumber});
     // try {
     //   console.log(credentials)
     //   const response = await api.post('/api/v1/auth/login', credentials);

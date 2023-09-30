@@ -12,8 +12,6 @@ function Registration() {
     "firstName": "",
     "lastName": "",
     "phone_number": "",
-    "username": "username123",
-    "password": "qwerty123",
     agreementChecked: false
   });
   const [phone, setPhone] = useState('')
@@ -36,7 +34,8 @@ function Registration() {
     });
   };
 
-  const handleVerification = async (e) => {
+  const handleVerification = async (id) => {
+    const response = await api.post("api/v1/auth/activate", {"code" : id});
 
   }
 
@@ -51,6 +50,8 @@ function Registration() {
 
     try {
       // Make a POST request using the api.post method
+      formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
+      console.log(formData)
       const response = await api.post("api/v1/auth/logup", formData);
 
       if (response.status == "200") {

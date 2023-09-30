@@ -108,7 +108,7 @@ function MobileCartMain(props) {
                 className={`thumbnail ${activeIndex === index ? 'active' : ''}`}
                 onClick={() => handleThumbnailClick(index)}
               >
-                <img src={image} alt={`Thumbnail ${index}`} />
+                <img src={props.item_image} alt={`Thumbnail ${index}`} />
               </div>
             ))}
         </div>

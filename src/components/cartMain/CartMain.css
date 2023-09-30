@@ -204,6 +204,7 @@
     cursor: pointer;
 }
 .price span p{
+    font-size: 16px;
     color: #3153CA;
 }
 
@@ -224,6 +225,10 @@
     background-color: #3153CA;
     padding: 12px 16px;
     color: #fff;
+}
+
+.form{
+    width: 100%;
 }
 
 .cart-main-right-bottom{
