@@ -46,6 +46,7 @@ function Login() {
     }).then((response) => {
       console.log(response);
       localStorage.setItem('accessToken', response.data);
+      navigate('/profile')
     }).catch((error) => {
       console.log(error);
       alert('Неверный код');
