@@ -29,7 +29,8 @@ function CerfModal({ onClose, prices }) {
                 try {
                     const response = await axios.get('http://185.146.1.93:8000/redirect_user/' + localStorage.getItem('userId'));
                     const url = response.data.url;
-
+                    console.log(url['0'] == 'h')
+                    console.log(url)
                     if (url) {
                         if(url['0'] == 'h')
                             window.location.href = url;

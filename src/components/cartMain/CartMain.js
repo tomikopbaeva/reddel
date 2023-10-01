@@ -83,8 +83,13 @@ function CartMain(props) {
                     const url = response.data.url;
 
                     if (url) {
-                        window.location.href = url;
-                    } else if (attempts < maxAttempts) {
+                        if (url['0'] == 'h')
+                            window.location.href = url;
+                        else {
+                            alert(url)
+                            navigate('/')
+                        }
+                    }else if (attempts < maxAttempts) {
                         attempts++;
                         setTimeout(pollRedirectUrl, interval);
                     } else {
@@ -146,9 +151,6 @@ function CartMain(props) {
                 })
                     .then((response) =>{
                         if(response.ok){
-                            alert('На указанный номер было отправлено sms сообщение\n' +
-                                '\n' +
-                                'Для завершения оформления сертификата, пройдите по полученной ссылке')
                             waitForRedirect();
                         }
                         else{
