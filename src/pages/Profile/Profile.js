@@ -15,7 +15,7 @@ function Profile() {
         "username": ""
     });
     useEffect(() => {
-        fetch('http://86.107.44.200:8076/api/v1/users/' + localStorage.getItem('userId'), {
+        fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,20 +30,6 @@ function Profile() {
             .then((data) => {
                 console.log(data)
                 setUser(data);
-                console.log(123)
-                fetch('http://185.146.1.93:8000/get_certificates_by_id/' + localStorage.getItem('userId'), {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                    .then((response) => {
-                        return response.json()
-                    })
-                    .then((data) => {
-                        console.log(data)
-                        setCertificateArray(data.certificates)
-                    })
             })
             .catch((error) => {
                 console.error(error); // Handle any errors that occurred during the fetch

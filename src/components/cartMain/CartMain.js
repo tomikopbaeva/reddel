@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import axios from 'axios';
@@ -39,6 +39,34 @@ function CartMain(props) {
     const handlePhoneChange = (e) => {
         setPhone(e.target.value);
     };
+    let [user, setUser] = useState({
+        "email": "",
+        "firstName": "",
+        "lastName": "",
+        "username": ""
+    });
+    useEffect(() => {
+        fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
+            }
+        })
+            .then((response) => {
+                if(!response.ok)
+                    navigate('/login')
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data)
+                setUser(data);
+            })
+            .catch((error) => {
+                console.error(error); // Handle any errors that occurred during the fetch
+                navigate('/login')
+            });
+    }, []);
     const handlePriceSelection = (price) => {
         setSelectedPrice(price);
         setShowIIN(month > 0 && price > 0)
@@ -81,11 +109,11 @@ function CartMain(props) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
+                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': phone,
+                'mobile_phone': '+77082420482',
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
         })
@@ -96,16 +124,16 @@ function CartMain(props) {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
+                        'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
                     },
                     body: JSON.stringify({
                         'iin': iin,
-                        'mobile_phone': phone,
+                        'mobile_phone': '+77082420482',
                         'product': 'REDDEL',
                         'channel': 'REDDEL_WEB',
                         'partner': 'REDDEL',
                         'credit_params': {
-                            'period': '3',
+                            'period': month,
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
@@ -145,11 +173,11 @@ function CartMain(props) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
+                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': phone
+                'mobile_phone': '+77082420482'
             })
         })
             .then((response) =>{

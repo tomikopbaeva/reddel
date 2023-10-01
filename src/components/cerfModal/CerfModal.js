@@ -11,6 +11,7 @@ function CerfModal({ onClose, prices }) {
     const [selectedPrice, setSelectedPrice] = useState(null);
     const [showVerification, setShowVerification] = useState(false)
     const [showIIN, setShowIIN] = useState(false)
+    const [reject, setReject] = useState(null)
     const [phone, setPhone] = useState("")
     const [iinOk, setIINOk] = useState(true)
     const [iin, setIIN] = useState("")
@@ -30,7 +31,12 @@ function CerfModal({ onClose, prices }) {
                     const url = response.data.url;
 
                     if (url) {
-                        window.location.href = url;
+                        if(url['0'] == 'h')
+                            window.location.href = url;
+                        else {
+                            alert(url)
+                            navigate('/')
+                        }
                     } else if (attempts < maxAttempts) {
                         attempts++;
                         setTimeout(pollRedirectUrl, 1000);
@@ -63,11 +69,11 @@ function CerfModal({ onClose, prices }) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
+                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
             },
             body: JSON.stringify({
                 'iin': "020716550660",
-                'mobile_phone': "+77712527247",
+                'mobile_phone': '+77082420482',
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
         })
@@ -77,11 +83,11 @@ function CerfModal({ onClose, prices }) {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
+                        'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
                     },
                     body: JSON.stringify({
                         'iin': iin,
-                        'mobile_phone': phone,
+                        'mobile_phone': '+77082420482',
                         'product': 'REDDEL',
                         'channel': 'REDDEL_WEB',
                         'partner': 'REDDEL',
@@ -99,9 +105,6 @@ function CerfModal({ onClose, prices }) {
                 })
                     .then((response) =>{
                         if(response.ok){
-                            alert('На указанный номер было отправлено sms сообщение\n' +
-                                '\n' +
-                                'Для завершения оформления сертификата, пройдите по полученной ссылке')
                             waitForRedirect()
                         }
                         else{
@@ -121,11 +124,11 @@ function CerfModal({ onClose, prices }) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MDU2ODQ3LCJqdGkiOiJmYTY2MjdmMDY3ODI0OWVhYjJlZWYwYmU1ODIyOTU5NyIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.fmN8iIBss5NP4zMGUcjRy_eWfcvp_mj7rAc4yd1eZc8"
+                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': phone
+                'mobile_phone': '+77082420482'
             })
         })
             .then((response) =>{
