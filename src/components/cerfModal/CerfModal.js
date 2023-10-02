@@ -4,6 +4,7 @@ import Frame from '../../assets/Frame.svg';
 import {useNavigate} from "react-router-dom";
 import VerificationCode from "../verificationCode/VerificationCode";
 import axios from "axios";
+import Freedom from "../../assets/Logo Credit.png";
 
 function CerfModal({ onClose, prices }) {
     const modalRef = useRef(null);
@@ -169,6 +170,8 @@ function CerfModal({ onClose, prices }) {
                 <img src={Frame} alt="random" />
                 <span>Сертификатом можно оплатить 1 счет</span>
             </div>
+            <img src={Freedom} alt="random" width={'150px'}/>
+
             { showIIN ? (
                 <form>
                     <label htmlFor="inputField">Введите иин:</label>

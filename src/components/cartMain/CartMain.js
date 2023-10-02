@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import axios from 'axios';
+import Freedom from '../../assets/Logo Credit.png'
+
 
 import './CartMain.css';
 import location from '../../assets/location2.svg';
@@ -330,6 +332,8 @@ function CartMain(props) {
                     <img src={Frame} alt="random" />
                     <span>Сертификатом можно оплатить 1 счет</span>
                 </div>
+                <img src={Freedom} alt="random" width={'150px'}/>
+
                 { showIIN ? (
                     <form>
                         <label htmlFor="inputField">Введите иин:</label>
