@@ -16,12 +16,10 @@ function Favorite() {
             headers: {
                 'Content-Type': 'application/json',
             }
-        })
-            .catch((error) => {
-                console.error(error); // Handle any errors that occurred during the fetch
+        }).then((response) =>{
+            if(!response.ok){
                 navigate('/login')
-            });
-        const fetchData = () => {
+            }
             fetch('https://cloudpaymentsapi.kz/get_favourites/' + localStorage.getItem('userId'), {
                 method: 'GET',
                 headers: {
@@ -56,9 +54,11 @@ function Favorite() {
                 .catch((error) => {
                     console.error(error);
                 });
-        };
-
-        fetchData();
+        })
+            .catch((error) => {
+                console.error(error); // Handle any errors that occurred during the fetch
+                navigate('/login')
+            });
     }, []);
   return (
     <section className="favorite">
