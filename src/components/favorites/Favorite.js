@@ -11,11 +11,10 @@ function Favorite() {
     const navigate = useNavigate ();
 
     useEffect(() => {
-        fetch('http://86.107.44.200:8076/api/v1/users/' + localStorage.getItem('userId'), {
+        fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
             }
         })
             .catch((error) => {
@@ -23,7 +22,7 @@ function Favorite() {
                 navigate('/login')
             });
         const fetchData = () => {
-            fetch('http://185.146.1.93:8000/get_favourites/' + localStorage.getItem('userId'), {
+            fetch('https://cloudpaymentsapi.kz/get_favourites/' + localStorage.getItem('userId'), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +39,7 @@ function Favorite() {
                     for (let i = 0; i < data['restaurants'].length; ++i) {
                         newCardArray.push(
                             <Card
-                                item_image={"http://185.146.1.93:8000/"+data['restaurants'][i].image}
+                                item_image={"https://cloudpaymentsapi.kz/"+data['restaurants'][i].image}
                                 title={data['restaurants'][i].title}
                                 id={data['restaurants'][i].id}
                                 slug={"/restauran/" + data['restaurants'][i].slug}

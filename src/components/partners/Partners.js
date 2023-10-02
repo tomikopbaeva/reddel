@@ -10,7 +10,7 @@ function Partners() {
 
     useEffect(() => {
         const fetchData = () => {
-            fetch('http://185.146.1.93:8000/getAllRestaurants', {
+            fetch('https://cloudpaymentsapi.kz/getAllRestaurants', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ function Partners() {
                     for (let i = 0; i < data['restaurants'].length; ++i) {
                         newCardArray.push(
                             <Card
-                                item_image={"http://185.146.1.93:8000"+data['restaurants'][i].image}
+                                item_image={"https://cloudpaymentsapi.kz"+data['restaurants'][i].image}
                                 title={data['restaurants'][i].title}
                                 id={data['restaurants'][i].id}
                                 slug={"/restauran/" + data['restaurants'][i].slug}

@@ -47,28 +47,6 @@ function CartMain(props) {
         "lastName": "",
         "username": ""
     });
-    useEffect(() => {
-        fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
-            }
-        })
-            .then((response) => {
-                if(!response.ok)
-                    navigate('/login')
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data)
-                setUser(data);
-            })
-            .catch((error) => {
-                console.error(error); // Handle any errors that occurred during the fetch
-                navigate('/login')
-            });
-    }, []);
     const handlePriceSelection = (price) => {
         setSelectedPrice(price);
         setShowIIN(month > 0 && price > 0)
@@ -76,7 +54,7 @@ function CartMain(props) {
     const waitForRedirect = async () => {
         console.log("HERE WE GO AGAIN")
         try{
-            const response = await fetch('http://185.146.1.93:8000/redirect_user/' + localStorage.getItem('userId'))
+            const response = await fetch('https://cloudpaymentsapi.kz/redirect_user/' + localStorage.getItem('userId'))
             console.log("HERE WE GO AGAIN 2")
             const data = await response.json();
             console.log(data)
@@ -133,8 +111,8 @@ function CartMain(props) {
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
-                            'hook_url': 'http://185.146.1.93:8000/handle',
-                            'success_url': 'http://reddel.kz/profile',
+                            'hook_url': 'https://cloudpaymentsapi.kz/handle',
+                            'success_url': 'https://reddel.kz/profile',
                             'failure_url': 'https://reddel.kz/profile'
                         },
                         'credit_goods': [{'cost': selectedPrice}]
@@ -160,6 +138,26 @@ function CartMain(props) {
 
     }
     const create_certificate = async (e) => {
+        fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
+            }
+        })
+            .then((response) => {
+                if(!response.ok)
+                    navigate('/login')
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data)
+                setUser(data);
+            })
+            .catch((error) => {
+                console.error(error); // Handle any errors that occurred during the fetch
+                navigate('/login')
+            });
         if(selectedPrice==null || iin.length < 12)
             return
         e.preventDefault();

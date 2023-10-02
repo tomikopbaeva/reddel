@@ -17,13 +17,19 @@ function CerfModal({ onClose, prices }) {
     const [iinOk, setIINOk] = useState(true)
     const [iin, setIIN] = useState("")
     const [month, setMonth] = useState(-1)
+    let [user, setUser] = useState({
+        "email": "",
+        "firstName": "",
+        "lastName": "",
+        "username": ""
+    });
     const handleIINChange = (e) => {
         setIIN(e.target.value);
     };
     const waitForRedirect = async () => {
         console.log("HERE WE GO AGAIN")
         try{
-            const response = await fetch('http://185.146.1.93:8000/redirect_user/' + localStorage.getItem('userId'))
+            const response = await fetch('https://cloudpaymentsapi.kz/redirect_user' + localStorage.getItem('userId'))
             console.log("HERE WE GO AGAIN 2")
             const data = await response.json();
             console.log(data)
@@ -86,9 +92,9 @@ function CerfModal({ onClose, prices }) {
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
-                            'hook_url': 'http://185.146.1.93:8000/handle',
-                            'success_url': 'http://185.146.1.93:8000/handle',
-                            'failure_url': 'http://185.146.1.93:8000/handle'
+                            'hook_url': 'https://cloudpaymentsapi.kz/handle',
+                            'success_url': 'https://cloudpaymentsapi.kz/handle',
+                            'failure_url': 'https://cloudpaymentsapi.kz/handle'
                         },
                         'credit_goods': [{'cost': selectedPrice}]
                     })
@@ -107,6 +113,26 @@ function CerfModal({ onClose, prices }) {
 
     }
     const create_certificate = async (e) => {
+        fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
+            }
+        })
+            .then((response) => {
+                if(!response.ok)
+                    navigate('/login')
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data)
+                setUser(data);
+            })
+            .catch((error) => {
+                console.error(error); // Handle any errors that occurred during the fetch
+                navigate('/login')
+            });
         if(selectedPrice==null || iin.length < 12)
             return
         e.preventDefault();
