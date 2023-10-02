@@ -20,41 +20,29 @@ function CerfModal({ onClose, prices }) {
         setIIN(e.target.value);
     };
     const waitForRedirect = async () => {
-        try {
-            const interval = 1000; // Интервал в миллисекундах (1 секунда)
-            const maxAttempts = 60; // Максимальное количество попыток (60 секунд ожидания)
-
-            let attempts = 0;
-            const pollRedirectUrl = async () => {
-                try {
-                    const response = await axios.get('http://185.146.1.93:8000/redirect_user/' + localStorage.getItem('userId'));
-                    console.log(response)
-                    const url = response.data.url;
-                    console.log(url)
-                    if (url) {
-                        if (url['0'] == 'h')
-                            window.location.href = url;
-                        else {
-                            alert(url)
-                            navigate('/')
-                        }
-                    }else if (attempts < maxAttempts) {
-                        attempts++;
-                        setTimeout(pollRedirectUrl, interval);
-                    } else {
-                        console.error('Превышено максимальное время ожидания.');
-                    }
-                } catch (error) {
-                    console.error(error);
-                    setTimeout(pollRedirectUrl, 1000);
+        console.log("HERE WE GO AGAIN")
+        try{
+            const response = await fetch('http://185.146.1.93:8000/redirect_user/' + localStorage.getItem('userId'))
+            console.log("HERE WE GO AGAIN 2")
+            const data = await response.json();
+            console.log(data)
+            const url = data.url;
+            console.log(url)
+            if (url) {
+                if (url['0'] == 'h')
+                    window.location.href = url;
+                else {
+                    alert(url)
+                    navigate('/')
                 }
-            };
+            }
 
-            pollRedirectUrl();
-        } catch (error) {
-            console.error(error);
         }
-    };
+        catch (error){
+            alert(error)
+        }
+
+    }
     const handlePriceSelection = (price) => {
         console.log(price)
         setShowIIN(true)
