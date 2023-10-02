@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://86.107.44.200:8075/',
+    baseURL: 'https://86.107.44.200:8075/',
 });
 
 // Add a request interceptor to include the token in the headers

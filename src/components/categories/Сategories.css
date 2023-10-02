@@ -25,7 +25,6 @@
     font-weight: 500;
     white-space: nowrap;
 }
-
 @media screen and (min-width: 970px){
     .categories{
         gap: 24px;

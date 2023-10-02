@@ -14,7 +14,7 @@ function Main() {
       <div className="main-content">
         <Banner />
         <Partners />
-        <Сategories />
+        {/*<Сategories />*/}
         <Restaurants />
         <Banner2 />
       </div>
