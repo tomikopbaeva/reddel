@@ -80,8 +80,9 @@ function CartMain(props) {
             const pollRedirectUrl = async () => {
                 try {
                     const response = await axios.get('http://185.146.1.93:8000/redirect_user/' + localStorage.getItem('userId'));
+                    console.log(response)
                     const url = response.data.url;
-
+                    console.log(url)
                     if (url) {
                         if (url['0'] == 'h')
                             window.location.href = url;
@@ -151,6 +152,7 @@ function CartMain(props) {
                 })
                     .then((response) =>{
                         if(response.ok){
+                            console.log("OK")
                             waitForRedirect();
                         }
                         else{

@@ -21,26 +21,26 @@ function CerfModal({ onClose, prices }) {
     };
     const waitForRedirect = async () => {
         try {
-            const interval = 2000; // Интервал в миллисекундах (1 секунда)
+            const interval = 1000; // Интервал в миллисекундах (1 секунда)
             const maxAttempts = 60; // Максимальное количество попыток (60 секунд ожидания)
 
             let attempts = 0;
             const pollRedirectUrl = async () => {
                 try {
                     const response = await axios.get('http://185.146.1.93:8000/redirect_user/' + localStorage.getItem('userId'));
+                    console.log(response)
                     const url = response.data.url;
-                    console.log(url['0'] == 'h')
                     console.log(url)
                     if (url) {
-                        if(url['0'] == 'h')
+                        if (url['0'] == 'h')
                             window.location.href = url;
                         else {
                             alert(url)
                             navigate('/')
                         }
-                    } else if (attempts < maxAttempts) {
+                    }else if (attempts < maxAttempts) {
                         attempts++;
-                        setTimeout(pollRedirectUrl, 1000);
+                        setTimeout(pollRedirectUrl, interval);
                     } else {
                         console.error('Превышено максимальное время ожидания.');
                     }
