@@ -1,3 +1,6 @@
+input{
+    position: fixed;
+}
 .registration{
     width: 100%;
     padding: 24px 16px;

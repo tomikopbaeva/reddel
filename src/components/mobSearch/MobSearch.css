@@ -91,6 +91,7 @@ span{
 }
 
 .search-input{
+    position: fixed;
     border-radius: 8px;
     outline: none;
     border: none;
