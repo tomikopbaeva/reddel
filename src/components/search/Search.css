@@ -34,7 +34,7 @@
     width: 300px;
     background-color: white;
     border-radius: 5px;
-    margin: 0px 0;
+    margin: 15px 0;
     padding: 25px 20px;
     display: flex;
     flex-direction: column;
@@ -48,7 +48,7 @@
     color: black;
     /*background: #91A3E2;*/
     padding: 10px;
-    border: 1px solid #91A3E2;
+    border: 1px solid black;
     border-radius: 10px;
 }
 .title{

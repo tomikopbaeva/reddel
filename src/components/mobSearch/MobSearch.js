@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import "./MobSearch.css";
-import Search from "../../components/search/Search";
 import myata from "../../assets/myata.png";
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
@@ -47,6 +46,7 @@ function MobSearch() {
     <section className="mob-search">
         <div className="mob-search-title">
             <h2>Поиск</h2>
+            {/*<Search placeholder={"Название заведения или категории"} />*/}
             <div className="search">
                 <img src={search} alt="" />
                 <input
