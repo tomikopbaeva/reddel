@@ -45,7 +45,8 @@ function CartMain(props) {
         "email": "",
         "firstName": "",
         "lastName": "",
-        "username": ""
+        "username": "",
+        "phone_number": "77082420482"
     });
     const handlePriceSelection = (price) => {
         setSelectedPrice(price);
@@ -79,7 +80,7 @@ function CartMain(props) {
       setActiveIndex(index);
     };
     const handleVerification = (id) => {
-        fetch('https://fastcash-back.trafficwave.kz/ffc-api-public/universal/general/validate-otp', {
+        fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -87,14 +88,14 @@ function CartMain(props) {
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': '+77082420482',
+                'mobile_phone': '+' + user.phone_number,
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
         })
             .then((response) =>{
                 console.log(response)
                 console.log("apply")
-                fetch('https://fastcash-back.trafficwave.kz/ffc-api-public/universal/apply/apply-lead', {
+                fetch('https://api.ffin.credit/ffc-api-public/universal/apply/apply-lead', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -102,7 +103,7 @@ function CartMain(props) {
                     },
                     body: JSON.stringify({
                         'iin': iin,
-                        'mobile_phone': '+77082420482',
+                        'mobile_phone': '+' + user.phone_number,
                         'product': 'REDDEL',
                         'channel': 'REDDEL_WEB',
                         'partner': 'REDDEL',
@@ -128,6 +129,7 @@ function CartMain(props) {
                         }
                     })
                     .catch((error) =>{
+                        console.log()
                         console.log(error.message)
 
                     })
@@ -138,30 +140,30 @@ function CartMain(props) {
 
     }
     const create_certificate = async (e) => {
-        fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
-            }
-        })
-            .then((response) => {
-                if(!response.ok)
-                    navigate('/login')
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data)
-                setUser(data);
-            })
-            .catch((error) => {
-                console.error(error); // Handle any errors that occurred during the fetch
-                navigate('/login')
-            });
+        // fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
+        //     }
+        // })
+        //     .then((response) => {
+        //         if(!response.ok)
+        //             navigate('/login')
+        //         return response.json();
+        //     })
+        //     .then((data) => {
+        //         console.log(data)
+        //         setUser(data);
+        //     })
+        //     .catch((error) => {
+        //         console.error(error); // Handle any errors that occurred during the fetch
+        //         navigate('/login')
+        //     });
         if(selectedPrice==null || iin.length < 12)
             return
         e.preventDefault();
-        fetch('https://fastcash-back.trafficwave.kz/ffc-api-public/universal/general/send-otp', {
+        fetch('https://api.ffin.credit/ffc-api-public/universal/general/send-otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -169,7 +171,7 @@ function CartMain(props) {
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': '+77082420482'
+                'mobile_phone': '+' + user.phone_number
             })
         })
             .then((response) =>{

@@ -21,7 +21,8 @@ function CerfModal({ onClose, prices }) {
         "email": "",
         "firstName": "",
         "lastName": "",
-        "username": ""
+        "username": "",
+        "phone_number": ""
     });
     const handleIINChange = (e) => {
         setIIN(e.target.value);
@@ -69,13 +70,13 @@ function CerfModal({ onClose, prices }) {
             },
             body: JSON.stringify({
                 'iin': "020716550660",
-                'mobile_phone': '+77082420482',
+                'mobile_phone': '+' + user.phone_number,
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
         })
             .then((response) =>{
                 console.log(response)
-                fetch('https://fastcash-back.trafficwave.kz/ffc-api-public/universal/apply/apply-lead', {
+                fetch('https://api.ffin.credit/ffc-api-public/universal/apply/apply-lead', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -83,7 +84,7 @@ function CerfModal({ onClose, prices }) {
                     },
                     body: JSON.stringify({
                         'iin': iin,
-                        'mobile_phone': '+77082420482',
+                        'mobile_phone': '+' + user.phone_number,
                         'product': 'REDDEL',
                         'channel': 'REDDEL_WEB',
                         'partner': 'REDDEL',
@@ -136,7 +137,7 @@ function CerfModal({ onClose, prices }) {
         if(selectedPrice==null || iin.length < 12)
             return
         e.preventDefault();
-        fetch('https://fastcash-back.trafficwave.kz/ffc-api-public/universal/general/send-otp', {
+        fetch('https://api.ffin.credit/ffc-api-public/universal/general/send-otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -144,7 +145,7 @@ function CerfModal({ onClose, prices }) {
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': '+77082420482'
+                'mobile_phone': '+' + user.phone_number
             })
         })
             .then((response) =>{
