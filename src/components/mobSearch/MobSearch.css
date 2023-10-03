@@ -71,9 +71,10 @@ span{
 }
 
 .search{
+    margin-top: 20px;
     display: flex;
     align-items: center;
-    position: relative;
+    position: fixed;
 }
 
 .search1{
