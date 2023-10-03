@@ -1,14 +1,12 @@
-.mob-search, .mob-search .search input{
-    width: 100%;
+.search input{
+    width: 75%;
 }
 
 .mob-search-title{
     display: flex;
     flex-direction: column;
     padding: 16px;
-    gap: 20px;
     box-sizing: border-box;
-    margin-bottom: 10px;
 }
 
 .mob-search-main{
@@ -78,7 +76,6 @@ span{
     /*margin-top: 20px;*/
     display: flex;
     align-items: center;
-    /*position: fixed;*/
 }
 
 .search1{
