@@ -17,6 +17,7 @@ import VerificationCode from "../verificationCode/VerificationCode";
 import termsAndConditions from "../../pages/TermsAndConditions/TermsAndConditions";
 import {useNavigate} from "react-router-dom";
 import MenuCarousel from "../MenuCarousel/MenuCarousel";
+import InputMask from "react-input-mask";
 
 
 function CartMain(props) {
@@ -75,7 +76,7 @@ function CartMain(props) {
 
         }
         catch (error){
-            alert(error)
+
         }
 
     }
@@ -294,6 +295,10 @@ function CartMain(props) {
                         <span>{props.location}</span>
                     </div>
                     <div className='info'>
+                        <h5>Название:</h5>
+                        <span>{props.title}</span>
+                    </div>
+                    <div className='info'>
                         <h5>Cредний чек:</h5>
                         <span>{props.average}</span>
                     </div>
@@ -367,10 +372,23 @@ function CartMain(props) {
 
                 { showIIN ? (
                     <div>
-                        <label >Введите иин:</label>
+                        <h3>Номер ИИН для заявки:</h3>
                         <br></br>
                         <br></br>
-                        <input type="text" value={iin} onChange={handleIINChange} name="code" minLength="12" maxLength="12" required></input>
+                        <InputMask
+                            type="integer"
+                            mask="* * * * * * * * * * * *"
+                            maskChar=" "
+                            placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
+                            value={iin}
+                            onChange={(e) => {
+                                    const numbersOnly = e.target.value.replace(/[^0-9]/g, '');
+                                    setIIN(numbersOnly)
+                                }
+                            }
+                            className="input_iin"
+                        />
+                        {/*<input type="number" value={iin} onChange={handleIINChange} className="input_iin" placeholder="_ _ _ _ _ _ _ _ _ _ _ _" name="code" minLength="12" maxLength="12" required></input>*/}
                         { !iinOk ? <a className={'error'}>Данные введены неверно</a> : <p></p>}
                         <br></br>
                         <br></br>

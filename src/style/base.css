@@ -1,7 +1,10 @@
 p, h1, h2, h3, h4, h5, span, button, a, input, li {
     font-family: 'Manrope',sans-serif;
 }
+*{
+    font-family: 'Manrope',sans-serif;
 
+}
 span{
     font-weight: 500;
     line-height: 24px;

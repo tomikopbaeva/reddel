@@ -105,7 +105,12 @@
 }
 
 .card-info .info h5{
+    font-size: 14px;
     font-weight: 600;
+}
+.card-info .info span{
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .card-info .info + h4{
@@ -213,7 +218,20 @@
     align-items: center;
     gap: 8px;
 }
+.input_iin{
+    width: 92%;
+    padding: 10px;
+    font-size: 18px;
+    border-color: #91A3E2;
+    border-style: solid;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Manrope', sans-serif;
+}
+.input_iin:hover{
+    border-color: #91A3E2;
 
+}
 .certificate span{
     font-size: 16px;
     font-weight: 600;

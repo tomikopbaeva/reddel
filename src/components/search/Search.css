@@ -25,7 +25,8 @@
     background-color: #F4F4F4;
     color: #18181B;
     padding: 8px 12px 8px 40px;
-    font-family: Manrope;
+    font-family: 'Manrope',sans-serif;
+
 }
 
 .dropdown{
@@ -65,6 +66,6 @@
 .card_search:hover{
     background: #3153CA;
 }
-.image{
+.image_search{
     border-radius: 10px;
 }

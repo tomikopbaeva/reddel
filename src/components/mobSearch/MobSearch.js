@@ -62,7 +62,7 @@ function MobSearch() {
             <h2>Популярные места</h2>
             <div className="mob-search-main-blocks">
                 <Splide options={{
-                type: 'loop',
+                // type: 'loop',
                 drag: 'free',
                 focus: 'start',
                 perPage: 4,
@@ -73,7 +73,9 @@ function MobSearch() {
                     {suggestions.map((suggestion, index) => (
                     <SplideSlide>
                         <div className="mob-search-main-block">
-                            <img src={myata} alt="" />
+                            <div className="storimage">
+                                <img src={"https://cloudpaymentsapi.kz"+suggestion.logo} alt="" width="80px"/>
+                            </div>
                             <span>{suggestion.title}</span>
                         </div>
                     </SplideSlide>))

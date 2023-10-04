@@ -71,7 +71,7 @@ function Registration() {
       <div className="cerf-modal">
         <section className="registration">
           <form className="registration-form" onSubmit={handleSubmit}>
-            <h2 className="registration-h2">Регистрация</h2>
+            <h3 className="registration-h2">Регистрация</h3>
 
             <div className="registration-inputs">
               <input
@@ -113,11 +113,11 @@ function Registration() {
                   onChange={handleInputChange}
               />
               <label htmlFor="agreementChecked">
-                Я согласен с{" "}
+                <p>Я согласен с {" "}
                 <a onClick={() => setShowTermsAndConditions(true)}>
                   Условиями и Правилами
                 </a>{" "}
-                Reddell
+                Reddel</p>
               </label>
             </div>
             <button type="submit" className="registration-button">

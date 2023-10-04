@@ -14,8 +14,8 @@ function Header(props) {
   return (
     <div className="header-card">
       <div className="card-body">
-        <img src={image} alt="" />
-        <h3>{props.title}</h3>
+        <img src={props.logo} alt="" width="60px" />
+        {/*<h3>{props.title}</h3>*/}
       </div>
       <div className='tags-card'>
           {props.tags && props.tags.map((item, index) => (

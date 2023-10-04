@@ -35,8 +35,10 @@ function Restauran() {
         <Header className='res' />
         <div className="main-content">
           <CartHeader title={data.title}
+                      logo={"https://cloudpaymentsapi.kz"+data.logo}
                       tags={data.tags}/>
           <CartMain description={data.description}
+                    title={data.title}
                     item_image={"https://cloudpaymentsapi.kz"+data.image}
                     location={data.location}
                     phone_number={data.phone}
@@ -51,6 +53,7 @@ function Restauran() {
           <MobileCartHeader/>
           <MobileCartMain title={data.title}
                           tags={data.tags}
+                          logo={"https://cloudpaymentsapi.kz"+data.logo}
                           description={data.description}
                           item_image={"https://cloudpaymentsapi.kz"+data.image}
                           location={data.location}

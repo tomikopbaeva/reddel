@@ -1,5 +1,7 @@
 .search input{
     width: 75%;
+    font-family: 'Manrope',sans-serif;
+
 }
 
 .mob-search-title{
@@ -33,6 +35,15 @@ span{
     line-height: 1;
 
 }
+.storimage{
+    border-radius: 50%;
+    border: 3px #3153CA solid;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .mob-search-main-block span{
     font-size: 10px;
@@ -40,9 +51,8 @@ span{
 }
 
 .mob-search-main-block img{
-    border: 1px #3153CA solid;
-    padding: 6px;
     border-radius: 50%;
+
 }
 
 .mob-search-main-res-block{

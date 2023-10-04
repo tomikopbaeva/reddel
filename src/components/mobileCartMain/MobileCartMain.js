@@ -51,7 +51,7 @@ function MobileCartMain(props) {
       <div className='mobile-cart-main'>
         <div className="card-main-header">
           <div className="card-body">
-            <img src={image} alt="" />
+            <img src={props.logo} alt="" width="60px" />
             <div>
               <h3>{props.title}</h3>
               <div className='card-tags'>

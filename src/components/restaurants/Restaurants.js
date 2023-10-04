@@ -47,6 +47,7 @@ function Restaurants() {
                             description={restaurant.description}
                             key={index}
                             location={restaurant.location}
+                            logo={"https://cloudpaymentsapi.kz"+restaurant.logo}
                         />
                     ));
                     setCardArray(newCardArray);

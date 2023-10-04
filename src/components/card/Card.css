@@ -50,6 +50,7 @@
 }
 
 .card-body{
+    margin-top: 15px;
     display: flex;
     align-items: center;
     gap: 16px;

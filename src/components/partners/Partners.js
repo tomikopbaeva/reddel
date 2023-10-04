@@ -34,6 +34,7 @@ function Partners() {
                                 tags={data['restaurants'][i].tags}
                                 description={data['restaurants'][i].description}
                                 key={i}
+                                logo={"https://cloudpaymentsapi.kz"+data['restaurants'][i].logo}
                                 location={data['restaurants'][i].location}
                             />
                         );

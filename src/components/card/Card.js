@@ -56,8 +56,7 @@ function Card(props) {
           ))}
       </div>
         <Link to={props.slug} className="card-body">
-
-          <img src={image} alt="" />
+          <img src={props.logo} alt="" width="50px"/>
           <h3>{props.title} </h3>
         </Link>
         <Link to={props.slug} className="card-text">{props.description}</Link>
