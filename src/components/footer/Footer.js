@@ -28,22 +28,22 @@ function Footer() {
                 <div className="footer-links">
                     <div className="footer-link">
                         <Link to="/">Каталог</Link>
-                        <a>Для бизнеса</a>
+                        <a href="mailto:support@reddel.kz">Для бизнеса</a>
                         <Link to="/favorites">Избранное</Link>
                         <Link to="/profile">Личный кабинет</Link>
                     </div>
                     <div className="footer-network">
                         <div>
                             <img src={instagram} alt="instagram" />
-                            <span>reddel.kz</span>
+                            <span> <a href="https://instagram.com/reddel.kz?igshid=MzRlODBiNWFlZA=="> reddel.kz </a></span>
                         </div>
                         <div>
                             <img src={whatsapp} alt="instagram" />
-                            <span>+7 777 123 45 67</span>
+                            <span><a href="https://wa.me/77077528313">+7 (707) 752 83 13</a></span>
                         </div>
                         <div>
                             <img src={mail} alt="instagram" />
-                            <span>reddel@help.kz</span>
+                            <span><a href="mailto:support@reddel.kz">support@reddel.kz</a></span>
                         </div>
                     </div>
                 </div>

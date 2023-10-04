@@ -96,6 +96,11 @@
     gap: 6.56px;
 }
 
+.footer-network a{
+    text-decoration: none;
+    color: white;
+}
+
 .footer-network div img{
     background-color: #fff;
     padding: 3.44px;

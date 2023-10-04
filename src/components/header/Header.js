@@ -25,19 +25,19 @@ function Header({ favoriteItems }) {
                 <div className="link-img">
                   <img src={instagram} alt="instagram" />
                 </div>
-                <span>reddel.kz</span>
+                <span><a href="https://instagram.com/reddel.kz?igshid=MzRlODBiNWFlZA==">reddel.kz</a></span>
               </div>
               <div className="link">
                 <div className="link-img">
                   <img src={whatsapp} alt="whatsapp" />
                 </div>
-                <span>+7 777 123 45 67</span>
+                <span><a href="https://wa.me/77077528313">+7 (707) 752 83 13</a></span>
               </div>
               <div className="link">
                 <div className="link-img">
                   <img src={mail} alt="mail" />
                 </div>
-                <span>reddel@help.kz</span>
+                <span><a href="mailto:support@reddel.kz">support@reddel.kz</a></span>
               </div>
             </div>
             <div className="info">

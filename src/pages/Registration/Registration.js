@@ -16,8 +16,10 @@ function Registration() {
     "firstName": "",
     "lastName": "",
     "phone_number": "",
-    agreementChecked: false
+    // "password": "qwerty123456",
+    // "username": "user123123"
   });
+  const [agreementChecked, setAgreementChecked] = useState(false)
   const [phone, setPhone] = useState('')
 
   const [showVerificationCode, setShowVerificationCode] = useState(false);
@@ -47,7 +49,7 @@ function Registration() {
     e.preventDefault();
 
     // Check if the user has agreed to the terms and conditions
-    if (!formData.agreementChecked) {
+    if (!agreementChecked) {
       alert("Please agree to the terms and conditions.");
       return;
     }
@@ -56,17 +58,18 @@ function Registration() {
       // Make a POST request using the api.post method
       formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
       console.log(formData)
-      const response = await api.post("api/v1/auth/logup", formData);
-
-      if (response.status == "200") {
-        console.log(response.data)
-        console.log(response)
-        setShowVerificationCode(true)
-      } else {
-        // Handle registration errors here
-        alert("Registration failed. Please try again.");
-      }
+      await fetch("http://127.0.0.1:8000/logup", {
+        method: 'POST',
+        body: JSON.stringify(formData)
+      })
+          .then((response) => {
+            console.log(response)
+            return response.json()
+          }).then((data) => {
+            console.log(data)
+      })
     } catch (error) {
+      console.log()
       console.error("Error:", error);
     }
   };
@@ -113,8 +116,10 @@ function Registration() {
                   className="custom-checkbox"
                   id="agreementChecked"
                   name="agreementChecked"
-                  checked={formData.agreementChecked}
-                  onChange={handleInputChange}
+                  checked={agreementChecked}
+                  onChange={() => {
+                    setAgreementChecked(!agreementChecked)
+                  }}
               />
               <label htmlFor="agreementChecked">
                 <p>Я согласен с {" "}
