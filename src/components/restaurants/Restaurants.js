@@ -92,7 +92,7 @@ function Restaurants() {
                 </div>
                 <div className="mob">
                     <Splide options={{
-                        type: 'loop',
+                        // type: 'loop',
                         drag: 'free',
                         focus: 'start',
                         perPage: 4,
