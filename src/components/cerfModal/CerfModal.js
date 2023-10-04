@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import VerificationCode from "../verificationCode/VerificationCode";
 import axios from "axios";
 import Freedom from "../../assets/Logo Credit.png";
+import InputMask from "react-input-mask";
 
 function CerfModal({ onClose, prices }) {
     const modalRef = useRef(null);
@@ -204,7 +205,20 @@ function CerfModal({ onClose, prices }) {
                     <label htmlFor="inputField">Введите иин:</label>
                     <br></br>
                     <br></br>
-                    <input type="text" value={iin} onChange={handleIINChange} name="code" minLength="12" maxLength="12" required></input>
+                    <InputMask
+                        type="integer"
+                        mask="* * * * * * * * * * * *"
+                        maskChar=" "
+                        placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
+                        value={iin}
+                        onChange={(e) => {
+                            const numbersOnly = e.target.value.replace(/[^0-9]/g, '');
+                            setIIN(numbersOnly)
+                        }
+                        }
+                        className="input_iin"
+                    />
+                    {/*<input type="text" value={iin} onChange={handleIINChange} name="code" minLength="12" maxLength="12" required></input>*/}
                     <br></br>
                     <br></br>
 

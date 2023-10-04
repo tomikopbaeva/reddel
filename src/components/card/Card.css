@@ -42,14 +42,15 @@
 }
 
 .tag{
-    padding: 0 4px;
+    padding: 0 5px;
     display: flex;
+    justify-content: center;
     text-align: center;
     align-items: center;
     background-color: #EDB92E;
     color: #18181B;
     /*font-weight: 600;*/
-    height: 13px;
+    height: 20px;
     /*word-wrap: break-word;*/
     border-radius: 7px;
 }
@@ -57,8 +58,8 @@
     display: flex;
     text-align: center;
     align-items: center;
-    font-size: 8px;
-    height: 13px;
+    font-size: 80%;
+    width: 100%;
 }
 
 .card-body{
@@ -96,6 +97,7 @@
 }
 
 .location span{
+    font-size: 14px;
     color: #18181B;
     font-weight: 400;
 }
@@ -166,7 +168,7 @@
         font-size: 18px;
     }
     span, .tag{
-        font-size: 10px;
+        font-size: 150%;
     }
     .card-button.liked {
         background: rgba(49.12, 82.88, 201.88, 0.10);

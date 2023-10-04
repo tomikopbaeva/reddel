@@ -26,7 +26,7 @@ function Restauran() {
             })
             .then((data) =>{
                 setData(data.data)
-                console.log(data.data)
+                console.log(data.data.images)
             })
     },[]);
   return (
@@ -40,6 +40,7 @@ function Restauran() {
           <CartMain description={data.description}
                     title={data.title}
                     item_image={"https://cloudpaymentsapi.kz"+data.image}
+                    images={data.images}
                     location={data.location}
                     phone_number={data.phone}
                     kitchen={data.kitchen}
@@ -52,6 +53,7 @@ function Restauran() {
         <div className="mobile">
           <MobileCartHeader/>
           <MobileCartMain title={data.title}
+                          images={data.images}
                           tags={data.tags}
                           logo={"https://cloudpaymentsapi.kz"+data.logo}
                           description={data.description}

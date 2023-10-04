@@ -15,6 +15,7 @@ import VerificationCode from "../verificationCode/VerificationCode";
 import axios from "axios";
 import Book from "../../assets/book.svg";
 import MenuCarousel from "../MenuCarousel/MenuCarousel";
+import FullScreenImage from "../FullScreenImage/FullScreenImage";
 
 
 
@@ -25,11 +26,19 @@ function MobileCartMain(props) {
   const images = [Rectangle, Rectangle, Rectangle];
   const [showVerification, setShowVerification] = useState(false)
   const [selectedPrice, setSelectedPrice] = useState(null);
-    const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+  const [isFullScreenOpen, setIsFullScreenOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
-  const handleThumbnailClick = (index) => {
-    setActiveIndex(index);
-  };
+    const openFullScreen = (imageUrl) => {
+        setSelectedImage(imageUrl);
+        setIsFullScreenOpen(true);
+    };
+
+    const closeFullScreen = () => {
+        setSelectedImage("");
+        setIsFullScreenOpen(false);
+    };
   const handleCertificateButtonClick = () => {
       if(selectedPrice != null){
           setShowVerification(true)
@@ -115,16 +124,18 @@ function MobileCartMain(props) {
             </div>
         </div>
         <div className="thumbnails">
-            {images.map((image, index) => (
+            {props.images && props.images.map((image, index) => (
               <div
                 key={index}
                 className={`thumbnail ${activeIndex === index ? 'active' : ''}`}
-                onClick={() => handleThumbnailClick(index)}
-              >
-                <img src={props.item_image} alt={`Thumbnail ${index}`} />
+                onClick={() => openFullScreen("https://cloudpaymentsapi.kz"+image)}>
+                <img src={"https://cloudpaymentsapi.kz"+image} alt={`Thumbnail ${index}`} />
               </div>
             ))}
         </div>
+          {isFullScreenOpen && (
+              <FullScreenImage imageUrl={selectedImage} onClose={closeFullScreen} />
+          )}
         <button className='certificate-button' onClick={handleCertificateButtonClick}>
           Оформить
         </button>

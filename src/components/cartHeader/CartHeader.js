@@ -19,7 +19,7 @@ function Header(props) {
       </div>
       <div className='tags-card'>
           {props.tags && props.tags.map((item, index) => (
-              <span key={index} className='tag'>{item}</span>
+              <span key={index} className='tag-item'>{item}</span>
           ))}
         {/*<span className='tag'>Тег 1</span>*/}
         {/*<span className='tag'>Тег 2</span>*/}

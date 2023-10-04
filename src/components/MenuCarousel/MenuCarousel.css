@@ -14,14 +14,14 @@
     /*background-color: #fff;*/
     padding: 24px;
     width: 80%;
-    height: 90%;
+    height: 95%;
     box-sizing: border-box;
-    position: absolute;
+    /*position: absolute;*/
     left: 10%;
     border-radius: 18px 18px 0 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    /*gap: 12px;*/
 }
 .carousel .thumbs {
     display: none;
@@ -29,17 +29,10 @@
 .carousel-status{
     display: none;
 }
-.close-button{
+.close_div{
     position: absolute;
-     z-index: 1;
-    align-items: end;
-    border-radius: 10px;
-    padding: 5px;
-    background: #3153CA;
-}
-.close-button p{
-    color: white;
-    font-size: 12px;
+    width: 5%;
+    z-index: 1;
 }
 .image{
     display: flex;
@@ -49,5 +42,13 @@
     align-content: center;
 }
 .image1{
+    position: relative;
     width: 470px;
+}
+@media screen and (max-width: 970px) {
+    .carousel-content {
+        width: 100%;
+        top: 20%;
+        left: 0;
+    }
 }

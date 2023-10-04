@@ -15,7 +15,17 @@
     align-items: center;
     gap: 8px;
 }
-
+.tag-item{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background-color: #EDB92E;
+    color: #18181B;
+    height: 20px;
+    border-radius: 7px;
+}
 .header-card .card-button{
     display: flex;
     align-items: center;

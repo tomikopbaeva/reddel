@@ -268,20 +268,20 @@ function CartMain(props) {
                 <SplideSlide key={0}>
                     <img width="100%" src={props.item_image} alt="Slide" />
                 </SplideSlide>
-            {images.map((image, index) => (
+            {props.images && props.images.map((image, index) => (
               <SplideSlide key={1}>
-                <img src={image} id={index} width="100%" alt="Slide" />
+                <img src={"https://cloudpaymentsapi.kz"+image} id={index} width="100%" alt="Slide" />
               </SplideSlide>
             ))}
           </Splide>
             <div className="thumbnails">
-            {images.map((image, index) => (
+            {props.images && props.images.map((image, index) => (
               <div
                 key={index}
                 className={`thumbnail ${activeIndex === index ? 'active' : ''}`}
                 onClick={() => handleThumbnailClick(index)}
               >
-                <img src={image} alt={`Thumbnail ${index}`} />
+                <img src={"https://cloudpaymentsapi.kz"+image} alt={`Thumbnail ${index}`} />
               </div>
             ))}
           </div>
