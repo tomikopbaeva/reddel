@@ -13,6 +13,8 @@ import heart2 from '../../assets/heart2.svg';
 import {useNavigate} from "react-router-dom";
 import VerificationCode from "../verificationCode/VerificationCode";
 import axios from "axios";
+import Book from "../../assets/book.svg";
+import MenuCarousel from "../MenuCarousel/MenuCarousel";
 
 
 
@@ -23,6 +25,7 @@ function MobileCartMain(props) {
   const images = [Rectangle, Rectangle, Rectangle];
   const [showVerification, setShowVerification] = useState(false)
   const [selectedPrice, setSelectedPrice] = useState(null);
+    const [isCarouselOpen, setIsCarouselOpen] = useState(false);
 
   const handleThumbnailClick = (index) => {
     setActiveIndex(index);
@@ -37,6 +40,13 @@ function MobileCartMain(props) {
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
   };
+    const openCarousel = () => {
+        setIsCarouselOpen(true);
+    };
+
+    const closeCarousel = () => {
+        setIsCarouselOpen(false);
+    };
   return (
       <div className='mobile-cart-main'>
         <div className="card-main-header">
@@ -77,9 +87,12 @@ function MobileCartMain(props) {
           <button className='icon-item'>
               <h4>🔥 Акции</h4>
           </button>
-          <button className='icon-item'>
+          <button className='icon-item' onClick={openCarousel}>
               <h4>🌟 Меню</h4>
           </button>
+            {isCarouselOpen && (
+                <MenuCarousel menus={props.menus} onClose={closeCarousel} />
+            )}
         </div>
         <div className="card-main-body"></div>
         <div className='info'>

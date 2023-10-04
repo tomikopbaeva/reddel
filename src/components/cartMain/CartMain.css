@@ -165,7 +165,7 @@
 .card-icon img{
     align-self: flex-end;
 }
-.cart-main-left-bottom .card-icon img{
+.cart-main-left-bottom .card-icon .img50{
     width: 32px;
     background-color: #3153CA;
     border-radius: 50%;

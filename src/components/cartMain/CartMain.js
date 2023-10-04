@@ -16,6 +16,8 @@ import api from "../../api";
 import VerificationCode from "../verificationCode/VerificationCode";
 import termsAndConditions from "../../pages/TermsAndConditions/TermsAndConditions";
 import {useNavigate} from "react-router-dom";
+import MenuCarousel from "../MenuCarousel/MenuCarousel";
+
 
 function CartMain(props) {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -30,6 +32,7 @@ function CartMain(props) {
     const [showErrorText, setShowErrorText] = useState(false)
     const [iin, setIIN] = useState("")
     const [month, setMonth] = useState(-1)
+    const [isCarouselOpen, setIsCarouselOpen] = useState(false);
 
     const handleIINChange = (e) => {
         setIIN(e.target.value);
@@ -220,8 +223,16 @@ function CartMain(props) {
         //     console.log(error.messages);
         //     alert("Неверный логин или пароль");
         // }
+
     };
-  return (
+    const openCarousel = () => {
+        setIsCarouselOpen(true);
+    };
+
+    const closeCarousel = () => {
+        setIsCarouselOpen(false);
+    };
+    return (
     <div className="cart-main">
         <div className="cart-main-left">
             <div className="cart-main-left-top shadow">
@@ -290,17 +301,20 @@ function CartMain(props) {
                     </div>
                 </div>
                 <div className='card-icon'>
-                    <div className='icon'>
+                    <div className="icon" onClick={openCarousel}>
                         <h4>Меню</h4>
-                        <img src={Book} alt="book" />
+                        <img className="img50" src={Book} alt="book" />
                     </div>
+                    {isCarouselOpen && (
+                        <MenuCarousel menus={props.menus} onClose={closeCarousel} />
+                    )}
                     <div className='icon'>
                         <h4>Акции</h4>
-                        <img src={Star} alt="book" />
+                        <img className="img50" src={Star} alt="book" />
                     </div>
                     <div className='icon'>
                         <h4>Резерв</h4>
-                        <img src={Whatsapp} alt="book" />
+                        <img className="img50" src={Whatsapp} alt="book" />
                     </div>
                 </div>
             </div>
