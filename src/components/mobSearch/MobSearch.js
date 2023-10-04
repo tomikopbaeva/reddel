@@ -72,12 +72,12 @@ function MobSearch() {
                 }}>
                     {suggestions.map((suggestion, index) => (
                     <SplideSlide>
-                        <div className="mob-search-main-block">
+                        <a href={"restauran/" + suggestion.slug} className="mob-search-main-block">
                             <div className="storimage">
                                 <img src={"https://cloudpaymentsapi.kz"+suggestion.logo} alt="" width="80px"/>
                             </div>
                             <span>{suggestion.title}</span>
-                        </div>
+                        </a>
                     </SplideSlide>))
                     }
                 </Splide>

@@ -5,6 +5,10 @@ import TermsAndConditions from "../TermsAndConditions/TermsAndConditions";
 import api from "../../api";
 import VerificationCode from "../../components/verificationCode/VerificationCode";
 import InputMask from "react-input-mask";
+import home from "../../assets/home.svg";
+import search from "../../assets/Search2.svg";
+import heart from "../../assets/heart.svg";
+import profile from "../../assets/profile.svg";
 
 function Registration() {
   const [formData, setFormData] = useState({
@@ -129,6 +133,26 @@ function Registration() {
             <TermsAndConditions onClose={closeTermsAndConditions} />
         )}
         {showVerificationCode && <VerificationCode handleVerification={handleVerification}/>}
+        <footer className="footer">
+          <div className="mob">
+            <Link to="/" className="mob-item">
+              <img src={home} alt="logo" />
+              <span>Главная</span>
+            </Link>
+            <Link to="/search" className="mob-item">
+              <img src={search} alt="logo" />
+              <span>Поиск</span>
+            </Link>
+            <Link to="/favorites" className="mob-item">
+              <img src={heart} alt="logo" />
+              <span>Избранное</span>
+            </Link>
+            <Link to="/profile" className="mob-item">
+              <img src={profile} alt="logo" />
+              <span>Профиль</span>
+            </Link>
+          </div>
+        </footer>
       </div>
   );
 }

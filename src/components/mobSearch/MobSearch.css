@@ -22,6 +22,8 @@
 }
 
 .mob-search-main-block{
+    text-decoration: none;
+    color: black;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -43,6 +45,10 @@ span{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.storimage img{
+    width: 80px;
 }
 
 .mob-search-main-block span{
@@ -75,6 +81,8 @@ span{
 
 .mob-search-main-res-block div img{
     border-radius: 8px;
+    width: 80px;
+
 }
 
 .mob-search-main-res-block div h4{

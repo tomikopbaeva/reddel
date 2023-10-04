@@ -1,13 +1,18 @@
 import {Link} from "react-router-dom";
 import "./Login.css";
 import api from "../../api";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import InputMask from 'react-input-mask';
 import cerfModal from "../../components/cerfModal/CerfModal";
 import CerfModal from "../../components/cerfModal/CerfModal";
 import VerificationCode from "../../components/verificationCode/VerificationCode";
 import error from "../../components/error/Error";
+import Footer from "../../components/footer/Footer";
+import home from "../../assets/home.svg";
+import search from "../../assets/Search2.svg";
+import heart from "../../assets/heart.svg";
+import profile from "../../assets/profile.svg";
 
 
 function Login() {
@@ -106,6 +111,26 @@ function Login() {
           <p>У вас еще нет аккаунта? <Link to="/registration"> Зарегистрироваться</Link></p>
         </form>
       </section>
+      <footer className="footer">
+      <div className="mob">
+        <Link to="/" className="mob-item">
+          <img src={home} alt="logo" />
+          <span>Главная</span>
+        </Link>
+        <Link to="/search" className="mob-item">
+          <img src={search} alt="logo" />
+          <span>Поиск</span>
+        </Link>
+        <Link to="/favorites" className="mob-item">
+          <img src={heart} alt="logo" />
+          <span>Избранное</span>
+        </Link>
+        <Link to="/profile" className="mob-item">
+          <img src={profile} alt="logo" />
+          <span>Профиль</span>
+        </Link>
+      </div>
+      </footer>
     </div>
   );
 }

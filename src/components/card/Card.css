@@ -33,20 +33,32 @@
 }
 
 .tags{
-    margin-top: -55px;
+    position: absolute;
+    margin-top: 30px;
     margin-left: 10px;
     display: flex;
-    gap: 8px;
+    gap: 4px;
+    flex-direction: column;
 }
 
 .tag{
-    padding: 4px 10px;
+    padding: 0 4px;
+    display: flex;
+    text-align: center;
+    align-items: center;
     background-color: #EDB92E;
     color: #18181B;
-    font-size: 16px;
-    font-weight: 600;
-    word-wrap: break-word;
-    border-radius: 12px;
+    /*font-weight: 600;*/
+    height: 13px;
+    /*word-wrap: break-word;*/
+    border-radius: 7px;
+}
+.tag p{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    font-size: 8px;
+    height: 13px;
 }
 
 .card-body{
@@ -71,10 +83,6 @@
     text-decoration: none;
     line-height: 1;
     color: #18181B;
-}
-
-span, .tag{
-    font-size: 12px;
 }
 
 .location{
@@ -158,7 +166,7 @@ span, .tag{
         font-size: 18px;
     }
     span, .tag{
-        font-size: 16px;
+        font-size: 10px;
     }
     .card-button.liked {
         background: rgba(49.12, 82.88, 201.88, 0.10);

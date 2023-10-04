@@ -52,7 +52,7 @@ function Card(props) {
       <img src={props.item_image} alt="random" />
       <div className='tags'>
           {props.tags && props.tags.map((item, index) => (
-              <span key={index} className='tag'>{item}</span>
+              <span key={index} className='tag'><p>{item}</p></span>
           ))}
       </div>
         <Link to={props.slug} className="card-body">

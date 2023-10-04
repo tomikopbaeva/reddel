@@ -115,4 +115,8 @@
         width: 100%;
     }
 }
-    
+@media screen and (max-width:970px) {
+    .registration{
+        bottom: 8%;
+    }
+}
