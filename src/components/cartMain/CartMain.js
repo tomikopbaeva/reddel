@@ -62,7 +62,7 @@ function CartMain(props) {
             console.log("HERE WE GO AGAIN 2")
             const data = await response.json();
             console.log(data)
-            const url = data.url;
+            const url = await data.url;
             console.log(url)
             if (url) {
                 if (url['0'] == 'h')
@@ -83,15 +83,16 @@ function CartMain(props) {
       setActiveIndex(index);
     };
     const handleVerification = (id) => {
+        console.log(localStorage.getItem("jwt"))
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
+                'Authorization': "JWT " + localStorage.getItem("jwt")
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': '+' + user.phone_number,
+                'mobile_phone': + user.phone_number,
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
         })
@@ -102,7 +103,7 @@ function CartMain(props) {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
+                        'Authorization': "JWT " + localStorage.getItem("jwt")
                     },
                     body: JSON.stringify({
                         'iin': iin,
@@ -123,6 +124,7 @@ function CartMain(props) {
                     })
                 })
                     .then((response) =>{
+                        console.log(response.json())
                         if(response.ok){
                             console.log("OK")
                             waitForRedirect();
@@ -142,7 +144,7 @@ function CartMain(props) {
             })
 
     }
-    const create_certificate = async (e) => {
+    const create_certificate = async () => {
         // fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
         //     method: 'GET',
         //     headers: {
@@ -165,12 +167,27 @@ function CartMain(props) {
         //     });
         if(selectedPrice==null || iin.length < 12)
             return
-        e.preventDefault();
+        await fetch('https://api.ffin.credit/ffc-api-auth/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                'username': 'reddel@ffin.credit',
+                'password': '3TxAA5@rsA9M$*yw'
+            })
+        })
+            .then(async (response) => {
+                let jwt = await response.json()
+                console.log(jwt.access)
+                localStorage.setItem("jwt", jwt.access)
+            })
+        console.log(localStorage.getItem("jwt"))
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/send-otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
+                'Authorization': "JWT " + localStorage.getItem("jwt")
             },
             body: JSON.stringify({
                 'iin': iin,
@@ -349,8 +366,8 @@ function CartMain(props) {
                 <img src={Freedom} alt="random" width={'150px'}/>
 
                 { showIIN ? (
-                    <form>
-                        <label htmlFor="inputField">Введите иин:</label>
+                    <div>
+                        <label >Введите иин:</label>
                         <br></br>
                         <br></br>
                         <input type="text" value={iin} onChange={handleIINChange} name="code" minLength="12" maxLength="12" required></input>
@@ -359,7 +376,7 @@ function CartMain(props) {
                         <br></br>
 
                         <button className='certificate-button' type={"submit"} onClick={create_certificate}>Оформить</button>
-                    </form>) : (
+                    </div>) : (
                     <a>Выберите сумму</a>
                     )
 
