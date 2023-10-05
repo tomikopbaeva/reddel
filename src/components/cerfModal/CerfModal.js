@@ -6,6 +6,7 @@ import VerificationCode from "../verificationCode/VerificationCode";
 import axios from "axios";
 import Freedom from "../../assets/Logo Credit.png";
 import InputMask from "react-input-mask";
+import Loading from "react-fullscreen-loading";
 
 function CerfModal({ onClose, prices }) {
     const modalRef = useRef(null);
@@ -18,6 +19,8 @@ function CerfModal({ onClose, prices }) {
     const [iinOk, setIINOk] = useState(true)
     const [iin, setIIN] = useState("")
     const [month, setMonth] = useState(-1)
+    const [showLoader, setShowLoader] = useState(false)
+
     let [user, setUser] = useState({
         "email": "",
         "firstName": "",
@@ -31,24 +34,27 @@ function CerfModal({ onClose, prices }) {
     const waitForRedirect = async () => {
         console.log("HERE WE GO AGAIN")
         try{
-            const response = await fetch('https://cloudpaymentsapi.kz/redirect_user' + localStorage.getItem('userId'))
-            console.log("HERE WE GO AGAIN 2")
-            const data = await response.json();
-            console.log(data)
-            const url = data.url;
-            console.log(url)
-            if (url) {
-                if (url['0'] == 'h')
-                    window.location.href = url;
-                else {
-                    alert(url)
-                    navigate('/')
-                }
-            }
+            await fetch('https://cloudpaymentsapi.kz/redirect_user/' + localStorage.getItem('userId'), )
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    const url = data.url;
+                    console.log(url)
+                    setShowLoader(false)
+                    if (url) {
+                        if (url['0'] == 'h')
+                            window.location.href = url;
+                        else {
+                            alert(url)
+                            navigate('/')
+                        }
+                    }
+                })
 
         }
         catch (error){
-            alert(error)
+            await waitForRedirect()
         }
 
     }
@@ -63,14 +69,14 @@ function CerfModal({ onClose, prices }) {
         setShowIIN(price > 0 && selectedPrice > 0)
     };
     const handleVerification = (id) => {
-        fetch('https://fastcash-back.trafficwave.kz/ffc-api-public/universal/general/validate-otp', {
+        fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
+                'Authorization': "JWT " + localStorage.getItem("jwt")
             },
             body: JSON.stringify({
-                'iin': "020716550660",
+                'iin': iin,
                 'mobile_phone': '+' + user.phone_number,
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
@@ -81,7 +87,7 @@ function CerfModal({ onClose, prices }) {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
+                        'Authorization': "JWT " + localStorage.getItem("jwt")
                     },
                     body: JSON.stringify({
                         'iin': iin,
@@ -115,15 +121,15 @@ function CerfModal({ onClose, prices }) {
 
     }
     const create_certificate = async (e) => {
-        fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
-            method: 'GET',
+        fetch('https://surapid.kz/api/user', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
-            }
+            },
+            body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
         })
             .then((response) => {
-                if(!response.ok)
+                if(response.status != '200')
                     navigate('/login')
                 return response.json();
             })
@@ -138,11 +144,26 @@ function CerfModal({ onClose, prices }) {
         if(selectedPrice==null || iin.length < 12)
             return
         e.preventDefault();
+        await fetch('https://api.ffin.credit/ffc-api-auth/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                'username': 'reddel@ffin.credit',
+                'password': '3TxAA5@rsA9M$*yw'
+            })
+        })
+            .then(async (response) => {
+                let jwt = await response.json()
+                console.log(jwt.access)
+                localStorage.setItem("jwt", jwt.access)
+            })
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/send-otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk2MjYxMjc3LCJqdGkiOiI4ZDE4YjE3OGY1YWE0Y2JkYmJiYWZjZmVmNjE0ODc2NCIsInVzZXJfaWQiOjI0NzUsImVtYWlsIjoidGVzdF9wYXJ0bmVyQG1haWwucnUiLCJmdWxsX25hbWUiOiIiLCJtZXJjaGFudCI6IlNFUlZJQ0VfQ0VOVEVSIiwiYnJhbmNoIjoiIiwicm9sZSI6bnVsbCwic2FsdCI6IiJ9.ktE4gjM-zrWZG9vCp3pk7UB5o0Uj25iZXB662UjzSXw"
+                'Authorization': "JWT " + localStorage.getItem("jwt")
             },
             body: JSON.stringify({
                 'iin': iin,
@@ -231,6 +252,8 @@ function CerfModal({ onClose, prices }) {
             { !showIIN ? <button className='certificate-button' onClick={create_certificate}>Оформить</button> : (<a></a>)}
         </div>
         {showVerification && <VerificationCode handleVerification={handleVerification}/>}
+        {showLoader ? <Loading loading background="" loaderColor="#3498db" > Банк принимает решение </Loading> : (<a></a>)}
+
     </div>
   );
 }

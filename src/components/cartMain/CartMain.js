@@ -4,7 +4,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import axios from 'axios';
 import Freedom from '../../assets/Logo Credit.png'
 
-
+import Loading from 'react-fullscreen-loading';
 import './CartMain.css';
 import location from '../../assets/location2.svg';
 import Rectangle from '../../assets/Rectangle2.png';
@@ -26,7 +26,6 @@ function CartMain(props) {
     const navigate = useNavigate();
     const [selectedPrice, setSelectedPrice] = useState(0);
     const [showIIN, setShowIIN] = useState(false)
-    const [phone, setPhone] = useState("")
     const [iinOk, setIINOk] = useState(true)
     const [showVerification, setShowVerification] = useState(false)
     const [showOkText, setShowOkText] = useState(false)
@@ -34,7 +33,7 @@ function CartMain(props) {
     const [iin, setIIN] = useState("")
     const [month, setMonth] = useState(-1)
     const [isCarouselOpen, setIsCarouselOpen] = useState(false);
-
+    const [showLoader, setShowLoader] = useState(false)
     const handleIINChange = (e) => {
         setIIN(e.target.value);
     };
@@ -42,15 +41,12 @@ function CartMain(props) {
         setMonth(price);
         setShowIIN(price > 0 && selectedPrice > 0)
     };
-    const handlePhoneChange = (e) => {
-        setPhone(e.target.value);
-    };
     let [user, setUser] = useState({
         "email": "",
         "firstName": "",
         "lastName": "",
         "username": "",
-        "phone_number": "77082420482"
+        "phone_number": ""
     });
     const handlePriceSelection = (price) => {
         setSelectedPrice(price);
@@ -59,24 +55,27 @@ function CartMain(props) {
     const waitForRedirect = async () => {
         console.log("HERE WE GO AGAIN")
         try{
-            const response = await fetch('https://cloudpaymentsapi.kz/redirect_user/' + localStorage.getItem('userId'))
-            console.log("HERE WE GO AGAIN 2")
-            const data = await response.json();
-            console.log(data)
-            const url = await data.url;
-            console.log(url)
-            if (url) {
-                if (url['0'] == 'h')
-                    window.location.href = url;
-                else {
-                    alert(url)
-                    navigate('/')
-                }
-            }
+            await fetch('https://cloudpaymentsapi.kz/redirect_user/' + localStorage.getItem('userId'), )
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    const url = data.url;
+                    console.log(url)
+                    setShowLoader(false)
+                    if (url) {
+                        if (url['0'] == 'h')
+                            window.location.href = url;
+                        else {
+                            alert(url)
+                            navigate('/')
+                        }
+                    }
+            })
 
         }
         catch (error){
-
+            await waitForRedirect()
         }
 
     }
@@ -93,7 +92,7 @@ function CartMain(props) {
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': + user.phone_number,
+                'mobile_phone': '+' + user.phone_number,
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
         })
@@ -128,6 +127,7 @@ function CartMain(props) {
                         console.log(response.json())
                         if(response.ok){
                             console.log("OK")
+                            setShowLoader(true)
                             waitForRedirect();
                         }
                         else{
@@ -146,26 +146,26 @@ function CartMain(props) {
 
     }
     const create_certificate = async () => {
-        // fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
-        //     }
-        // })
-        //     .then((response) => {
-        //         if(!response.ok)
-        //             navigate('/login')
-        //         return response.json();
-        //     })
-        //     .then((data) => {
-        //         console.log(data)
-        //         setUser(data);
-        //     })
-        //     .catch((error) => {
-        //         console.error(error); // Handle any errors that occurred during the fetch
-        //         navigate('/login')
-        //     });
+        fetch('https://surapid.kz/api/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
+        })
+            .then((response) => {
+                if(response.status != 200){
+                    navigate('/login')
+                }
+                return response.json()
+            })
+            .then((data) => {
+                console.log(data)
+                setUser(data)
+            })
+            .catch((error) => {
+                navigate('/login')
+            })
         if(selectedPrice==null || iin.length < 12)
             return
         await fetch('https://api.ffin.credit/ffc-api-auth/', {
@@ -410,6 +410,7 @@ function CartMain(props) {
                 <li className='li'>После покупки сообщите код из сертификата администратору заведения для оплаты счета</li>
             </div>
         </div>
+        {showLoader ? <Loading loading background="" loaderColor="#3498db" > Банк принимает решение </Loading> : (<a></a>)}
     </div>
   );
 }

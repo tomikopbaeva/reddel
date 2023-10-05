@@ -35,15 +35,15 @@ function ProfileChanges(props) {
         </div>
         <div className="info">
           <span>Имя</span>
-          <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.firstName}/>
+          <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.first_name}/>
         </div>
         <div className="info">
           <span>Фамилия</span>
-          <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.lastName}/>
+          <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.last_name}/>
         </div>
         <div className="info">
           <span>Телефон</span>
-          <input className="profile-input" type="text" placeholder="Введите новый email" value="+7 777 123 45 67" />
+          <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.phone_number} />
         </div>
         <div className="info">
           <span>Email</span>

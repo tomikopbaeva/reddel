@@ -30,32 +30,56 @@ function Login() {
   };
 
   useEffect(() => {
-    console.log(localStorage.getItem('accessToken') + " token")
-    fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
-      method: 'GET',
+    console.log(localStorage.getItem('accessToken'))
+    fetch('https://surapid.kz/api/user', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer  ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
-      }
+      },
+      body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
     })
         .then((response) => {
-          if (response.ok) {
-            navigate("/profile")
+          if(response.status == 200){
+              navigate('/profile')
           }
+          return response.json()
         })
-  }, []);
+        .catch((error) => {
+          console.log(error)
+        })
+  });
   const handleVerification = (code) => {
-    api.post("api/v1/auth/checkCode", {
-        "code": "123456", // Replace with the actual code you want to send
-        "phone_number": phoneNumber.replaceAll(/[^0-9]/g, ''),
+    code = code[0] + code[1] + code[2] + code[3]
+    if(code == '0000'){
+      console.log("GOOD")
+    }
+    else{
+      return
+    }
+    fetch('https://surapid.kz/api/login',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"phone_number": phoneNumber.replaceAll(/[^0-9]/g, '')})
     }).then((response) => {
-      console.log(response);
-      localStorage.setItem('accessToken', response.data);
-      navigate('/profile')
-    }).catch((error) => {
-      console.log(error);
-      alert('Неверный код');
-    });
+        return response.json()
+    }).then((data) => {
+      console.log(data)
+      if(data.token){
+        localStorage.setItem('accessToken', data.token)
+        navigate("/profile")
+      }
+    })
+    // }).then((response) => {
+    //   console.log(response);
+    //   localStorage.setItem('accessToken', response.data);
+    //   navigate('/profile')
+    // }).catch((error) => {
+    //   console.log(error);
+    //   alert('Неверный код');
+    // });
   };
   const handleLogin = async (e) => {
 
@@ -64,29 +88,8 @@ function Login() {
       return
     }
     let data = phoneNumber.replaceAll(/[^0-9]/g, '')
-    const response = await api.post("api/v1/auth/login", {'phone_number': data}).then((response) => {
-      console.log(response.data)
-      if(response.status == 200){
-        localStorage.setItem('userId', response.data.id)
-        setOpenCerf(true)
-      }
-    }).catch((error) =>{
-      console.log(error)
-      alert("Номер не зарегистриван")
-      return;
-    })
-
-    // try {
-    //   console.log(credentials)
-    //   const response = await api.post('/api/v1/auth/login', credentials);
-    //   localStorage.setItem('userId', response.data.id)
-    //   localStorage.setItem('accessToken', response.data.token);
-    //   if(response.status == 200)
-    //     navigate('/profile');
-    // } catch (error) {
-    //   console.log(error);
-    //   alert("Неверный логин или пароль");
-    // }
+    await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации:0000&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+    setOpenCerf(true)
   };
     return (
     <div className="cerf-modal">

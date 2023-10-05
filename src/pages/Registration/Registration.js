@@ -12,12 +12,10 @@ import profile from "../../assets/profile.svg";
 
 function Registration() {
   const [formData, setFormData] = useState({
+    "first_name": "",
+    "last_name": "",
     "email": "",
-    "firstName": "",
-    "lastName": "",
-    "phone_number": "",
-    // "password": "qwerty123456",
-    // "username": "user123123"
+    "phone_number": ""
   });
   const [agreementChecked, setAgreementChecked] = useState(false)
   const [phone, setPhone] = useState('')
@@ -40,8 +38,37 @@ function Registration() {
     });
   };
 
-  const handleVerification = async (id) => {
-    const response = await api.post("api/v1/auth/activate", {"code" : id});
+  const handleVerification = async (code) => {
+    code = code[0] + code[1] + code[2] + code[3]
+    if(code == '0000'){
+      console.log("GOOD")
+    }
+    else
+      return
+    try {
+      // Make a POST request using the api.post method
+      formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
+      console.log(formData)
+      fetch("https://surapid.kz/api/register", {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+          .then((response) => {
+            if(response.status == 200)
+              navigate('/login')
+            else {
+              console.log(response.json())
+              alert('Повторите попытку')
+            }
+          })
+    } catch (error) {
+      console.log()
+      console.error("Error:", error);
+    }
 
   }
 
@@ -55,20 +82,11 @@ function Registration() {
     }
 
     try {
-      // Make a POST request using the api.post method
       formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
-      console.log(formData)
-      await fetch("http://127.0.0.1:8000/logup", {
-        method: 'POST',
-        body: JSON.stringify(formData)
-      })
-          .then((response) => {
-            console.log(response)
-            return response.json()
-          }).then((data) => {
-            console.log(data)
-      })
-    } catch (error) {
+      await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + formData.phone_number + "&text=Код валидации:0000&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+      setShowVerificationCode(true)
+    }
+    catch (error) {
       console.log()
       console.error("Error:", error);
     }
@@ -83,16 +101,16 @@ function Registration() {
             <div className="registration-inputs">
               <input
                   type="text"
-                  name="firstName"
+                  name="first_name"
                   placeholder="Имя"
-                  value={formData.firstName}
+                  value={formData.first_name}
                   onChange={handleInputChange}
               />
               <input
                   type="text"
-                  name="lastName"
+                  name="last_name"
                   placeholder="Фамилия"
-                  value={formData.lastName}
+                  value={formData.last_name}
                   onChange={handleInputChange}
               />
             </div>

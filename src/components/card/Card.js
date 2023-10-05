@@ -16,27 +16,34 @@ function Card(props) {
     const navigate = useNavigate();
     const handleLikeClick = (id: any) => {
         console.log(id)
-        if(!localStorage.getItem('userId') || !localStorage.getItem('accessToken'))
-            navigate("/profile")
-        else
         try {
-            fetch('http://86.107.44.200:8076/api/v1/users/' + localStorage.getItem('userId'), {
-                method: 'GET',
+            fetch('https://surapid.kz/api/user', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
-                }
+                },
+                body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
             })
                 .then((response) => {
-                    fetch("http://185.146.1.93:8000/add_to_favorite/" + localStorage.getItem('userId') + "/" + id, {
+                    if(response.status == '200'){
+                        return response.json()
+                    }
+                    else{
+                        navigate('/login')
+                    }
+                })
+                .then((data) => {
+                    fetch("https://cloudpaymentsapi.kz/add_to_favorite/" + data.id + "/" + id, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
                         }
                     })
                         .then((response) => {
-                            console.log("OK")
                             setIsLiked(!isLiked);
+                        })
+                        .catch((error) => {
+                            alert(error)
                         })
                 })
         } catch (error) {

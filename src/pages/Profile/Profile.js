@@ -15,27 +15,28 @@ function Profile() {
         "username": ""
     });
     useEffect(() => {
-        fetch('http://86.107.44.200:8075/api/v1/users/' + localStorage.getItem('userId'), {
-            method: 'GET',
+        console.log(localStorage.getItem('accessToken'))
+        fetch('https://surapid.kz/api/user', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
-            }
+            },
+            body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
         })
             .then((response) => {
-                if(!response.ok)
+                if(response.status != 200){
                     navigate('/login')
-                return response.json();
+                }
+                return response.json()
             })
             .then((data) => {
                 console.log(data)
-                setUser(data);
+                setUser(data)
             })
             .catch((error) => {
-                console.error(error); // Handle any errors that occurred during the fetch
                 navigate('/login')
-            });
-    }, []);
+            })
+        });
   return (
     <div className="favorites">
       <Header />
