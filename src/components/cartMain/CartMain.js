@@ -145,7 +145,7 @@ function CartMain(props) {
             })
 
     }
-    const create_certificate = async () => {
+    const create_certificate = async (e) => {
         fetch('https://surapid.kz/api/user', {
             method: 'POST',
             headers: {
