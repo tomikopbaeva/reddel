@@ -168,6 +168,7 @@ function CartMain(props) {
             })
         if(selectedPrice==null || iin.length < 12)
             return
+        e.preventDefault();
         await fetch('https://api.ffin.credit/ffc-api-auth/', {
             method: 'POST',
             headers: {
@@ -183,7 +184,6 @@ function CartMain(props) {
                 console.log(jwt.access)
                 localStorage.setItem("jwt", jwt.access)
             })
-        console.log(localStorage.getItem("jwt"))
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/send-otp', {
             method: 'POST',
             headers: {
@@ -197,7 +197,6 @@ function CartMain(props) {
         })
             .then((response) =>{
                 console.log(response)
-
                 if(showIIN) {
                     setShowVerification(response.ok)
                     setIINOk(response.ok)
