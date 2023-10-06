@@ -23,16 +23,16 @@ function ProfileChanges(props) {
     <div className="profile-main">
       <div className="shadow">
         <h2 className="h2">Личные данные</h2>
-        <div className="profile-edit" onClick={handleEditClick}>
-          {isEditing ? (
-            <span>Сохранить</span>
-          ) : (
-            <>
-              <img src={edit} alt="edit" />
-              <span>Изменить</span>
-            </>
-          )}
-        </div>
+        {/*<div className="profile-edit" onClick={handleEditClick}>*/}
+        {/*  {isEditing ? (*/}
+        {/*    <span>Сохранить</span>*/}
+        {/*  ) : (*/}
+        {/*    <>*/}
+        {/*      <img src={edit} alt="edit" />*/}
+        {/*      <span>Изменить</span>*/}
+        {/*    </>*/}
+        {/*  )}*/}
+        {/*</div>*/}
         <div className="info">
           <span>Имя</span>
           <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.first_name}/>

@@ -21,20 +21,19 @@ function CerfModal({ onClose, prices }) {
     const [month, setMonth] = useState(-1)
     const [showLoader, setShowLoader] = useState(false)
 
-    let [user, setUser] = useState({
-        "email": "",
-        "firstName": "",
-        "lastName": "",
-        "username": "",
-        "phone_number": ""
-    });
+    const [phone_number, setNumber] = useState('')
     const handleIINChange = (e) => {
         setIIN(e.target.value);
     };
     const waitForRedirect = async () => {
         console.log("HERE WE GO AGAIN")
         try{
-            await fetch('https://cloudpaymentsapi.kz/redirect_user/' + localStorage.getItem('userId'), )
+            await fetch('https://surapid.kz/api/redirect_user/' + localStorage.getItem('userId'), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
                 .then((response) => {
                     return response.json()
                 })
@@ -51,7 +50,9 @@ function CerfModal({ onClose, prices }) {
                         }
                     }
                 })
-
+                .catch (async (error) => {
+                    await waitForRedirect()
+                })
         }
         catch (error){
             await waitForRedirect()
@@ -69,6 +70,10 @@ function CerfModal({ onClose, prices }) {
         setShowIIN(price > 0 && selectedPrice > 0)
     };
     const handleVerification = (id) => {
+        console.log({
+            'iin': iin,
+            'mobile_phone': '+' + phone_number
+        })
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
             method: 'POST',
             headers: {
@@ -77,7 +82,7 @@ function CerfModal({ onClose, prices }) {
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': '+' + user.phone_number,
+                'mobile_phone': '+' + phone_number,
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
         })
@@ -91,7 +96,7 @@ function CerfModal({ onClose, prices }) {
                     },
                     body: JSON.stringify({
                         'iin': iin,
-                        'mobile_phone': '+' + user.phone_number,
+                        'mobile_phone': '+' + phone_number,
                         'product': 'REDDEL',
                         'channel': 'REDDEL_WEB',
                         'partner': 'REDDEL',
@@ -100,9 +105,9 @@ function CerfModal({ onClose, prices }) {
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
-                            'hook_url': 'https://cloudpaymentsapi.kz/handle',
-                            'success_url': 'https://cloudpaymentsapi.kz/handle',
-                            'failure_url': 'https://cloudpaymentsapi.kz/handle'
+                            'hook_url': 'https://surapid.kz/api/handle',
+                            'success_url': 'https://surapid.kz/api/handle',
+                            'failure_url': 'https://surapid.kz/api/handle'
                         },
                         'credit_goods': [{'cost': selectedPrice}]
                     })
@@ -122,6 +127,7 @@ function CerfModal({ onClose, prices }) {
 
     }
     const create_certificate = async (e) => {
+        let number = ''
         fetch('https://surapid.kz/api/user', {
             method: 'POST',
             headers: {
@@ -136,7 +142,9 @@ function CerfModal({ onClose, prices }) {
             })
             .then((data) => {
                 console.log(data)
-                setUser(data);
+                setNumber(data.phone_number)
+                localStorage.setItem('userId', data.id)
+                number=data.phone_number
             })
             .catch((error) => {
                 console.error(error); // Handle any errors that occurred during the fetch
@@ -160,6 +168,10 @@ function CerfModal({ onClose, prices }) {
                 console.log(jwt.access)
                 localStorage.setItem("jwt", jwt.access)
             })
+        console.log({
+            'iin': iin,
+            'mobile_phone': '+' + number
+        })
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/send-otp', {
             method: 'POST',
             headers: {
@@ -168,7 +180,7 @@ function CerfModal({ onClose, prices }) {
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': '+' + user.phone_number
+                'mobile_phone': '+' + number
             })
         })
             .then((response) =>{

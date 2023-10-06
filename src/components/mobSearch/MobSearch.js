@@ -25,7 +25,7 @@ function MobSearch() {
         setFilteredSuggestions(filtered);
     };
     useEffect(() => {
-        fetch('https://cloudpaymentsapi.kz/getAllRestaurants', {
+        fetch('https://surapid.kz/api/getAllRestaurants', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ function MobSearch() {
             .then((data) => {
                 setSuggestions(data['restaurants']);
             })
-    });
+    }, []);
 
   return (
     <section className="mob-search">

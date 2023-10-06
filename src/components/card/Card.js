@@ -33,8 +33,8 @@ function Card(props) {
                     }
                 })
                 .then((data) => {
-                    fetch("https://cloudpaymentsapi.kz/add_to_favorite/" + data.id + "/" + id, {
-                        method: 'GET',
+                    fetch("https://surapid.kz/api/add_to_favorite/" + data.id + "/" + id, {
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         }
@@ -56,7 +56,9 @@ function Card(props) {
   return (
     <div className={`card ${isLiked ? 'liked' : ''}`}>
       <span className='card-header'>0-0-6</span>
-      <img src={props.item_image} alt="random" />
+      <div className="card-img">
+        <img src={props.item_image} alt="random"/>
+      </div>
       <div className='tags'>
           {props.tags && props.tags.map((item, index) => (
               <span key={index} className='tag'><p>{item}</p></span>

@@ -280,7 +280,7 @@ function CartMain(props) {
                 className={`thumbnail ${activeIndex === index ? 'active' : ''}`}
                 onClick={() => handleThumbnailClick(index)}
               >
-                <img src={"https://cloudpaymentsapi.kz"+image} alt={`Thumbnail ${index}`} />
+                <img src={"https://surapid.kz"+image} alt={`Thumbnail ${index}`} />
               </div>
             ))}
           </div>

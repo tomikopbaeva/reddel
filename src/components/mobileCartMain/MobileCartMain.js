@@ -74,18 +74,19 @@ function MobileCartMain(props) {
         <div className="card-main-link">
           <div>
             <img src={call} alt="call" />
-            <span>Позвонить</span>
+            <a href={"tel:"+props.phone_number}>Позвонить</a>
           </div>
           <div>
             <img src={whatsapp} alt="call" />
-            <span>Whatsapp</span>
+            <a href={props.whatsapp}>Whatsapp</a>
           </div>
           <div>
             <img src={instagram} alt="call" />
-            <span>Instagram</span>
+            <a href={props.insta}>Instagram</a>
           </div>
           <div>
-          <img src={isFavorite ? heart2 : heart} alt="heart" onClick={handleFavoriteClick} />            <span>В избранное</span>
+              <img src={isFavorite ? heart2 : heart} alt="heart" onClick={handleFavoriteClick} />
+              <span>В избранное</span>
           </div>
         </div>
         <div className="card-main-info">

@@ -12,7 +12,7 @@ function Restauran() {
     let { id } = useParams();
     const [data,setData] = useState(0)
     useEffect( () => {
-        fetch("https://cloudpaymentsapi.kz/get_restaurant_by_slug/" + id, {
+        fetch("https://surapid.kz/api/get_restaurant_by_slug/" + id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,11 +35,11 @@ function Restauran() {
         <Header className='res' />
         <div className="main-content">
           <CartHeader title={data.title}
-                      logo={"https://cloudpaymentsapi.kz"+data.logo}
+                      logo={"https://surapid.kz"+data.logo}
                       tags={data.tags}/>
           <CartMain description={data.description}
                     title={data.title}
-                    item_image={"https://cloudpaymentsapi.kz"+data.image}
+                    item_image={"https://surapid.kz"+data.image}
                     images={data.images}
                     location={data.location}
                     phone_number={data.phone}
@@ -53,11 +53,13 @@ function Restauran() {
         <div className="mobile">
           <MobileCartHeader/>
           <MobileCartMain title={data.title}
+                          insta={data.insta}
+                          whatsapp={data.whatsapp}
                           images={data.images}
                           tags={data.tags}
-                          logo={"https://cloudpaymentsapi.kz"+data.logo}
+                          logo={"https://surapid.kz"+data.logo}
                           description={data.description}
-                          item_image={"https://cloudpaymentsapi.kz"+data.image}
+                          item_image={"https://surapid.kz"+data.image}
                           location={data.location}
                           phone_number={data.phone}
                           kitchen={data.kitchen}

@@ -36,7 +36,7 @@ function Profile() {
             .catch((error) => {
                 navigate('/login')
             })
-        });
+        }, []);
   return (
     <div className="favorites">
       <Header />

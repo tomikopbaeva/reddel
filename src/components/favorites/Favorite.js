@@ -6,70 +6,14 @@ import MobSlider from "../mobSlider/MobSlider";
 import {useNavigate} from "react-router-dom";
 
 
-function Favorite() {
-    const [favoriteItems,setFavoriteItems] = useState([])
-    const navigate = useNavigate ();
-
-    useEffect(() => {
-        fetch('https://surapid.kz/api/user', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
-        })
-            .then((response) => {
-                if(response.status != 200){
-                    navigate('/login')
-                }
-                return response.json()
-            })
-            .then((data) => {
-                fetch('https://cloudpaymentsapi.kz/get_favourites/' + data.id, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                    .then((response) => {
-                        return response.json()
-                    })
-                    .then((data) => {
-                        const newCardArray = [];
-                        for (let i = 0; i < data['restaurants'].length; ++i) {
-                            newCardArray.push(
-                                <Card
-                                    item_image={"https://cloudpaymentsapi.kz/"+data['restaurants'][i].image}
-                                    title={data['restaurants'][i].title}
-                                    id={data['restaurants'][i].id}
-                                    slug={"/restauran/" + data['restaurants'][i].slug}
-                                    tags={data['restaurants'][i].tags}
-                                    description={data['restaurants'][i].description}
-                                    key={i}
-                                    logo={"https://cloudpaymentsapi.kz"+data['restaurants'][i].logo}
-                                    location={data['restaurants'][i].location}
-                                    isLiked={true}
-                                />
-                            );
-                        }
-                        setFavoriteItems(newCardArray);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-
-            })
-            .catch((error) => {
-                navigate('/login')
-            })
-    });
+function Favorite(props) {
   return (
     <section className="favorite">
       <h2 className="h2">Избранное</h2>
       <div className="desk">
-        {favoriteItems.length > 0 ? (
+        {props.favoriteItems.length > 0 ? (
           <div className="favorite-item">
-            {favoriteItems}
+            {props.favoriteItems}
           </div>
         ) : (
           <div className="empty">
@@ -81,7 +25,7 @@ function Favorite() {
           </div>
         )}
       </div>
-      <MobSlider cardArray={favoriteItems} />
+      <MobSlider cardArray={props.favoriteItems} />
     </section>
   );
 }

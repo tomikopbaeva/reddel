@@ -47,7 +47,7 @@ function Login() {
         .catch((error) => {
           console.log(error)
         })
-  });
+  }, []);
   const handleVerification = (code) => {
     code = code[0] + code[1] + code[2] + code[3]
     if(code == '0000'){

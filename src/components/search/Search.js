@@ -19,7 +19,7 @@ function Search({ placeholder}) {
         setFilteredSuggestions(filtered);
     };
     useEffect(() => {
-        fetch('https://cloudpaymentsapi.kz/getAllRestaurants', {
+        fetch('https://surapid.kz/api/getAllRestaurants', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ function Search({ placeholder}) {
                     return searchValue && (item.title.toLowerCase().includes(searchValue.toLowerCase()))
                 }).map((suggestion, index) => (
                     <a href={"/restauran/" + suggestion.slug} key={index} className="card_search">
-                        <img className="image_search" src={"https://cloudpaymentsapi.kz" + suggestion.image} width="80px" height="40px"></img>
+                        <img className="image_search" src={"https://surapid.kz" + suggestion.image} width="80px" height="40px"></img>
                         <p className="title">{suggestion.title}</p>
                         <img src={arrow} alt="" />
                     </a>

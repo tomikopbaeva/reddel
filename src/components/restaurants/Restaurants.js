@@ -22,42 +22,38 @@ function Restaurants() {
     ]);
 
     useEffect(() => {
-        const fetchData = () => {
-            fetch('https://cloudpaymentsapi.kz/getAllRestaurants', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
+        fetch('https://surapid.kz/api/getAllRestaurants', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
                 }
+                return response.json();
             })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    setCategories(data['tags'])
-                    const newCardArray = data['restaurants'].map((restaurant, index) => (
-                        <Card
-                            item_image={"https://cloudpaymentsapi.kz" + restaurant.image}
-                            title={restaurant.title}
-                            id={restaurant.id}
-                            slug={"/restauran/" + restaurant.slug}
-                            tags={restaurant.tags}
-                            description={restaurant.description}
-                            key={index}
-                            location={restaurant.location}
-                            logo={"https://cloudpaymentsapi.kz"+restaurant.logo}
-                        />
-                    ));
-                    setCardArray(newCardArray);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        };
-
-        fetchData();
+            .then((data) => {
+                setCategories(data['tags'])
+                const newCardArray = data['restaurants'].map((restaurant, index) => (
+                    <Card
+                        item_image={"https://surapid.kz" + restaurant.image}
+                        title={restaurant.title}
+                        id={restaurant.id}
+                        slug={"/restauran/" + restaurant.slug}
+                        tags={restaurant.tags}
+                        description={restaurant.description}
+                        key={index}
+                        location={restaurant.location}
+                        logo={"https://surapid.kz"+restaurant.logo}
+                    />
+                ));
+                setCardArray(newCardArray);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }, []);
 
     const handleShowAll = () => {

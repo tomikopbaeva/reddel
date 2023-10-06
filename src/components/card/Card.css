@@ -27,9 +27,18 @@
     box-sizing: border-box;
 }
 
-.card-header + img{
-    max-width: 194px;
+.card-img{
+    height: 250px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
     border-radius: 12px;
+}
+.card-img img{
+    width: 100%;
+    border-radius: 12px;
+    max-height: 100%;
 }
 
 .tags{
@@ -80,6 +89,7 @@
 }
 
 .card-text{
+    height: 50px;
     font-size: 10px;
     text-decoration: none;
     line-height: 1;
@@ -175,5 +185,16 @@
     }
     .card-text{
         font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 970px){
+    .card-img{
+        height: 135px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        border-radius: 12px;
     }
 }
