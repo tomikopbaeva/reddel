@@ -86,6 +86,21 @@ function Login() {
     if(phoneNumber.replaceAll(/[^0-9]/g, '').length < 11){
       return
     }
+    let flag = false
+    fetch('https://surapid.kz/api/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"phone_number": phoneNumber.replaceAll(/[^0-9]/g, '')})
+    }).then((response) => {
+      flag = response.status == '200'
+    })
+    if(!flag) {
+      alert('Номер не зарегистрирован')
+      return
+    }
     let randomNumber = Math.floor(Math.random() * 10000);
     let code = randomNumber.toString().padStart(4, '0')
     setValidate(code)
