@@ -23,6 +23,7 @@ function Login() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [openCerf, setOpenCerf] = useState(false)
   const navigate = useNavigate();
+  const [validate, setValidate] = useState('1')
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,15 +49,13 @@ function Login() {
           console.log(error)
         })
   }, []);
-  const handleVerification = (code) => {
+  const handleVerification = async (code) => {
     code = code[0] + code[1] + code[2] + code[3]
-    if(code == '0000'){
-      console.log("GOOD")
-    }
-    else{
+    console.log(code + " " + validate)
+    if (code != validate) {
       return
     }
-    fetch('https://surapid.kz/api/login',{
+    fetch('https://surapid.kz/api/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -64,10 +63,10 @@ function Login() {
       },
       body: JSON.stringify({"phone_number": phoneNumber.replaceAll(/[^0-9]/g, '')})
     }).then((response) => {
-        return response.json()
+      return response.json()
     }).then((data) => {
       console.log(data)
-      if(data.token){
+      if (data.token) {
         localStorage.setItem('accessToken', data.token)
         navigate("/profile")
       }
@@ -87,8 +86,12 @@ function Login() {
     if(phoneNumber.replaceAll(/[^0-9]/g, '').length < 11){
       return
     }
+    let randomNumber = Math.floor(Math.random() * 10000);
+    let code = randomNumber.toString().padStart(4, '0')
+    setValidate(code)
+    console.log(validate + " " + code)
     let data = phoneNumber.replaceAll(/[^0-9]/g, '')
-    await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации:0000&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+    await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
     setOpenCerf(true)
   };
     return (
