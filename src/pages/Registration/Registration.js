@@ -19,6 +19,7 @@ function Registration() {
   });
   const [agreementChecked, setAgreementChecked] = useState(false)
   const [phone, setPhone] = useState('')
+  const [validate, setValidate] = useState('1')
 
   const [showVerificationCode, setShowVerificationCode] = useState(false);
 
@@ -40,11 +41,10 @@ function Registration() {
 
   const handleVerification = async (code) => {
     code = code[0] + code[1] + code[2] + code[3]
-    if(code == '0000'){
-      console.log("GOOD")
-    }
-    else
+    console.log(code + " " + validate)
+    if (code != validate) {
       return
+    }
     try {
       // Make a POST request using the api.post method
       formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
@@ -83,7 +83,11 @@ function Registration() {
 
     try {
       formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
-      await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + formData.phone_number + "&text=Код валидации:0000&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+      let randomNumber = Math.floor(Math.random() * 10000);
+      let code = randomNumber.toString().padStart(4, '0')
+      setValidate(code)
+      console.log(validate + " " + code)
+      await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + formData.phone_number  + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
       setShowVerificationCode(true)
     }
     catch (error) {
