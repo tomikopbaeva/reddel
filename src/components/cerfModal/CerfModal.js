@@ -70,10 +70,6 @@ function CerfModal({ onClose, prices }) {
         setShowIIN(price > 0 && selectedPrice > 0)
     };
     const handleVerification = (id) => {
-        console.log({
-            'iin': iin,
-            'mobile_phone': '+' + phone_number
-        })
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
             method: 'POST',
             headers: {
@@ -101,13 +97,13 @@ function CerfModal({ onClose, prices }) {
                         'channel': 'REDDEL_WEB',
                         'partner': 'REDDEL',
                         'credit_params': {
-                            'period': '3',
+                            'period': month,
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
                             'hook_url': 'https://surapid.kz/api/handle',
-                            'success_url': 'https://surapid.kz/api/handle',
-                            'failure_url': 'https://surapid.kz/api/handle'
+                            'success_url': 'https://reddel.kz/profile',
+                            'failure_url': 'https://reddel.kz/profile'
                         },
                         'credit_goods': [{'cost': selectedPrice}]
                     })
@@ -147,7 +143,6 @@ function CerfModal({ onClose, prices }) {
                 number=data.phone_number
             })
             .catch((error) => {
-                console.error(error); // Handle any errors that occurred during the fetch
                 navigate('/login')
             });
         if(selectedPrice==null || iin.length < 12)
@@ -168,10 +163,6 @@ function CerfModal({ onClose, prices }) {
                 console.log(jwt.access)
                 localStorage.setItem("jwt", jwt.access)
             })
-        console.log({
-            'iin': iin,
-            'mobile_phone': '+' + number
-        })
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/send-otp', {
             method: 'POST',
             headers: {

@@ -34,6 +34,8 @@ function CartMain(props) {
     const [month, setMonth] = useState(-1)
     const [isCarouselOpen, setIsCarouselOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false)
+    const [phone_number, setNumber] = useState('')
+
     const handleIINChange = (e) => {
         setIIN(e.target.value);
     };
@@ -55,7 +57,12 @@ function CartMain(props) {
     const waitForRedirect = async () => {
         console.log("HERE WE GO AGAIN")
         try{
-            await fetch('https://cloudpaymentsapi.kz/redirect_user/' + localStorage.getItem('userId'), )
+            await fetch('https://surapid.kz/api/redirect_user/' + localStorage.getItem('userId'), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
                 .then((response) => {
                     return response.json()
                 })
@@ -71,8 +78,10 @@ function CartMain(props) {
                             navigate('/')
                         }
                     }
-            })
-
+                })
+                .catch (async (error) => {
+                    await waitForRedirect()
+                })
         }
         catch (error){
             await waitForRedirect()
@@ -83,7 +92,6 @@ function CartMain(props) {
       setActiveIndex(index);
     };
     const handleVerification = (id) => {
-        console.log(localStorage.getItem("jwt"))
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
             method: 'POST',
             headers: {
@@ -92,13 +100,12 @@ function CartMain(props) {
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': '+' + user.phone_number,
+                'mobile_phone': '+' + phone_number,
                 'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
             })
         })
             .then((response) =>{
                 console.log(response)
-                console.log("apply")
                 fetch('https://api.ffin.credit/ffc-api-public/universal/apply/apply-lead', {
                     method: 'POST',
                     headers: {
@@ -107,7 +114,7 @@ function CartMain(props) {
                     },
                     body: JSON.stringify({
                         'iin': iin,
-                        'mobile_phone': '+' + user.phone_number,
+                        'mobile_phone': '+' + phone_number,
                         'product': 'REDDEL',
                         'channel': 'REDDEL_WEB',
                         'partner': 'REDDEL',
@@ -126,7 +133,6 @@ function CartMain(props) {
                     .then((response) =>{
                         console.log(response.json())
                         if(response.ok){
-                            console.log("OK")
                             setShowLoader(true)
                             waitForRedirect();
                         }
@@ -146,6 +152,7 @@ function CartMain(props) {
 
     }
     const create_certificate = async (e) => {
+        let number = ''
         fetch('https://surapid.kz/api/user', {
             method: 'POST',
             headers: {
@@ -154,18 +161,19 @@ function CartMain(props) {
             body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
         })
             .then((response) => {
-                if(response.status != 200){
+                if(response.status != 200)
                     navigate('/login')
-                }
                 return response.json()
             })
             .then((data) => {
                 console.log(data)
-                setUser(data)
+                setNumber(data.phone_number)
+                localStorage.setItem('userId', data.id)
+                number=data.phone_number
             })
             .catch((error) => {
                 navigate('/login')
-            })
+            });
         if(selectedPrice==null || iin.length < 12)
             return
         e.preventDefault();
@@ -192,7 +200,7 @@ function CartMain(props) {
             },
             body: JSON.stringify({
                 'iin': iin,
-                'mobile_phone': '+' + user.phone_number
+                'mobile_phone': '+' + number
             })
         })
             .then((response) =>{
@@ -205,42 +213,6 @@ function CartMain(props) {
             .catch((error) =>{
                 console.log(('error'))
             })
-        // try {
-        //     if(localStorage.getItem('userId') && localStorage.getItem('accessToken')){
-        //         fetch('http://86.107.44.200:8076/api/v1/users/' + localStorage.getItem('userId'), {
-        //             method: 'GET',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //                 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') // Correct the 'Bearer_' to 'Bearer '
-        //             }
-        //         })
-        //             .then((response) => {
-        //                 if (response.ok) {
-        //                     fetch('http://185.146.1.93:8000/create_certificate', {
-        //                         method: "POST",
-        //                         headers: {
-        //                             'Content-Type': 'application/json',
-        //                         },
-        //                         body: JSON.stringify({
-        //                             'price': selectedPrice,
-        //                             'user_id': localStorage.getItem('userId')
-        //                         })
-        //                     })
-        //                         .then((response) => {
-        //                             return response.json()
-        //                         })
-        //                         .then((data) =>{
-        //                         console.log(data)
-        //                     })
-        //                 }
-        //             })
-        //     }
-        //
-        // } catch (error) {
-        //     console.log(error.messages);
-        //     alert("Неверный логин или пароль");
-        // }
-
     };
     const openCarousel = () => {
         setIsCarouselOpen(true);

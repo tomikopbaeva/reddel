@@ -95,19 +95,23 @@ function Login() {
       },
       body: JSON.stringify({"phone_number": phoneNumber.replaceAll(/[^0-9]/g, '')})
     }).then((response) => {
-      flag = response.status == '200'
+      console.log(response.status)
+      flag = response.status==200
+        if(!flag) {
+          alert('Номер не зарегистрирован')
+        }
     })
-    if(!flag) {
-      alert('Номер не зарегистрирован')
-      return
-    }
-    let randomNumber = Math.floor(Math.random() * 10000);
-    let code = randomNumber.toString().padStart(4, '0')
-    setValidate(code)
-    console.log(validate + " " + code)
-    let data = phoneNumber.replaceAll(/[^0-9]/g, '')
-    await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
-    setOpenCerf(true)
+        .then(async () => {
+          if(flag){
+            let randomNumber = Math.floor(Math.random() * 10000);
+            let code = randomNumber.toString().padStart(4, '0')
+            setValidate(code)
+            console.log(validate + " " + code)
+            let data = phoneNumber.replaceAll(/[^0-9]/g, '')
+            await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+            setOpenCerf(true)
+          }
+        })
   };
     return (
     <div className="cerf-modal">
