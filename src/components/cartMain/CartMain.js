@@ -57,7 +57,7 @@ function CartMain(props) {
     const waitForRedirect = async () => {
         console.log("HERE WE GO AGAIN")
         try{
-            await fetch('http://86.107.44.200:8000/api/redirect_user/' + localStorage.getItem('userId'), {
+            await fetch('https://86.107.44.200:9000/api/redirect_user/' + localStorage.getItem('userId'), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ function CartMain(props) {
                     }
                 })
                 .catch (async (error) => {
-                    await waitForRedirect()
+                    console.log("error")
                 })
         }
         catch (error){
@@ -92,6 +92,7 @@ function CartMain(props) {
       setActiveIndex(index);
     };
     const handleVerification = (id) => {
+        console.log("VALIDATE")
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
             method: 'POST',
             headers: {
@@ -123,7 +124,7 @@ function CartMain(props) {
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
-                            'hook_url': 'http://86.107.44.200:8000/api/handle',
+                            'hook_url': 'https://86.107.44.200:9000/api/handle',
                             'success_url': 'https://reddel.kz/profile',
                             'failure_url': 'https://reddel.kz/profile'
                         },
