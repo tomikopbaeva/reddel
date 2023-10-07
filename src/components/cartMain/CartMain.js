@@ -57,7 +57,7 @@ function CartMain(props) {
     const waitForRedirect = async () => {
         console.log("HERE WE GO AGAIN")
         try{
-            await fetch('https://86.107.44.200:9000/api/redirect_user/' + localStorage.getItem('userId'), {
+            await fetch('https://surapid.kz/api/redirect_user/' + localStorage.getItem('userId'), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ function CartMain(props) {
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
-                            'hook_url': 'https://86.107.44.200:9000/api/handle',
+                            'hook_url': 'https://surapid.kz/api/handle',
                             'success_url': 'https://reddel.kz/profile',
                             'failure_url': 'https://reddel.kz/profile'
                         },
@@ -135,7 +135,7 @@ function CartMain(props) {
                         console.log(response.json())
                         if(response.ok){
                             setShowLoader(true)
-                            waitForRedirect();
+                            setTimeout(() => { waitForRedirect() }, 15000);
                         }
                         else{
                             setShowErrorText(true)
