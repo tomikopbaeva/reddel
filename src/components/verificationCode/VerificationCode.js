@@ -46,9 +46,6 @@ function VerificationCode(props) {
         inputValues[3]
     ) {
       props.handleVerification(inputValues)
-          .then(result => {
-            setShowError(!result)
-          })
     }
   }, [inputValues]);
 

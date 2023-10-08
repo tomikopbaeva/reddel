@@ -53,7 +53,8 @@ function Login() {
     code = code[0] + code[1] + code[2] + code[3]
     console.log(code + " " + validate)
     if (code != validate) {
-      return false
+      alert("Неверный код, попробуйте еще раз!")
+      window.location.reload(false)
     }
     fetch('https://surapid.kz/api/login', {
       method: 'POST',

@@ -105,9 +105,9 @@ function CartMain(props) {
                 'code': inputValues[0].toString() + inputValues[1].toString() + inputValues[2].toString() + inputValues[3].toString()
             })
         })
-            .catch((error) => {
-                console.log(error)
-            })
+        .catch((error) => {
+            console.log(error)
+        })
         console.log(response)
         console.log(response.json())
         console.log(response.status)
