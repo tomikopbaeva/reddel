@@ -111,7 +111,7 @@ function CerfModal({ onClose, prices }) {
                     .then((response) =>{
                         if(response.ok){
                             setShowLoader(true)
-                            setTimeout(() => { waitForRedirect() }, 15000);
+                            setTimeout(() => { waitForRedirect() }, 16000);
                         }
                         else{
                         }
