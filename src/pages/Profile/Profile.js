@@ -53,7 +53,7 @@ function Profile() {
             .then((data) => {
                 console.log(data)
                 setUser(data)
-                fetch('https://86.107.44.200:9000/api/get_certificates_by_id/' + data.id, {
+                fetch('https://surapid.kz/api/get_certificates_by_id/' + data.id, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
