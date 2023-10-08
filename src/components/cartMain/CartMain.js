@@ -57,7 +57,7 @@ function CartMain(props) {
     const waitForRedirect = async () => {
         console.log("HERE WE GO AGAIN")
         try{
-            await fetch('https://surapid.kz/api/redirect_user/' + localStorage.getItem('userId'), {
+            await fetch('https://86.107.44.200:9000/api/redirect_user/' + localStorage.getItem('userId'), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,9 +91,9 @@ function CartMain(props) {
     const handleThumbnailClick = (index) => {
       setActiveIndex(index);
     };
-    const handleVerification = (id) => {
+    const handleVerification = async (inputValues) => {
         console.log("VALIDATE")
-        fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
+        const response = await fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,55 +102,61 @@ function CartMain(props) {
             body: JSON.stringify({
                 'iin': iin,
                 'mobile_phone': '+' + phone_number,
-                'code' : id[0].toString() + id[1].toString() + id[2].toString() + id[3].toString()
+                'code': inputValues[0].toString() + inputValues[1].toString() + inputValues[2].toString() + inputValues[3].toString()
             })
         })
-            .then((response) =>{
-                console.log(response)
-                fetch('https://api.ffin.credit/ffc-api-public/universal/apply/apply-lead', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': "JWT " + localStorage.getItem("jwt")
-                    },
-                    body: JSON.stringify({
-                        'iin': iin,
-                        'mobile_phone': '+' + phone_number,
-                        'product': 'REDDEL',
-                        'channel': 'REDDEL_WEB',
-                        'partner': 'REDDEL',
-                        'credit_params': {
-                            'period': month,
-                            'principal' : selectedPrice,
-                        },
-                        'additional_information': {
-                            'hook_url': 'https://surapid.kz/api/handle',
-                            'success_url': 'https://reddel.kz/profile',
-                            'failure_url': 'https://reddel.kz/profile'
-                        },
-                        'credit_goods': [{'cost': selectedPrice}]
-                    })
-                })
-                    .then((response) =>{
-                        console.log(response.json())
-                        if(response.ok){
-                            setShowLoader(true)
-                            setTimeout(() => { waitForRedirect() }, 15000);
-                        }
-                        else{
-                            setShowErrorText(true)
-                        }
-                    })
-                    .catch((error) =>{
-                        console.log()
-                        console.log(error.message)
-
-                    })
-            })
-            .catch((error) =>{
+            .catch((error) => {
                 console.log(error)
             })
+        console.log(response)
+        console.log(response.json())
+        console.log(response.status)
+        if (response.status != '200') {
+            alert("Неверный код, попробуйте еще раз!")
+            window.location.reload(false)
+        }
+        fetch('https://api.ffin.credit/ffc-api-public/universal/apply/apply-lead', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "JWT " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                'iin': iin,
+                'mobile_phone': '+' + phone_number,
+                'product': 'REDDEL',
+                'channel': 'REDDEL_WEB',
+                'partner': 'REDDEL',
+                'credit_params': {
+                    'period': month,
+                    'principal': selectedPrice,
+                },
+                'additional_information': {
+                    'hook_url': 'https://86.107.44.200:9000/api/handle',
+                    'success_url': 'https://reddel.kz/profile',
+                    'failure_url': 'https://reddel.kz/profile'
+                },
+                'credit_goods': [{'cost': selectedPrice}],
+                'reference_id': '12',
+                'email': '87082420482b@gmail.com'
+            })
+        })
+            .then((response) => {
+                console.log(response.json())
+                if (response.ok) {
+                    setShowLoader(true)
+                    setTimeout(() => {
+                        waitForRedirect()
+                    }, 3000);
+                } else {
+                    setShowErrorText(true)
+                }
+            })
+            .catch((error) => {
+                console.log()
+                console.log(error.message)
 
+            })
     }
     const create_certificate = async (e) => {
         let number = ''
@@ -373,7 +379,7 @@ function CartMain(props) {
                 }
                 { !showIIN ? <button className='certificate-button' onClick={create_certificate}>Оформить</button> : (<a></a>)}
 
-                {showVerification && <VerificationCode handleVerification={handleVerification}/>}
+                {showVerification && <VerificationCode handleVerification={handleVerification} iin={iin} phone_number={user.phone_number}/>}
             </div>
             <div className="cart-main-right-bottom shadow">
                 <h2 className='cart-h2'>Важно!</h2>

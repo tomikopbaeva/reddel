@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import ProfileChanges from "../profileChanges/ProfileChanges";
 import Certificate from "../certificate/Certificate";
 import "./Profiles.css";
+import done2 from '../../assets/done2.svg';
 
 import instagram from "../../assets/instagram3.svg";
 import whatsapp from "../../assets/whatsapp3.svg";
@@ -37,21 +38,31 @@ function Profiles(props) {
             <div className="shadow">
                 <h2 className="h2">Мои сертификаты</h2>
                 {props.certificates.map((certificate) =>(
-                        <div className="profile-cert" onClick={ () => handleCertificateClick(certificate.id) }>
+                    certificate?
+                    <div className="profile-cert" onClick={() => handleCertificateClick(certificate.id)}>
+                        <h3 className="h3">В ресторане { certificate.restaurant}</h3>
+                        <div className="profile-cert-img">
+                            <img src={done2} alt="done"/>
+                            <span>Воспользуйтесь до {certificate.end_date.substring(0,10).replaceAll('-', '.')}</span>
+                        </div>
+                        <h4>{certificate.sum}₸</h4>
+                    </div> :
+                        <div className="profile-cert" onClick={() => handleCertificateClick(certificate.id)}>
                             <h3 className="h3">Выберите ресторан из списка доступных</h3>
                             <div className="profile-cert-img">
-                                <img src={done} alt="done" />
+                                <img src={done} alt="done"/>
                                 <span>Активируйте до 29.12.2023</span>
                             </div>
                             <h4>{certificate.sum}₸</h4>
                         </div>
+
                 ))}
                 <p className="p">Здесь будут ваши сертификаты</p>
             </div>
         </div>
 
         {props.certificates.map((certificate) =>
-            certificate.id == certificateId ? <Certificate onClose={closeCertificate} certificate={certificate} user={props.user}/> : <span></span>
+            certificate.id == certificateId ? <Certificate onClose={closeCertificate} restaurants={props.restaurants} certificate={certificate} user={props.user}/> : <span></span>
         )}
     </section>
   );

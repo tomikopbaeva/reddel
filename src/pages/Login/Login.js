@@ -53,7 +53,7 @@ function Login() {
     code = code[0] + code[1] + code[2] + code[3]
     console.log(code + " " + validate)
     if (code != validate) {
-      return
+      return false
     }
     fetch('https://surapid.kz/api/login', {
       method: 'POST',
@@ -86,6 +86,7 @@ function Login() {
     if(phoneNumber.replaceAll(/[^0-9]/g, '').length < 11){
       return
     }
+    console.log(phoneNumber.replaceAll(/[^0-9]/g, ''))
     let flag = false
     fetch('https://surapid.kz/api/login', {
       method: 'POST',
@@ -108,7 +109,7 @@ function Login() {
             setValidate(code)
             console.log(validate + " " + code)
             let data = phoneNumber.replaceAll(/[^0-9]/g, '')
-            await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+            // await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
             setOpenCerf(true)
           }
         })

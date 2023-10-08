@@ -29,10 +29,10 @@
     cursor: pointer;
 }
 
-.profile-cert h3{
-    font-weight: 700;
-    font-size: 14px;
-}
+/*.profile-cert .h3{*/
+/*    font-weight: 550;*/
+/*    font-size: 14px;*/
+/*}*/
 
 .profile-cert-img{
     display: flex;
@@ -43,7 +43,7 @@
 .profile-cert h4{
     color: #3153CA;
     font-size: 20px;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .profile .p{
