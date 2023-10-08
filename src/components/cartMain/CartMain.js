@@ -147,7 +147,7 @@ function CartMain(props) {
                     setShowLoader(true)
                     setTimeout(() => {
                         waitForRedirect()
-                    }, 3000);
+                    }, 15000);
                 } else {
                     setShowErrorText(true)
                 }
