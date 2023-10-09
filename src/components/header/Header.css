@@ -62,6 +62,11 @@
     color: #3153CA;
 }
 
+.link1{
+    text-decoration: none;
+    color: #3153CA;
+}
+
 .header-bottom{
     padding: 9px 150px 9px 190px;
     box-sizing: border-box;

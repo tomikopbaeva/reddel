@@ -142,8 +142,7 @@ function CartMain(props) {
                     'failure_url': 'https://reddel.kz/profile'
                 },
                 'credit_goods': [{'cost': selectedPrice}],
-                'reference_id': '12',
-                'email': '87082420482b@gmail.com'
+                'reference_id': user.id,
             })
         })
             .then((response) => {

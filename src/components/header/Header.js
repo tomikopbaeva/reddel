@@ -59,7 +59,7 @@ function Header({ favoriteItems }) {
                 <img src={icon} alt="icon" />
                 Каталог
               </Link>
-              <a>Для Бизнеса</a>
+              <a className="link1" href="https://wa.me/77077528313">Для Бизнеса</a>
               <Search placeholder="Я ищу..." />
             </div>
           </div>

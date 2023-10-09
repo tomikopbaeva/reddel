@@ -20,6 +20,7 @@ function CerfModal({ onClose, prices }) {
     const [iin, setIIN] = useState("")
     const [month, setMonth] = useState(-1)
     const [showLoader, setShowLoader] = useState(false)
+    const [id, setId] = useState(null)
 
     const [phone_number, setNumber] = useState('')
     const handleIINChange = (e) => {
@@ -28,7 +29,7 @@ function CerfModal({ onClose, prices }) {
     const waitForRedirect = async () => {
         console.log("HERE WE GO AGAIN")
         try{
-            await fetch('https://surapid.kz/api/redirect_user/' + localStorage.getItem('userId'), {
+            await fetch('https://86.107.44.200:9000/api/redirect_user/' + localStorage.getItem('userId'), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -87,7 +88,10 @@ function CerfModal({ onClose, prices }) {
             })
         })
             .then((response) =>{
-                console.log(response)
+                return response.json()
+            })
+            .then(data => {
+                console.log(data)
                 fetch('https://api.ffin.credit/ffc-api-public/universal/apply/apply-lead', {
                     method: 'POST',
                     headers: {
@@ -105,11 +109,12 @@ function CerfModal({ onClose, prices }) {
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
-                            'hook_url': 'https://surapid.kz/api/handle',
+                            'hook_url': 'https://86.107.44.200:9000/api/handle',
                             'success_url': 'https://reddel.kz/profile',
                             'failure_url': 'https://reddel.kz/profile'
                         },
-                        'credit_goods': [{'cost': selectedPrice}]
+                        'credit_goods': [{'cost': selectedPrice}],
+                        'reference_id': id,
                     })
                 })
                     .then((response) =>{
@@ -143,6 +148,7 @@ function CerfModal({ onClose, prices }) {
             .then((data) => {
                 console.log(data)
                 setNumber(data.phone_number)
+                setId(data.id)
                 localStorage.setItem('userId', data.id)
                 number=data.phone_number
             })
@@ -251,7 +257,7 @@ function CerfModal({ onClose, prices }) {
             { !showIIN ? <button className='certificate-button' onClick={create_certificate}>Оформить</button> : (<a></a>)}
         </div>
         {showVerification && <VerificationCode handleVerification={handleVerification}/>}
-        {showLoader ? <Loading loading background="" loaderColor="#3498db" > Банк принимает решение </Loading> : (<a></a>)}
+        {showLoader ? <Loading loading background="" loaderColor="#3498db"/>: (<a></a>)}
 
     </div>
   );

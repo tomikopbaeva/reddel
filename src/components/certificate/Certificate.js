@@ -10,7 +10,7 @@ import Frame2 from '../../assets/Frame2.svg';
 
 function Certificate(props) {
     const certificateRef = useRef();
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState(props.restaurants[0].id);
     const handleSelectChange = (event) => {
         console.log(event.target.value)
         const selectedValue = event.target.value;
@@ -18,7 +18,7 @@ function Certificate(props) {
     };
     const activate = (() => {
         console.log(selectedOption)
-        fetch('https://86.107.44.200:9000/api/activate_certificate/' + props.certificate.id + "/" + selectedOption, {
+        fetch('https://surapid.kz/api/activate_certificate/' + props.certificate.id + "/" + selectedOption, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,6 +27,7 @@ function Certificate(props) {
             console.log(response)
         }).then(data => {
             console.log(data)
+            window.location.reload(false)
         })
     })
     useEffect(() => {
@@ -69,7 +70,7 @@ function Certificate(props) {
             </div> */}
             <h4>Поздравляем! <br/> Вы успешно оформили уникальный сертификат </h4>
             <p>Ваш код:</p>
-            <h3>{props.certificate.encode.substring(0,10)}</h3>
+            {props.certificate.status && <h3>{props.certificate.encode.substring(0,10)}</h3>}
             <p>Покажите его администратору заведения  </p>
             <div className='info last'>
                 <span>Сумма сертификата</span>

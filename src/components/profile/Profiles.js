@@ -38,7 +38,7 @@ function Profiles(props) {
             <div className="shadow">
                 <h2 className="h2">Мои сертификаты</h2>
                 {props.certificates.map((certificate) =>(
-                    certificate?
+                    certificate.status ?
                     <div className="profile-cert" onClick={() => handleCertificateClick(certificate.id)}>
                         <h3 className="h3">В ресторане { certificate.restaurant}</h3>
                         <div className="profile-cert-img">
