@@ -20,7 +20,7 @@ function CerfModal({ onClose, prices }) {
     const [iin, setIIN] = useState("")
     const [month, setMonth] = useState(-1)
     const [showLoader, setShowLoader] = useState(false)
-    const [id, setId] = useState(null)
+    const [userId, setId] = useState(null)
     let number = ''
     const [phone_number, setNumber] = useState('')
     const sendAgain = () => {
@@ -140,7 +140,7 @@ function CerfModal({ onClose, prices }) {
                             'failure_url': 'https://reddel.kz/profile'
                         },
                         'credit_goods': [{'cost': selectedPrice}],
-                        'reference_id': id,
+                        'reference_id': userId,
                     })
                 })
                     .then((response) => {

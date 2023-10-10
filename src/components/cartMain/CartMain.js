@@ -35,6 +35,7 @@ function CartMain(props) {
     const [isCarouselOpen, setIsCarouselOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false)
     const [phone_number, setNumber] = useState('')
+    const [userId, setUserId] = useState()
     let number = ''
     const handleIINChange = (e) => {
         setIIN(e.target.value);
@@ -203,7 +204,9 @@ function CartMain(props) {
             })
             .then((data) => {
                 console.log(data)
+                user = data
                 setNumber(data.phone_number)
+                setUserId(data.id)
                 localStorage.setItem('userId', data.id)
                 number=data.phone_number
             })
@@ -408,7 +411,7 @@ function CartMain(props) {
                 }
                 { !showIIN ? <button className='certificate-button' onClick={create_certificate}>Оформить</button> : (<a></a>)}
 
-                {showVerification && <VerificationCode handleVerification={handleVerification} iin={iin} phone_number={user.phone_number} sendAgain={sendAgain}/>}
+                {showVerification && <VerificationCode handleVerification={handleVerification} sendAgain={sendAgain}/>}
             </div>
             <div className="cart-main-right-bottom shadow">
                 <h2 className='cart-h2'>Важно!</h2>
