@@ -29,6 +29,7 @@ function MobileCartMain(props) {
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [isFullScreenOpen, setIsFullScreenOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+    const navigate = useNavigate();
 
     const openFullScreen = (imageUrl) => {
         setSelectedImage(imageUrl);
@@ -40,6 +41,18 @@ function MobileCartMain(props) {
         setIsFullScreenOpen(false);
     };
   const handleCertificateButtonClick = () => {
+      fetch('https://surapid.kz/api/user', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
+      })
+          .then((response) => {
+              if(response.status != '200')
+                  navigate('/login')
+              return response.json();
+          })
       if(selectedPrice != null){
           setShowVerification(true)
       }

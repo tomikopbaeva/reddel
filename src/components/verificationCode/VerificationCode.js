@@ -10,7 +10,7 @@ const KEYBOARDS = {
 function VerificationCode(props) {
   const [inputValues, setInputValues] = useState(Array(4).fill(""));
   const inputRefs = Array(4).fill(null).map(() => React.createRef());
-  const [seconds, setSeconds] = useState(60);
+  const [seconds, setSeconds] = useState(5);
   const [showChangeNumberLink, setShowChangeNumberLink] = useState(false);
   const [showError, setShowError] = useState(false)
   useEffect(() => {
@@ -90,7 +90,12 @@ function VerificationCode(props) {
         {showError ? <p className="error">Неверный код</p>: <a></a>}
         {showChangeNumberLink ? (
             <p>
-              <a href="/change-number">Изменить номер</a>
+              <a href="#" onClick={() =>{
+                  setSeconds(60)
+                  setShowChangeNumberLink(false)
+                  props.sendAgain()
+                }
+              }>Отправить повторно</a>
             </p>
         ) : (
             <p className="code-text">Отправить повторно через: {seconds} сек.</p>

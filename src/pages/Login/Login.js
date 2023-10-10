@@ -30,6 +30,14 @@ function Login() {
     setCredentials({ ...credentials, [name]: value });
   };
 
+  const sendAgain = async () => {
+    let randomNumber = Math.floor(Math.random() * 10000);
+    let code = randomNumber.toString().padStart(4, '0')
+    setValidate(code)
+    let data = phoneNumber.replaceAll(/[^0-9]/g, '')
+    await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+  }
+
   useEffect(() => {
     console.log(localStorage.getItem('accessToken'))
     fetch('https://surapid.kz/api/user', {
@@ -132,7 +140,7 @@ function Login() {
               }
 
           />
-          {openCerf && <VerificationCode  handleVerification={handleVerification}/>}
+          {openCerf && <VerificationCode  handleVerification={handleVerification} sendAgain={sendAgain}/>}
             <button className="registration-button" type="submit">Продолжить</button>
           <p>У вас еще нет аккаунта? <Link to="/registration"> Зарегистрироваться</Link></p>
         </form>

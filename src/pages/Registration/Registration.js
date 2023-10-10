@@ -28,6 +28,14 @@ function Registration() {
 
   const [showTermsAndConditions, setShowTermsAndConditions] = useState(false);
 
+  const sendAgain = async () => {
+    let randomNumber = Math.floor(Math.random() * 10000);
+    let code = randomNumber.toString().padStart(4, '0')
+    setValidate(code)
+    let data = formData.phone_number.replaceAll(/[^0-9]/g, '')
+    await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+  }
+
   const closeTermsAndConditions = () => {
     setShowTermsAndConditions(false);
   };
@@ -173,7 +181,7 @@ function Registration() {
         {showTermsAndConditions && (
             <TermsAndConditions onClose={closeTermsAndConditions} />
         )}
-        {showVerificationCode && <VerificationCode handleVerification={handleVerification}/>}
+        {showVerificationCode && <VerificationCode handleVerification={handleVerification} sendAgain={sendAgain}/>}
         <footer className="footer">
           <div className="mob">
             <Link to="/" className="mob-item">

@@ -35,10 +35,31 @@ function CartMain(props) {
     const [isCarouselOpen, setIsCarouselOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false)
     const [phone_number, setNumber] = useState('')
-
+    let number = ''
     const handleIINChange = (e) => {
         setIIN(e.target.value);
     };
+    const sendAgain = () => {
+        console.log(iin + "  " + number)
+        fetch('https://api.ffin.credit/ffc-api-public/universal/general/send-otp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "JWT " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                'iin': iin,
+                'mobile_phone': '+' + phone_number
+            })
+        })
+            .then((response) =>{
+                console.log(iin + "  " + phone_number)
+                console.log(response)
+            })
+            .catch((error) =>{
+                console.log(('error'))
+            })
+    }
     const handleMonth = (price) => {
         setMonth(price);
         setShowIIN(price > 0 && selectedPrice > 0)
@@ -116,11 +137,11 @@ function CartMain(props) {
         console.log(response)
         console.log(response.json())
         console.log(response.status)
-        if (response.status != '200') {
-            alert("Неверный код, попробуйте еще раз!")
-            window.location.reload(false)
-        }
         let flag = false
+        if(response.status != '200'){
+            alert('Неверый код')
+        }
+        if (response.status == '200')
         fetch('https://api.ffin.credit/ffc-api-public/universal/apply/apply-lead', {
             method: 'POST',
             headers: {
@@ -168,7 +189,6 @@ function CartMain(props) {
             })
     }
     const create_certificate = async (e) => {
-        let number = ''
         fetch('https://surapid.kz/api/user', {
             method: 'POST',
             headers: {
@@ -388,7 +408,7 @@ function CartMain(props) {
                 }
                 { !showIIN ? <button className='certificate-button' onClick={create_certificate}>Оформить</button> : (<a></a>)}
 
-                {showVerification && <VerificationCode handleVerification={handleVerification} iin={iin} phone_number={user.phone_number}/>}
+                {showVerification && <VerificationCode handleVerification={handleVerification} iin={iin} phone_number={user.phone_number} sendAgain={sendAgain}/>}
             </div>
             <div className="cart-main-right-bottom shadow">
                 <h2 className='cart-h2'>Важно!</h2>
