@@ -120,7 +120,7 @@ function MobileCartMain(props) {
         <div className="card-main-body"></div>
         <div className='info'>
             <h5>Cредний чек:</h5>
-            <span>{props.average}₸</span>
+            <span>{props.average}</span>
         </div>
         <div className='info'>
             <h5>Кухня:</h5>

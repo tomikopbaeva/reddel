@@ -68,13 +68,13 @@ function MobSearch() {
                 perPage: 4,
                 arrows: false,
                 pagination: false,
-                fixedWidth: '80px',
+                fixedWidth: '90px',
                 }}>
                     {suggestions.map((suggestion, index) => (
                     <SplideSlide>
                         <a href={"restauran/" + suggestion.slug} className="mob-search-main-block">
                             <div className="storimage">
-                                <img src={"https://cloudpaymentsapi.kz"+suggestion.logo} alt="" width="80px"/>
+                                <img src={"https://surapid.kz"+suggestion.logo} alt="" width="80px"/>
                             </div>
                             <span>{suggestion.title}</span>
                         </a>
