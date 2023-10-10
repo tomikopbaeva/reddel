@@ -16,7 +16,7 @@ function MenuCarousel({ menus, onClose }) {
                                 <div className="close_div" onClick={onClose}>
                                     <img src={close}/>
                                 </div>
-                                <img src={"https://cloudpaymentsapi.kz"+menu.image} alt={menu.name} />
+                                <img src={"https://surapid.kz"+menu.image} alt={menu.name} />
                             </div>
                         </div>
                     ))}

@@ -277,7 +277,7 @@ function CartMain(props) {
                 </SplideSlide>
             {props.images && props.images.map((image, index) => (
               <SplideSlide key={1}>
-                <img src={"https://cloudpaymentsapi.kz"+image} id={index} width="100%" alt="Slide" />
+                <img src={"https://surapid.kz"+image} id={index} width="100%" alt="Slide" />
               </SplideSlide>
             ))}
           </Splide>

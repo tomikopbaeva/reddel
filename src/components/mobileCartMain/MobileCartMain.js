@@ -143,7 +143,7 @@ function MobileCartMain(props) {
                 key={index}
                 className={`thumbnail ${activeIndex === index ? 'active' : ''}`}
                 onClick={() => openFullScreen("https://cloudpaymentsapi.kz"+image)}>
-                <img src={"https://cloudpaymentsapi.kz"+image} alt={`Thumbnail ${index}`} />
+                <img src={"https://surapid.kz"+image} alt={`Thumbnail ${index}`} />
               </div>
             ))}
         </div>
