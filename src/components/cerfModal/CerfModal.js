@@ -26,10 +26,10 @@ function CerfModal({ onClose, prices }) {
     const handleIINChange = (e) => {
         setIIN(e.target.value);
     };
-    const waitForRedirect = async () => {
+    const waitForRedirect = async (uuid) => {
         console.log("HERE WE GO AGAIN")
         try{
-            await fetch('https://86.107.44.200:9000/api/redirect_user/' + localStorage.getItem('userId'), {
+            await fetch('https://surapid.kz/api/redirect_user/' + uuid, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -75,6 +75,7 @@ function CerfModal({ onClose, prices }) {
         setShowIIN(price > 0 && selectedPrice > 0)
     };
     const handleVerification = (id) => {
+        let flag = false
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
             method: 'POST',
             headers: {
@@ -109,7 +110,7 @@ function CerfModal({ onClose, prices }) {
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
-                            'hook_url': 'https://86.107.44.200:9000/api/handle',
+                            'hook_url': 'https://surapid.kz/api/handle',
                             'success_url': 'https://reddel.kz/profile',
                             'failure_url': 'https://reddel.kz/profile'
                         },
@@ -117,12 +118,17 @@ function CerfModal({ onClose, prices }) {
                         'reference_id': id,
                     })
                 })
-                    .then((response) =>{
-                        if(response.ok){
+                    .then((response) => {
+                        flag = response.ok
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data.uuid)
+                        if(flag) {
                             setShowLoader(true)
-                            setTimeout(() => { waitForRedirect() }, 20000);
-                        }
-                        else{
+                            setTimeout(() => {
+                                waitForRedirect(data.uuid)
+                            }, 20000);
                         }
                     })
                     .catch((error) =>{

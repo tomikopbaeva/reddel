@@ -20,6 +20,7 @@ function Registration() {
   const [agreementChecked, setAgreementChecked] = useState(false)
   const [phone, setPhone] = useState('')
   const [validate, setValidate] = useState('1')
+  const [showError, setShowError] = useState('')
 
   const [showVerificationCode, setShowVerificationCode] = useState(false);
 
@@ -32,6 +33,7 @@ function Registration() {
   };
 
   const handleInputChange = (e) => {
+    setShowError(false)
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
@@ -41,7 +43,6 @@ function Registration() {
 
   const handleVerification = async (code) => {
     code = code[0] + code[1] + code[2] + code[3]
-    console.log(code + " " + validate)
     if (code != validate) {
       return
     }
@@ -58,11 +59,19 @@ function Registration() {
         body: JSON.stringify(formData)
       })
           .then((response) => {
-            if(response.status == 200)
-              navigate('/login')
+            console.log(response)
+            if(response.status == 200){
+              return response.json()
+            }
             else {
-              console.log(response.json())
-              alert('Повторите попытку')
+              setShowVerificationCode(false)
+              setShowError(true)
+            }
+          })
+          .then(data => {
+            if(data) {
+              localStorage.setItem('accessToken', data.token)
+              navigate("/profile")
             }
           })
     } catch (error) {
@@ -109,6 +118,7 @@ function Registration() {
                   placeholder="Имя"
                   value={formData.first_name}
                   onChange={handleInputChange}
+                  required={true}
               />
               <input
                   type="text"
@@ -116,6 +126,7 @@ function Registration() {
                   placeholder="Фамилия"
                   value={formData.last_name}
                   onChange={handleInputChange}
+                  required={true}
               />
             </div>
             <InputMask
@@ -124,6 +135,7 @@ function Registration() {
                 placeholder="+7 (___) ___-__-__" // Display a placeholder for user guidance
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                required={true}
             />
             <input
                 type="email"
@@ -131,7 +143,9 @@ function Registration() {
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleInputChange}
+                required={true}
             />
+            {showError && <p className='error'>Номер или электронная почта уже используются другим пользователем</p>}
             <div className="registration-checkbox">
               <input
                   type="checkbox"

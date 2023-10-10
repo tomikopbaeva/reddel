@@ -54,10 +54,10 @@ function CartMain(props) {
         setSelectedPrice(price);
         setShowIIN(month > 0 && price > 0)
     };
-    const waitForRedirect = async () => {
+    const waitForRedirect = async (uuid) => {
         console.log("HERE WE GO AGAIN")
         try{
-            await fetch('https://surapid.kz/api/redirect_user/' + localStorage.getItem('userId'), {
+            await fetch('https://surapid.kz/api/redirect_user/' + uuid, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -120,6 +120,7 @@ function CartMain(props) {
             alert("Неверный код, попробуйте еще раз!")
             window.location.reload(false)
         }
+        let flag = false
         fetch('https://api.ffin.credit/ffc-api-public/universal/apply/apply-lead', {
             method: 'POST',
             headers: {
@@ -146,11 +147,15 @@ function CartMain(props) {
             })
         })
             .then((response) => {
-                console.log(response.json())
-                if (response.ok) {
+                flag = response.ok
+                return response.json();
+            })
+            .then(data => {
+                console.log(data.uuid)
+                if(flag) {
                     setShowLoader(true)
                     setTimeout(() => {
-                        waitForRedirect()
+                        waitForRedirect(data.uuid)
                     }, 20000);
                 } else {
                     setShowErrorText(true)
