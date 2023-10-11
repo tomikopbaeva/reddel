@@ -29,7 +29,7 @@ function Restauran() {
             })
             .then((data) =>{
                 setData(data.data)
-                console.log(data.data.images)
+                console.log(data)
             })
     },[]);
   return (
@@ -50,6 +50,7 @@ function Restauran() {
                     average={data.average}
                     prices={data.prices}
                     menus={data.menus}
+                    work_hours={data.work_hours}
           />
         </div>
       </div>

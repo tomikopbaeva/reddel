@@ -323,14 +323,12 @@ function CartMain(props) {
                     </div>
                     <h4>Часы работы:</h4>
                     <div className='times'>
-                        <div className='time'>
-                            <p>ПН - ЧТ и ВС</p>
-                            <p>10:00-5:00</p>
-                        </div>
-                        <div className='time'>
-                            <p>ПТ - СБ</p>
-                            <p>10:00-6:00</p>
-                        </div>
+                        {props.work_hours && props.work_hours.map((item) => (
+                            <div className='time'>
+                                <p>{item.split(',')[0]}</p>
+                                <p>{item.split(',')[1]}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className='card-icon'>
