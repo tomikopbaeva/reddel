@@ -89,7 +89,7 @@ function MobSearch() {
                 }).map((suggestion, index) => (
                 <a href={"/restauran/" + suggestion.slug} className="mob-search-main-res-block shadow">
                     <div>
-                        <img className="image" src={"https://cloudpaymentsapi.kz" + suggestion.image} width="80px" height="40px" alt="" />
+                        <img className="image" src={"https://surapid.kz" + suggestion.image} width="80px" height="40px" alt="" />
                         <h4>{suggestion.title}</h4>
                     </div>
                     <img src={arrow} alt="" />
