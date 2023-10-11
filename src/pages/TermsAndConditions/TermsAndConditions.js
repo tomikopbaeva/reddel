@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./TermsAndConditions.css";
 
 function TermsAndConditions({ onClose }) {
+    useEffect(() => {
+        document.title = 'Reddel.kz'; // Set the page title here
+    }, []);
   const [showFullText, setShowFullText] = useState(false);
 
   const toggleFullText = () => {

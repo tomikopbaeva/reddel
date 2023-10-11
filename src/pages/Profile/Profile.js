@@ -7,6 +7,9 @@ import {useNavigate} from "react-router-dom";
 import Card from "../../components/card/Card";
 
 function Profile() {
+    useEffect(() => {
+        document.title = 'Reddel.kz'; // Set the page title here
+    }, []);
     const navigate = useNavigate ();
     const [certificateArray, setCertificateArray] = useState([]);
     const [restaurants, setRestaurants] = useState([])

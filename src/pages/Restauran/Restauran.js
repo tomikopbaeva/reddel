@@ -9,6 +9,9 @@ import { useParams } from "react-router-dom";
 import {useEffect, useState} from "react";
 
 function Restauran() {
+    useEffect(() => {
+        document.title = 'Reddel.kz'; // Set the page title here
+    }, []);
     let { id } = useParams();
     const [data,setData] = useState(0)
     useEffect( () => {

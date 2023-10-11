@@ -6,8 +6,12 @@ import Footer from "../../components/footer/Footer";
 import Сategories from "../../components/categories/Сategories";
 import Banner2 from "../../components/banner2/Banner2";
 import "./Main.css";
+import {useEffect} from "react";
 
 function Main() {
+    useEffect(() => {
+        document.title = 'Reddel.kz'; // Set the page title here
+    }, []);
   return (
     <div className="main">
       <Header />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import "./Registration.css";
 import TermsAndConditions from "../TermsAndConditions/TermsAndConditions";
@@ -11,6 +11,9 @@ import heart from "../../assets/heart.svg";
 import profile from "../../assets/profile.svg";
 
 function Registration() {
+  useEffect(() => {
+    document.title = 'Reddel.kz'; // Set the page title here
+  }, []);
   const [formData, setFormData] = useState({
     "first_name": "",
     "last_name": "",
