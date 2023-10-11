@@ -273,6 +273,7 @@ function CartMain(props) {
               arrows: true,
               pagination: true,
               fixedWidth: '620px',
+                fixedHeight: '500px'
             }}
           >
                 <SplideSlide key={0}>
