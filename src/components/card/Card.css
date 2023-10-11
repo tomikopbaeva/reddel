@@ -72,6 +72,7 @@
 }
 
 .card-body{
+    height: 50px;
     margin-top: 15px;
     display: flex;
     align-items: center;

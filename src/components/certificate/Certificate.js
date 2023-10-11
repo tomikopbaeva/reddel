@@ -17,7 +17,7 @@ function Certificate(props) {
         setSelectedOption(selectedValue);
     };
     const activate = (() => {
-        console.log(selectedOption)
+        console.log(props.certificate.id + " " + selectedOption)
         fetch('https://surapid.kz/api/activate_certificate/' + props.certificate.id + "/" + selectedOption, {
             method: 'POST',
             headers: {
@@ -109,7 +109,7 @@ function Certificate(props) {
                 </ul>
             </div>
             {!props.certificate.status?
-                (<a href="#" className="activate" onClick={activate}>Активировать</a>) : <a></a>}
+                (<a className="activate" onClick={activate}>Активировать</a>) : <a></a>}
         </div>
     </div>
   );

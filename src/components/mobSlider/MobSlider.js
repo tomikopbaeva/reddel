@@ -12,7 +12,7 @@ function MobSlider({ cardArray }) {
                 perPage: 3,
                 arrows: false,
                 pagination: false,
-                fixedWidth: '218px',
+                fixedWidth: '240px',
             }}>
                 {cardArray.map((res) => <SplideSlide>{res}</SplideSlide>)}
             </Splide>

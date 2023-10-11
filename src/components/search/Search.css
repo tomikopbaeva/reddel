@@ -47,9 +47,9 @@
     align-items: center;
     text-decoration: none;
     color: black;
-    /*background: #91A3E2;*/
+    background: #E7E7E7;
     padding: 10px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     border-radius: 10px;
 }
 .title{
@@ -64,7 +64,7 @@
     line-height: 1.5;
 }
 .card_search:hover{
-    background: #3153CA;
+    background: #91A3E2;
 }
 .image_search{
     border-radius: 10px;
