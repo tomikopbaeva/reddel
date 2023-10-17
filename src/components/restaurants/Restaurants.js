@@ -118,7 +118,7 @@ function Restaurants() {
             </div>
             <div className='desk'>
                 <div className='place-list'>
-                    {filteredCards.slice(0, shownCount)}
+                    {filteredCards}
                 </div>
             </div>
             <MobSlider cardArray={filteredCards} />
