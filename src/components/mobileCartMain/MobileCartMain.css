@@ -92,6 +92,7 @@
 
 .time{
     align-items: flex-start;
+    gap: 0;
 }
 
 .info-time{
