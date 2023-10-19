@@ -95,7 +95,10 @@
 }
 
 .info-time{
-    display: flex;
+    width: 100%;
+    font-size: 14px;
     align-items: flex-end;
-    flex-direction: column;
+    text-align: end;
+    /*border: #91A3E2 0.0001rem solid;*/
+    /*border-radius: 10px;*/
 }

@@ -133,8 +133,16 @@ function MobileCartMain(props) {
         <div className='info time'>
             <h5>Часы работы:</h5>
             <div className='info-time'>
-              <span>ПН - ЧТ и ВС: 10:00-5:00</span>
-              <span>ПТ - СБ: 10:00-6:00</span>
+                {props.work_hours && props.work_hours.map((item) => (
+                        <p className='info-time'>
+                            {item.split(',')[0]}
+                            <br/>
+                            {item.split(',')[1]}
+                        </p>
+
+                ))}
+              {/*<span>ПН - ЧТ и ВС: 10:00-5:00</span>*/}
+              {/*<span>ПТ - СБ: 10:00-6:00</span>*/}
             </div>
         </div>
         <div className="thumbnails">

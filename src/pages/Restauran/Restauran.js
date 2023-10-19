@@ -68,7 +68,8 @@ function Restauran() {
                           kitchen={data.kitchen}
                           average={data.average}
                           prices={data.prices}
-                          menus={data.menus}/>
+                          menus={data.menus}
+                          work_hours={data.work_hours}/>
         </div>
       <Footer />
     </div>
