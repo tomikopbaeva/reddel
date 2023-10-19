@@ -37,7 +37,7 @@ function Search({ placeholder}) {
                 // console.log(data['restaurants'])
                 // console.log(++i)
             })
-    });
+    },[]);
 
     return (
         <div className="search1">

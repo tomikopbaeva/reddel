@@ -17,7 +17,6 @@ function Main() {
       <Header />
       <div className="main-content">
         <Banner />
-        {/*<Сategories />*/}
         <Restaurants />
         <Banner2 />
       </div>
