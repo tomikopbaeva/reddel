@@ -55,6 +55,7 @@ function Registration() {
   const handleVerification = async (code) => {
     code = code[0] + code[1] + code[2] + code[3]
     if (code != validate) {
+      alert('Неверный код')
       return
     }
     try {
@@ -100,20 +101,29 @@ function Registration() {
       alert("Please agree to the terms and conditions.");
       return;
     }
-
-    try {
-      formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
-      let randomNumber = Math.floor(Math.random() * 10000);
-      let code = randomNumber.toString().padStart(4, '0')
-      setValidate(code)
-      console.log(validate + " " + code)
-      await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + formData.phone_number  + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
-      setShowVerificationCode(true)
-    }
-    catch (error) {
-      console.log()
-      console.error("Error:", error);
-    }
+    formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
+    console.log(formData)
+    fetch("https://surapid.kz/api/checkUser", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+        .then(async (response) => {
+          console.log(response)
+          if (response.status == 200) {
+            let randomNumber = Math.floor(Math.random() * 10000);
+            let code = randomNumber.toString().padStart(4, '0')
+            setValidate(code)
+            console.log(validate + " " + code)
+            await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + formData.phone_number + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+            setShowVerificationCode(true)
+          } else {
+            setShowError(true)
+          }
+        })
   };
 
   return (

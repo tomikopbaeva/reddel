@@ -11,6 +11,7 @@ import {useEffect, useState} from "react";
 function Restauran() {
     let { id } = useParams();
     const [data,setData] = useState(0)
+    let logo = 0
     useEffect( () => {
         fetch("https://surapid.kz/api/get_restaurant_by_slug/" + id, {
             method: 'GET',
@@ -24,12 +25,14 @@ function Restauran() {
                 }
                 return response.json();
             })
-            .then((data) =>{
-                setData(data.data)
-                console.log(data)
+            .then((data1) =>{
+                setData(data1.data)
+                logo = data1.data.logo
+                console.log(data1['logo'])
+                const link = document.querySelector("link[rel~='icon']");
+                link.href = "https://surapid.kz"+logo;
             })
-        const link = document.querySelector("link[rel~='icon']");
-        link.href = "https://surapid.kz"+data.logo;
+
     },[]);
   return (
     <div className="favorites">
