@@ -5,14 +5,17 @@ import O from '../../assets/0.svg';
 import O6 from '../../assets/6.svg';
 import dot from '../../assets/dot.svg';
 import bannerMob from '../../assets/BannerMob.png';
+import { useTranslation } from "react-i18next"
 
 function Banner() {
-  return (
+    const {t, i18n} = useTranslation();
+
+    return (
     <div className="banner">
         <div className="banner-desk">
             <div className="banner-left">
-                <h1>Оплатите счет электронным сертификатом в рассрочку</h1>
-                <p>Выберите заведение и оформите безналичную рассрочку или кредит онлайн </p>
+                <h1>{t("Оплатите счет электронным сертификатом в рассрочку")}</h1>
+                <p>{t("Выберите заведение и оформите безналичную рассрочку или кредит онлайн")} </p>
                 <div className="banner-left-frame">
                     <img src={O} alt="" />
                     <img src={dot} alt="" />

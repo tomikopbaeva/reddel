@@ -12,6 +12,7 @@ function Main() {
     useEffect(() => {
         document.title = 'Reddel.kz'; // Set the page title here
     }, []);
+
   return (
     <div className="main">
       <Header />

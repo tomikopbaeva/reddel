@@ -4,7 +4,7 @@ import './index.css';
 import {RouterProvider,} from "react-router-dom";
 import {router} from "./Routes";
 import './fonts/manrope/Manrope-Regular.ttf';
-
+import './18n'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

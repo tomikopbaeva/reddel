@@ -13,8 +13,9 @@ import heart from "../../assets/heart.svg";
 import Localization from "../localization/Localization";
 import Search from "../search/Search";
 import "./Header.css";
-
+import { useTranslation } from "react-i18next"
 function Header({ favoriteItems }) {
+  const {t, i18n} = useTranslation();
   return (
     <header className="header">
       <div className="header-desk">
@@ -59,14 +60,14 @@ function Header({ favoriteItems }) {
                 <img src={icon} alt="icon" />
                 Каталог
               </Link>
-              <a className="link1" href="https://wa.me/77077528313">Для Бизнеса</a>
-              <Search placeholder="Я ищу..." />
+              <a className="link1" href="https://wa.me/77077528313">{t("Для Бизнеса")}</a>
+              <Search placeholder={t("Я ищу")} />
             </div>
           </div>
           <div className="header-right">
             <Link to="/favorites" className="header-right-item">
               <img src={heart} alt="heart" />
-              <span>Избранное</span>
+              <span>{t("Избранное")}</span>
             </Link>
             <Link to="/profile" className="header-right-item">
               <img src={profile} alt="profile" />

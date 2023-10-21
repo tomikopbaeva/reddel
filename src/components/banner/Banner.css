@@ -26,6 +26,7 @@
 }
 
 .banner-right img{
+    width: 100%;
     border-radius: 0 24px 24px 0;
 }
 

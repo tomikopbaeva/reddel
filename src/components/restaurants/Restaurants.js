@@ -7,8 +7,11 @@ import MobSlider from '../mobSlider/MobSlider';
 import "../../components/categories/Сategories.css";
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from "react-i18next"
+
 
 function Restaurants() {
+    const {t, i18n} = useTranslation();
     const [shownCount, setShownCount] = useState(9); // Initially, show 9 elements
     const [cardArray, setCardArray] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("Все"); // Default to "Все" category
@@ -72,7 +75,7 @@ function Restaurants() {
     return (
         <section className='place'>
             <div className="categories">
-                <h2 className="h2">Категории</h2>
+                <h2 className="h2">{t("Категории")}</h2>
                 <div className="desk">
                     <div className="categories-list">
                         {categories.map((category, index) => (
@@ -113,7 +116,7 @@ function Restaurants() {
                 </div>
             </div>
             <div className='place-header'>
-                <h2 className='h2'>Заведения</h2>
+                <h2 className='h2'>{t("Заведения")}</h2>
                 <button className='place-button' onClick={handleShowAll}>Показать все</button>
             </div>
             <div className='desk'>
