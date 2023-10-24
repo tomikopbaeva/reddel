@@ -165,6 +165,7 @@ function CerfModal({ onClose, prices }) {
 
     }
     const create_certificate = async (e) => {
+        setShowLoader(true)
         fetch('https://surapid.kz/api/user', {
             method: 'POST',
             headers: {
@@ -217,6 +218,7 @@ function CerfModal({ onClose, prices }) {
             })
         })
             .then((response) =>{
+                setShowLoader(false)
                 console.log(response)
                 if(showIIN) {
                     setShowVerification(response.ok)

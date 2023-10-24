@@ -8,16 +8,20 @@ import done3 from '../../assets/done3.svg';
 
 import Frame2 from '../../assets/Frame2.svg';
 import {useTranslation} from "react-i18next";
+import Loading from "react-fullscreen-loading";
 
 function Certificate(props) {
     const certificateRef = useRef();
     const [selectedOption, setSelectedOption] = useState(props.restaurants[0].id);
+    const [showLoader, setShowLoader] = useState(false)
+
     const handleSelectChange = (event) => {
         console.log(event.target.value)
         const selectedValue = event.target.value;
         setSelectedOption(selectedValue);
     };
     const activate = (() => {
+        setShowLoader(true)
         console.log(props.certificate.id + " " + selectedOption)
         fetch('https://surapid.kz/api/activate_certificate/' + props.certificate.id + "/" + selectedOption, {
             method: 'POST',
@@ -26,6 +30,7 @@ function Certificate(props) {
             }
         }).then(response => {
             console.log(response)
+            setShowLoader(false)
         }).then(data => {
             console.log(data)
             window.location.reload(false)
@@ -114,6 +119,7 @@ function Certificate(props) {
             {!props.certificate.status?
                 (<a className="activate" onClick={activate}>Активировать</a>) : <a></a>}
         </div>
+        {showLoader ? <Loading loading background="" loaderColor="#3498db" > Банк принимает решение </Loading> : (<a></a>)}
     </div>
   );
 }
