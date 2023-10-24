@@ -48,7 +48,7 @@ function MobSearch() {
   return (
     <section className="mob-search">
         <div className="mob-search-title">
-            <h2>Поиск</h2>
+            <h2>{t("Поиск")}</h2>
             {/*<Search placeholder={"Название заведения или категории"} />*/}
             <div className="search">
                 <img src={search} alt="" />
@@ -62,7 +62,7 @@ function MobSearch() {
             </div>
         </div>
         <div className="mob-search-main">
-            <h2>Популярные места</h2>
+            <h2>{t("Популярные места")}</h2>
             <div className="mob-search-main-blocks">
                 <Splide options={{
                 // type: 'loop',
@@ -86,7 +86,7 @@ function MobSearch() {
                 </Splide>
             </div>
             <div className="mob-search-main-res">
-                <h2>Результаты поиска</h2>
+                <h2>{t("Результаты поиска")}</h2>
                 {filteredSuggestions.filter(item => {
                     return searchValue && (item.title.toLowerCase().includes(searchValue.toLowerCase()))
                 }).map((suggestion, index) => (
