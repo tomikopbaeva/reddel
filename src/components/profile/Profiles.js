@@ -31,9 +31,9 @@ function Profiles(props) {
         <div className="profile-header">
             <h2 className="h2">{t("Связаться с Reddel")}</h2>
             <div className="profile-header-link">
-                <img src={instagram} alt="instagram" />
-                <img src={whatsapp} alt="whatsapp" />
-                <img src={mail} alt="mail" />
+                <a href="https://instagram.com/reddel.kz?igshid=MzRlODBiNWFlZA=="><img src={instagram} alt="instagram" /></a>
+                <a href="https://wa.me/77077528313"><img src={whatsapp} alt="whatsapp" /></a>
+                <a href="mailto:support@reddel.kz"><img src={mail} alt="mail" /></a>
             </div>
         </div>
         <div className="profile-main">
