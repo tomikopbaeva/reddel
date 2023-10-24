@@ -5,6 +5,8 @@ import "./Favorites.css";
 import React, {useEffect, useState} from "react";
 import Card from "../../components/card/Card";
 import {useNavigate} from "react-router-dom";
+import { useTranslation } from "react-i18next"
+
 
 function Favorites() {
     const [favoriteItems,setFavoriteItems] = useState([])

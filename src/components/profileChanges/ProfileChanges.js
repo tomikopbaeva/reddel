@@ -5,9 +5,12 @@ import edit from "../../assets/edit.svg";
 import isTokenValid from "../../api.js"
 import { useNavigate  } from "react-router-dom";
 import login from "../../pages/Login/Login";
+import {useTranslation} from "react-i18next";
 
 
 function ProfileChanges(props) {
+  const {t, i18n} = useTranslation();
+
   const navigate = useNavigate ();
   const [isEditing, setIsEditing] = useState(false);
   const [showVerificationCode, setShowVerificationCode] = useState(false);
@@ -22,7 +25,7 @@ function ProfileChanges(props) {
   return (
     <div className="profile-main">
       <div className="shadow">
-        <h2 className="h2">Личные данные</h2>
+        <h2 className="h2">{t("Личные данные")}</h2>
         {/*<div className="profile-edit" onClick={handleEditClick}>*/}
         {/*  {isEditing ? (*/}
         {/*    <span>Сохранить</span>*/}
@@ -34,15 +37,15 @@ function ProfileChanges(props) {
         {/*  )}*/}
         {/*</div>*/}
         <div className="info">
-          <span>Имя</span>
+          <span>{t("Имя")}</span>
           <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.first_name}/>
         </div>
         <div className="info">
-          <span>Фамилия</span>
+          <span>{t("Фамилия")}</span>
           <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.last_name}/>
         </div>
         <div className="info">
-          <span>Телефон</span>
+          <span>{t("Телефон")}</span>
           <input className="profile-input" type="text" placeholder="Введите новый email" value={props.user.phone_number} />
         </div>
         <div className="info">

@@ -7,8 +7,10 @@ import axios from "axios";
 import Freedom from "../../assets/Logo Credit.png";
 import InputMask from "react-input-mask";
 import Loading from "react-fullscreen-loading";
+import {useTranslation} from "react-i18next";
 
 function CerfModal({ onClose, prices }) {
+    const {t, i18n} = useTranslation();
     const modalRef = useRef(null);
     const navigate = useNavigate();
     const [selectedPrice, setSelectedPrice] = useState(null);
@@ -229,7 +231,7 @@ function CerfModal({ onClose, prices }) {
     return (
     <div className="cerf-modal">
         <div className="cerf-modal-content" ref={modalRef}>
-            <h5 className="h5">Сертификат в рассрочку на сумму</h5>
+            <h5 className="h5">{t("Сертификат в рассрочку на сумму")}</h5>
             <div className='price'>
                 {prices && prices.map((item, index) => (
                     <span
@@ -241,7 +243,7 @@ function CerfModal({ onClose, prices }) {
                         </span>
                 ))}
             </div>
-            <h5 className="h5">На срок</h5>
+            <h5 className="h5">{t("На срок")}</h5>
             <div className='price'>
                         <span className={month === 3 ? 'selected-price' : ''} onClick={()  => handleMonth(3)}>
                             <p>3 месяца</p>
@@ -252,7 +254,7 @@ function CerfModal({ onClose, prices }) {
             </div>
             <div className='certificate'>
                 <img src={Frame} alt="random" />
-                <span>Сертификатом можно оплатить 1 счет</span>
+                <span>{t("Сертификатом можно оплатить 1 счет")}</span>
             </div>
             <img src={Freedom} alt="random" width={'150px'}/>
 
@@ -278,13 +280,13 @@ function CerfModal({ onClose, prices }) {
                     <br></br>
                     <br></br>
 
-                    <button className='certificate-button' type={"submit"} onClick={create_certificate}>Оформить</button>
+                    <button className='certificate-button' type={"submit"} onClick={create_certificate}>{t("Оформить")}</button>
                 </form>) : (
-                <a>Выберите сумму</a>
+                <a>{t("Выберите сумму")}</a>
             )
 
             }
-            { !showIIN ? <button className='certificate-button' onClick={create_certificate}>Оформить</button> : (<a></a>)}
+            { !showIIN ? <button className='certificate-button' onClick={create_certificate}>{t("Оформить")}</button> : (<a></a>)}
         </div>
         {showVerification && <VerificationCode handleVerification={handleVerification} sendAgain={sendAgain}/>}
         {showLoader ? <Loading loading background="" loaderColor="#3498db"/>: (<a></a>)}

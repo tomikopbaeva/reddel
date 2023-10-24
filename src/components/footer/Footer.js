@@ -15,9 +15,11 @@ import profile from '../../assets/profile.svg';
 import home2 from '../../assets/home2.svg';
 import heart2 from '../../assets/heart3.svg';
 import profile2 from '../../assets/profile3.svg';
+import {useTranslation} from "react-i18next";
 
 function Footer() {
-  return (
+    const {t, i18n} = useTranslation();
+    return (
     <footer className="footer">
         <div className="desk">
             <section className="footer-section">
@@ -28,9 +30,9 @@ function Footer() {
                 <div className="footer-links">
                     <div className="footer-link">
                         <Link to="/">Каталог</Link>
-                        <a href="mailto:support@reddel.kz">Для бизнеса</a>
-                        <Link to="/favorites">Избранное</Link>
-                        <Link to="/profile">Личный кабинет</Link>
+                        <a href="mailto:support@reddel.kz">{t("Для Бизнеса")}</a>
+                        <Link to="/favorites">{t("Избранное")}</Link>
+                        <Link to="/profile">{t("Личный кабинет")}</Link>
                     </div>
                     <div className="footer-network">
                         <div>
@@ -49,7 +51,7 @@ function Footer() {
                 </div>
             </section>
             <div className="footer-bottom">
-                <p>© Copyright 2022, Reddel</p>
+                <p>© Copyright 2023, Reddel</p>
             </div>
         </div>
         <div className="mob">

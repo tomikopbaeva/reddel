@@ -16,19 +16,21 @@ import axios from "axios";
 import Book from "../../assets/book.svg";
 import MenuCarousel from "../MenuCarousel/MenuCarousel";
 import FullScreenImage from "../FullScreenImage/FullScreenImage";
+import { useTranslation } from "react-i18next"
 
 
 
 function MobileCartMain(props) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const images = [Rectangle, Rectangle, Rectangle];
-  const [showVerification, setShowVerification] = useState(false)
-  const [selectedPrice, setSelectedPrice] = useState(null);
-  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
-  const [isFullScreenOpen, setIsFullScreenOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
+    const {t, i18n} = useTranslation();
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const images = [Rectangle, Rectangle, Rectangle];
+    const [showVerification, setShowVerification] = useState(false)
+    const [selectedPrice, setSelectedPrice] = useState(null);
+    const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+    const [isFullScreenOpen, setIsFullScreenOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState("");
     const navigate = useNavigate();
 
     const openFullScreen = (imageUrl) => {
@@ -87,7 +89,7 @@ function MobileCartMain(props) {
         <div className="card-main-link">
           <div>
             <img src={call} alt="call" />
-            <a href={"tel:"+props.phone_number}>Позвонить</a>
+            <a href={"tel:"+props.phone_number}>{t("Позвонить")}</a>
           </div>
           <div>
             <img src={whatsapp} alt="call" />
@@ -99,19 +101,19 @@ function MobileCartMain(props) {
           </div>
           <div>
               <img src={isFavorite ? heart2 : heart} alt="heart" onClick={handleFavoriteClick} />
-              <span>В избранное</span>
+              <span>{t("В избранное")}</span>
           </div>
         </div>
         <div className="card-main-info">
-          <h2>О заведении:</h2>
+          <h2>{t("О заведении")}:</h2>
           <p className='main-info-p'>{props.description}</p>
         </div>
         <div className="card-main-item">
           <button className='icon-item'>
-              <h4>🔥 Акции</h4>
+              <h4>🔥 {t("Акции")}</h4>
           </button>
           <button className='icon-item' onClick={openCarousel}>
-              <h4>🌟 Меню</h4>
+              <h4>🌟 {t("Меню")}</h4>
           </button>
             {isCarouselOpen && (
                 <MenuCarousel menus={props.menus} onClose={closeCarousel} />
@@ -119,11 +121,11 @@ function MobileCartMain(props) {
         </div>
         <div className="card-main-body"></div>
         <div className='info'>
-            <h5>Cредний чек:</h5>
+            <h5>{t("Cредний чек")}:</h5>
             <span>{props.average}</span>
         </div>
         <div className='info'>
-            <h5>Кухня:</h5>
+            <h5>{t("Кухня")}:</h5>
             <span>{props.kitchen}</span>
         </div>
         <div className='info'>
@@ -131,7 +133,7 @@ function MobileCartMain(props) {
             <span>{props.phone_number}</span>
         </div>
         <div className='info time'>
-            <h5>Часы работы:</h5>
+            <h5>{t("Часы работы")}:</h5>
             <div className='info-time'>
                 {props.work_hours && props.work_hours.map((item) => (
                         <p className='info-time'>
@@ -159,7 +161,7 @@ function MobileCartMain(props) {
               <FullScreenImage imageUrl={selectedImage} onClose={closeFullScreen} />
           )}
         <button className='certificate-button' onClick={handleCertificateButtonClick}>
-          Оформить
+            {t("Оформить")}
         </button>
           {isModalOpen && <CerfModal onClose={() => setIsModalOpen(false)}
                                      prices={props.prices}/>}

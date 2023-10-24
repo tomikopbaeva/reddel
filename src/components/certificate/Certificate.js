@@ -7,6 +7,7 @@ import done2 from '../../assets/done2.svg';
 import done3 from '../../assets/done3.svg';
 
 import Frame2 from '../../assets/Frame2.svg';
+import {useTranslation} from "react-i18next";
 
 function Certificate(props) {
     const certificateRef = useRef();
@@ -42,6 +43,8 @@ function Certificate(props) {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [props.onClose]);
+    const {t, i18n} = useTranslation();
+
     return (
     <div className="cerf-modal">
         <div ref={certificateRef} className="certification">
@@ -50,13 +53,13 @@ function Certificate(props) {
                     (
                         <div className="certification-header">
                         <img src={done2} alt='123' />
-                        <span>Воспользуйтесь до {props.certificate.end_date.substring(0,10).replaceAll('-', '.')}</span>
+                        <span>{t("Воспользуйтесь до")} {props.certificate.end_date.substring(0,10).replaceAll('-', '.')} {t("дейін іске қосылды")}</span>
                         </div>
 
                     ):
                     <div className="certification-header">
                     <img src={done} alt="done" />
-                    <span>Активируйте до 29.12.2023</span>
+                    <span>{t("Активируйте до")} 29.12.2023 {t("дейін іске қосыңыз")}</span>
                     </div>
                 }
                 {/*<span>Активируйте до 29.12.2023</span>*/}
@@ -68,12 +71,12 @@ function Certificate(props) {
                 <img src={done3} alt="done" />
                 <span>Срок действия истек</span>
             </div> */}
-            <h4>Поздравляем! <br/> Вы успешно оформили уникальный сертификат </h4>
-            <p>Ваш код:</p>
+            <h4>{t("Поздравляем")}! <br/> {t("Вы успешно оформили уникальный сертификат")} </h4>
+            <p>{t("Ваш код")}:</p>
             {props.certificate.status && <h3>{props.certificate.encode.substring(0,10)}</h3>}
-            <p>Покажите его администратору заведения  </p>
+            <p>{t("Покажите его администратору заведения")}  </p>
             <div className='info last'>
-                <span>Сумма сертификата</span>
+                <span>{t("Сумма сертификата")}</span>
                 <h5>{props.certificate.sum} ₸</h5>
             </div>
             <div className='info last'>
@@ -85,7 +88,7 @@ function Certificate(props) {
                 <h5>{"8" + props.user.phone_number.substring(1)}</h5>
             </div>
             <div className='info'>
-                <span>В заведении</span>
+                <span>{t("В заведении")}</span>
                 {!props.certificate.status?
                     (
                 <select value={selectedOption} onChange={handleSelectChange}>
@@ -102,10 +105,10 @@ function Certificate(props) {
             <div className='attention'>
                 <img src={Frame2} alt="frame" />
                 <ul>
-                    <li>Активацию нельзя отменить</li>
-                    <li>Сертификат нельзя обналичить</li>
-                    <li>Сертификат действителен 6 месяцев </li>
-                    <li>Использовать сумму можно только для оплаты одного счета в заведении</li>
+                    <li>{t("Активацию нельзя отменить")}</li>
+                    <li>{t("Сертификат нельзя обналичить")}</li>
+                    <li>{t("Сертификат действителен 6 месяцев")} </li>
+                    <li>{t("Использовать сумму можно только для оплаты одного счета в заведении")}</li>
                 </ul>
             </div>
             {!props.certificate.status?

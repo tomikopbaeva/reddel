@@ -6,9 +6,12 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import image from "../../assets/image.png";
 import arrow from "../../assets/arrow.svg";
 import search from '../../assets/Search2.svg';
+import {useTranslation} from "react-i18next";
 
 
 function MobSearch() {
+    const {t, i18n} = useTranslation();
+
     const cardArray = [1,2,3,4];
     const [searchValue, setSearchValue] = useState("");
     const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -89,7 +92,7 @@ function MobSearch() {
                 }).map((suggestion, index) => (
                 <a href={"/restauran/" + suggestion.slug} className="mob-search-main-res-block shadow">
                     <div>
-                        <img className="image" src={"https://surapid.kz" + suggestion.image} width="80px" height="40px" alt="" />
+                        <img className="image" src={"https://surapid.kz" + suggestion.logo} width="40px" alt="" />
                         <h4>{suggestion.title}</h4>
                     </div>
                     <img src={arrow} alt="" />

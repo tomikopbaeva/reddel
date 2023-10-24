@@ -18,9 +18,11 @@ import termsAndConditions from "../../pages/TermsAndConditions/TermsAndCondition
 import {useNavigate} from "react-router-dom";
 import MenuCarousel from "../MenuCarousel/MenuCarousel";
 import InputMask from "react-input-mask";
+import {useTranslation} from "react-i18next";
 
 
 function CartMain(props) {
+    const {t, i18n} = useTranslation();
     const [activeIndex, setActiveIndex] = useState(0);
     const images = [Rectangle, Rectangle, Rectangle];
     const navigate = useNavigate();
@@ -299,29 +301,29 @@ function CartMain(props) {
             </div>
             <div className="cart-main-left-bottom shadow">
                 <div className='card-info'>
-                    <h2>О заведении:</h2>
+                    <h2>{t("О заведении")}:</h2>
                     <p>{props.description}</p>
                     <div className="location">
                         <img src={location} alt="random" />
                         <span>{props.location}</span>
                     </div>
                     <div className='info'>
-                        <h5>Название:</h5>
+                        <h5>{t("Название")}:</h5>
                         <span>{props.title}</span>
                     </div>
                     <div className='info'>
-                        <h5>Cредний чек:</h5>
+                        <h5>{t("Cредний чек")}:</h5>
                         <span>{props.average}</span>
                     </div>
                     <div className='info'>
-                        <h5>Кухня:</h5>
+                        <h5>{t("Кухня")}:</h5>
                         <span>{props.kitchen}</span>
                     </div>
                     <div className='info'>
                         <h5>Телефон:</h5>
                         <span>{props.phone_number}</span>
                     </div>
-                    <h4>Часы работы:</h4>
+                    <h3>{t("Часы работы")}:</h3>
                     <div className='times'>
                         {props.work_hours && props.work_hours.map((item) => (
                             <div className='time'>
@@ -333,14 +335,14 @@ function CartMain(props) {
                 </div>
                 <div className='card-icon'>
                     <div className="icon" onClick={openCarousel}>
-                        <h4>Меню</h4>
+                        <h4>{t("Меню")}</h4>
                         <img className="img50" src={Book} alt="book" />
                     </div>
                     {isCarouselOpen && (
                         <MenuCarousel menus={props.menus} onClose={closeCarousel} />
                     )}
                     <div className='icon'>
-                        <h4>Акции</h4>
+                        <h4>{t("Акции")}</h4>
                         <img className="img50" src={Star} alt="book" />
                     </div>
                     <div className='icon'>
@@ -352,7 +354,7 @@ function CartMain(props) {
         </div>
         <div className="cart-main-right">
             <div className="cart-main-right-top shadow">
-                <h2 className='cart-h2'>Сертификат в рассрочку на сумму</h2>
+                <h2 className='cart-h2'>{t("Сертификат в рассрочку на сумму")}</h2>
                 <div className='price'>
                     {props.prices && props.prices.map((item, index) => (
                         <span
@@ -364,7 +366,7 @@ function CartMain(props) {
                         </span>
                     ))}
                 </div>
-                <h2 className='cart-h2'> На срок</h2>
+                <h2 className='cart-h2'> {t("На срок")}</h2>
                 <div className='price'>
                         <span className={month === 3 ? 'selected-price' : ''} onClick={()  => handleMonth(3)}>
                             <p>3 месяца</p>
@@ -375,13 +377,13 @@ function CartMain(props) {
                 </div>
                 <div className='certificate'>
                     <img src={Frame} alt="random" />
-                    <span>Сертификатом можно оплатить 1 счет</span>
+                    <span>{t("Сертификатом можно оплатить 1 счет")}</span>
                 </div>
                 <img src={Freedom} alt="random" width={'150px'}/>
 
                 { showIIN ? (
                     <div>
-                        <h3>Номер ИИН для заявки:</h3>
+                        <h3>{t("Номер ИИН для заявки")}:</h3>
                         <br></br>
                         <br></br>
                         <InputMask
@@ -402,21 +404,21 @@ function CartMain(props) {
                         <br></br>
                         <br></br>
 
-                        <button className='certificate-button' type={"submit"} onClick={create_certificate}>Оформить</button>
+                        <button className='certificate-button' type={"submit"} onClick={create_certificate}>{t("Оформить")}</button>
                     </div>) : (
-                    <a>Выберите сумму</a>
+                    <a>{t("Выберите сумму")}</a>
                     )
 
                 }
-                { !showIIN ? <button className='certificate-button' onClick={create_certificate}>Оформить</button> : (<a></a>)}
+                { !showIIN ? <button className='certificate-button' onClick={create_certificate}>{t("Оформить")}</button> : (<a></a>)}
 
                 {showVerification && <VerificationCode handleVerification={handleVerification} sendAgain={sendAgain}/>}
             </div>
             <div className="cart-main-right-bottom shadow">
-                <h2 className='cart-h2'>Важно!</h2>
-                <li className='li'>Сертификат безналичный</li>
-                <li className='li'>Сертификат можно использовать для оплаты  только 1 счета</li>
-                <li className='li'>После покупки сообщите код из сертификата администратору заведения для оплаты счета</li>
+                <h2 className='cart-h2'>{t("Важно")}!</h2>
+                <li className='li'>{t("Сертификат безналичный")}</li>
+                <li className='li'>{t("Сертификат можно использовать для оплаты  только 1 счета")}</li>
+                <li className='li'>{t("После покупки сообщите код из сертификата администратору заведения для оплаты счета")}</li>
             </div>
         </div>
         {showLoader ? <Loading loading background="" loaderColor="#3498db" > Банк принимает решение </Loading> : (<a></a>)}

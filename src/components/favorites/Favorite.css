@@ -17,7 +17,7 @@
 .favorite-text{
     text-align: center;
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .empty button{
@@ -29,6 +29,10 @@
     width: 50%;
 }
 
+.text{
+    text-decoration: none;
+    color: white;
+}
 
 @media screen and (min-width: 970px){
     .favorite-text{

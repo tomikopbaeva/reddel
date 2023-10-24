@@ -55,7 +55,7 @@ span{
 
 .mob-search-main-block span{
     font-size: 10px;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .mob-search-main-block img{
@@ -64,7 +64,9 @@ height: 100%;
     width: auto;
 /*    width: 100%;*/
 }
-
+.mob-search-main-res{
+    padding-bottom: 100px;
+}
 .mob-search-main-res-block{
     text-decoration: none;
     color: black;
@@ -91,7 +93,7 @@ height: 100%;
 
 .mob-search-main-res-block div h4{
     font-size: 14px;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .search{

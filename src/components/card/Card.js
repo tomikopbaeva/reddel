@@ -10,8 +10,12 @@ import heart3 from '../../assets/heart3.svg';
 
 import image from '../../assets/image.png';
 import error from "../error/Error";
+import {useTranslation} from "react-i18next";
+
 
 function Card(props) {
+    const {t, i18n} = useTranslation();
+
     const [isLiked, setIsLiked] = useState(props.isLiked);
     const navigate = useNavigate();
     const handleLikeClick = (id: any) => {
@@ -78,7 +82,7 @@ function Card(props) {
           <img src={isLiked ? heart3 : hearts} alt="heart" />
         </button>
         <Link to={props.slug} className="card-button">
-          <button className="card-button">Посетить в рассрочку</button>
+          <button className="card-button">{t("Посетить в рассрочку")}</button>
         </Link>
       </div>
     </div>
