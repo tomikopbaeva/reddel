@@ -19,7 +19,7 @@ function Search({ placeholder}) {
         setFilteredSuggestions(filtered);
     };
     useEffect(() => {
-        fetch('https://surapid.kz/api/getAllRestaurants', {
+        fetch('https://api.reddel.kz/api/getAllRestaurants', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ function Search({ placeholder}) {
                     return searchValue && (item.title.toLowerCase().includes(searchValue.toLowerCase()))
                 }).map((suggestion, index) => (
                     <a href={"/restauran/" + suggestion.slug} key={index} className="card_search">
-                        <img src={"https://surapid.kz" + suggestion.logo} width="40px"  alt="img"/>
+                        <img src={"https://api.reddel.kz" + suggestion.logo} width="40px"  alt="img"/>
                         <p className="title">{suggestion.title}</p>
                         <img src={arrow} alt="" />
                     </a>

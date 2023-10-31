@@ -28,7 +28,7 @@ function MobSearch() {
         setFilteredSuggestions(filtered);
     };
     useEffect(() => {
-        fetch('https://surapid.kz/api/getAllRestaurants', {
+        fetch('https://api.reddel.kz/api/getAllRestaurants', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function MobSearch() {
                     <SplideSlide>
                         <a href={"restauran/" + suggestion.slug} className="mob-search-main-block">
                             <div className="storimage">
-                                <img src={"https://surapid.kz"+suggestion.logo} alt="" width="80px"/>
+                                <img src={"https://api.reddel.kz"+suggestion.logo} alt="" width="80px"/>
                             </div>
                             <span>{suggestion.title}</span>
                         </a>
@@ -92,7 +92,7 @@ function MobSearch() {
                 }).map((suggestion, index) => (
                 <a href={"/restauran/" + suggestion.slug} className="mob-search-main-res-block shadow">
                     <div>
-                        <img className="image" src={"https://surapid.kz" + suggestion.logo} width="40px" alt="" />
+                        <img className="image" src={"https://api.reddel.kz" + suggestion.logo} width="40px" alt="" />
                         <h4>{suggestion.title}</h4>
                     </div>
                     <img src={arrow} alt="" />

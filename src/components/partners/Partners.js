@@ -9,7 +9,7 @@ function Partners() {
     const [cardArray, setCardArray] = useState([]);
 
     useEffect(() => {
-        fetch('https://surapid.kz/api/getAllRestaurants', {
+        fetch('https://api.reddel.kz/api/getAllRestaurants', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,14 +26,14 @@ function Partners() {
                 for (let i = 0; i < data['restaurants'].length; ++i) {
                     newCardArray.push(
                         <Card
-                            item_image={"https://surapid.kz"+data['restaurants'][i].image}
+                            item_image={"https://api.reddel.kz"+data['restaurants'][i].image}
                             title={data['restaurants'][i].title}
                             id={data['restaurants'][i].id}
                             slug={"/restauran/" + data['restaurants'][i].slug}
                             tags={data['restaurants'][i].tags}
                             description={data['restaurants'][i].description}
                             key={i}
-                            logo={"https://surapid.kz"+data['restaurants'][i].logo}
+                            logo={"https://api.reddel.kz"+data['restaurants'][i].logo}
                             location={data['restaurants'][i].location}
                         />
                     );

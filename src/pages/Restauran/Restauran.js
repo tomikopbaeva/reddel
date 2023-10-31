@@ -13,7 +13,7 @@ function Restauran() {
     const [data,setData] = useState(0)
     let logo = 0
     useEffect( () => {
-        fetch("https://surapid.kz/api/get_restaurant_by_slug/" + id, {
+        fetch("https://api.reddel.kz/api/get_restaurant_by_slug/" + id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ function Restauran() {
                 logo = data1.data.logo
                 console.log(data1['logo'])
                 const link = document.querySelector("link[rel~='icon']");
-                link.href = "https://surapid.kz"+logo;
+                link.href = "https://api.reddel.kz"+logo;
             })
 
     },[]);
@@ -40,11 +40,11 @@ function Restauran() {
         <Header className='res' />
         <div className="main-content">
           <CartHeader title={data.title}
-                      logo={"https://surapid.kz"+data.logo}
+                      logo={"https://api.reddel.kz"+data.logo}
                       tags={data.tags}/>
           <CartMain description={data.description}
                     title={data.title}
-                    item_image={"https://surapid.kz"+data.image}
+                    item_image={"https://api.reddel.kz"+data.image}
                     images={data.images}
                     location={data.location}
                     phone_number={data.phone}
@@ -63,9 +63,9 @@ function Restauran() {
                           whatsapp={data.whatsapp}
                           images={data.images}
                           tags={data.tags}
-                          logo={"https://surapid.kz"+data.logo}
+                          logo={"https://api.reddel.kz"+data.logo}
                           description={data.description}
-                          item_image={"https://surapid.kz"+data.image}
+                          item_image={"https://api.reddel.kz"+data.image}
                           location={data.location}
                           phone_number={data.phone}
                           kitchen={data.kitchen}

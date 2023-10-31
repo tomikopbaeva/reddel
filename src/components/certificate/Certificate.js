@@ -23,7 +23,7 @@ function Certificate(props) {
     const activate = (() => {
         setShowLoader(true)
         console.log(props.certificate.id + " " + selectedOption)
-        fetch('https://surapid.kz/api/activate_certificate/' + props.certificate.id + "/" + selectedOption, {
+        fetch('https://api.reddel.kz/api/activate_certificate/' + props.certificate.id + "/" + selectedOption, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -52,7 +52,7 @@ function CerfModal({ onClose, prices }) {
     const waitForRedirect = async (uuid) => {
         console.log("HERE WE GO AGAIN")
         try{
-            await fetch('https://surapid.kz/api/redirect_user/' + uuid, {
+            await fetch('https://api.reddel.kz/api/redirect_user/' + uuid, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ function CerfModal({ onClose, prices }) {
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
-                            'hook_url': 'https://surapid.kz/api/handle',
+                            'hook_url': 'https://api.reddel.kz/api/handle',
                             'success_url': 'https://reddel.kz/profile',
                             'failure_url': 'https://reddel.kz/profile'
                         },
@@ -166,7 +166,7 @@ function CerfModal({ onClose, prices }) {
     }
     const create_certificate = async (e) => {
         setShowLoader(true)
-        fetch('https://surapid.kz/api/user', {
+        fetch('https://api.reddel.kz/api/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

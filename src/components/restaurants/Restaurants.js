@@ -25,7 +25,7 @@ function Restaurants() {
     ]);
 
     useEffect(() => {
-        fetch('https://surapid.kz/api/getAllRestaurants', {
+        fetch('https://api.reddel.kz/api/getAllRestaurants', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ function Restaurants() {
                 setCategories(data['tags'])
                 const newCardArray = data['restaurants'].map((restaurant, index) => (
                     <Card
-                        item_image={"https://surapid.kz" + restaurant.image}
+                        item_image={"https://api.reddel.kz" + restaurant.image}
                         title={restaurant.title}
                         id={restaurant.id}
                         slug={"/restauran/" + restaurant.slug}
@@ -49,7 +49,7 @@ function Restaurants() {
                         description={restaurant.description}
                         key={index}
                         location={restaurant.location}
-                        logo={"https://surapid.kz"+restaurant.logo}
+                        logo={"https://api.reddel.kz"+restaurant.logo}
                     />
                 ));
                 setCardArray(newCardArray);

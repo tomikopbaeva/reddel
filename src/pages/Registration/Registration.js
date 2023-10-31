@@ -62,7 +62,7 @@ function Registration() {
       // Make a POST request using the api.post method
       formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
       console.log(formData)
-      fetch("https://surapid.kz/api/register", {
+      fetch("https://api.reddel.kz/api/register", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -103,7 +103,7 @@ function Registration() {
     }
     formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
     console.log(formData)
-    fetch("https://surapid.kz/api/checkUser", {
+    fetch("https://api.reddel.kz/api/checkUser", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

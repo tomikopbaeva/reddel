@@ -81,7 +81,7 @@ function CartMain(props) {
     const waitForRedirect = async (uuid) => {
         console.log("HERE WE GO AGAIN")
         try{
-            await fetch('https://surapid.kz/api/redirect_user/' + uuid, {
+            await fetch('https://api.reddel.kz/api/redirect_user/' + uuid, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ function CartMain(props) {
                     'principal': selectedPrice,
                 },
                 'additional_information': {
-                    'hook_url': 'https://surapid.kz/api/handle',
+                    'hook_url': 'https://api.reddel.kz/api/handle',
                     'success_url': 'https://reddel.kz/profile',
                     'failure_url': 'https://reddel.kz/profile'
                 },
@@ -193,7 +193,7 @@ function CartMain(props) {
     }
     const create_certificate = async (e) => {
         setShowLoader(true)
-        fetch('https://surapid.kz/api/user', {
+        fetch('https://api.reddel.kz/api/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -285,7 +285,7 @@ function CartMain(props) {
                 </SplideSlide>
             {props.images && props.images.map((image, index) => (
               <SplideSlide key={1}>
-                <img src={"https://surapid.kz"+image} id={index} width="100%" alt="Slide" />
+                <img src={"https://api.reddel.kz"+image} id={index} width="100%" alt="Slide" />
               </SplideSlide>
             ))}
           </Splide>
@@ -296,7 +296,7 @@ function CartMain(props) {
                 className={`thumbnail ${activeIndex === index ? 'active' : ''}`}
                 onClick={() => handleThumbnailClick(index)}
               >
-                <img src={"https://surapid.kz"+image} alt={`Thumbnail ${index}`} />
+                <img src={"https://api.reddel.kz"+image} alt={`Thumbnail ${index}`} />
               </div>
             ))}
           </div>

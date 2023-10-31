@@ -40,7 +40,7 @@ function Login() {
 
   useEffect(() => {
     console.log(localStorage.getItem('accessToken'))
-    fetch('https://surapid.kz/api/user', {
+    fetch('https://api.reddel.kz/api/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ function Login() {
       alert("Неверный код, попробуйте еще раз!")
       window.location.reload(false)
     }
-    fetch('https://surapid.kz/api/login', {
+    fetch('https://api.reddel.kz/api/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -97,7 +97,7 @@ function Login() {
     }
     console.log(phoneNumber.replaceAll(/[^0-9]/g, ''))
     let flag = false
-    fetch('https://surapid.kz/api/login', {
+    fetch('https://api.reddel.kz/api/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

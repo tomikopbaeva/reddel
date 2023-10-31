@@ -43,7 +43,7 @@ function MobileCartMain(props) {
         setIsFullScreenOpen(false);
     };
   const handleCertificateButtonClick = () => {
-      fetch('https://surapid.kz/api/user', {
+      fetch('https://api.reddel.kz/api/user', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -152,8 +152,8 @@ function MobileCartMain(props) {
               <div
                 key={index}
                 className={`thumbnail ${activeIndex === index ? 'active' : ''}`}
-                onClick={() => openFullScreen("https://surapid.kz"+image)}>
-                <img src={"https://surapid.kz"+image} alt={`Thumbnail ${index}`} />
+                onClick={() => openFullScreen("https://api.reddel.kz"+image)}>
+                <img src={"https://api.reddel.kz"+image} alt={`Thumbnail ${index}`} />
               </div>
             ))}
         </div>

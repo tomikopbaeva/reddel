@@ -13,7 +13,7 @@ function Favorites() {
     const navigate = useNavigate ();
     let id = -1
     useEffect(() => {
-        fetch('https://surapid.kz/api/user', {
+        fetch('https://api.reddel.kz/api/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ function Favorites() {
                 id = data.id
             })
             .then(() => {
-                fetch('https://surapid.kz/api/get_favourites/' + id, {
+                fetch('https://api.reddel.kz/api/get_favourites/' + id, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -44,14 +44,14 @@ function Favorites() {
                         for (let i = 0; i < data['restaurants'].length; ++i) {
                             newCardArray.push(
                                 <Card
-                                    item_image={"https://surapid.kz"+data['restaurants'][i].image}
+                                    item_image={"https://api.reddel.kz"+data['restaurants'][i].image}
                                     title={data['restaurants'][i].title}
                                     id={data['restaurants'][i].id}
                                     slug={"/restauran/" + data['restaurants'][i].slug}
                                     tags={data['restaurants'][i].tags}
                                     description={data['restaurants'][i].description}
                                     key={i}
-                                    logo={"https://surapid.kz"+data['restaurants'][i].logo}
+                                    logo={"https://api.reddel.kz"+data['restaurants'][i].logo}
                                     location={data['restaurants'][i].location}
                                     isLiked={true}
                                 />
