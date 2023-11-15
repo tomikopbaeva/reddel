@@ -39,6 +39,21 @@ function CartMain(props) {
     const [phone_number, setNumber] = useState('')
     const [userId, setUserId] = useState()
     let number = ''
+    useEffect(() => {
+        let a,b,c
+        console.log("THE FUCKING LOG")
+        console.log(props.state)
+        if(props.state) {
+            if (props.state.iin) {
+                setIIN(props.state.iin)
+                setShowIIN(true)
+            }
+            if (props.state.sum)
+                setSelectedPrice(props.state.sum)
+            if (props.state.month)
+                setMonth(props.state.month)
+        }
+    },[])
     const handleIINChange = (e) => {
         setIIN(e.target.value);
     };
@@ -192,6 +207,18 @@ function CartMain(props) {
             })
     }
     const create_certificate = async (e) => {
+        let state = {
+            url: props.slug,
+            iin:"",
+            sum:"",
+            month:""
+        }
+        if(iin)
+            state["iin"] = iin
+        if(selectedPrice)
+            state['sum'] = selectedPrice
+        if(month)
+            state['month'] = month
         setShowLoader(true)
         fetch('https://api.reddel.kz/api/user', {
             method: 'POST',
@@ -201,8 +228,9 @@ function CartMain(props) {
             body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
         })
             .then((response) => {
-                if(response.status != 200)
-                    navigate('/login')
+                if(response.status != 200) {
+                    navigate(`/login`, {state: state})
+                }
                 return response.json()
             })
             .then((data) => {
@@ -214,9 +242,9 @@ function CartMain(props) {
                 number=data.phone_number
             })
             .catch((error) => {
-                navigate('/login')
+                navigate(`/login`, {state: state})
             });
-        if(selectedPrice==null || iin.length < 12)
+        if(selectedPrice == 0 || iin.length < 12 || month == 0)
             return
         e.preventDefault();
         await fetch('https://api.ffin.credit/ffc-api-auth/', {
@@ -371,10 +399,10 @@ function CartMain(props) {
                 <h2 className='cart-h2'> {t("На срок")}</h2>
                 <div className='price'>
                         <span className={month === 3 ? 'selected-price' : ''} onClick={()  => handleMonth(3)}>
-                            <p>3 месяца</p>
+                            <p>3 {t("месяца")}</p>
                         </span>
                         <span className={month === 6 ? 'selected-price' : ''} onClick={()  => handleMonth(6)}>
-                            <p>6 месяцев</p>
+                            <p>6 {t("месяцев")}</p>
                         </span>
                 </div>
                 <div className='certificate'>
@@ -408,7 +436,7 @@ function CartMain(props) {
 
                         <button className='certificate-button' type={"submit"} onClick={create_certificate}>{t("Оформить")}</button>
                     </div>) : (
-                    <a>{t("Выберите сумму")}</a>
+                    <a>{t("Выберите сумму и срок на который вы хотите оформить рассрочку")}</a>
                     )
 
                 }

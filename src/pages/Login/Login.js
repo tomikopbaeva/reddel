@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import "./Login.css";
 import api from "../../api";
 import React, {useEffect, useState} from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import InputMask from 'react-input-mask';
 import cerfModal from "../../components/cerfModal/CerfModal";
 import CerfModal from "../../components/cerfModal/CerfModal";
@@ -16,10 +16,12 @@ import profile from "../../assets/profile.svg";
 
 
 function Login() {
+
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
   });
+  const location = useLocation();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [openCerf, setOpenCerf] = useState(false)
   const navigate = useNavigate();
@@ -39,6 +41,9 @@ function Login() {
   }
 
   useEffect(() => {
+    console.log("THIS IS STATE" )
+    console.log(location.state)
+
     console.log(localStorage.getItem('accessToken'))
     fetch('https://api.reddel.kz/api/user', {
       method: 'POST',
@@ -49,6 +54,10 @@ function Login() {
     })
         .then((response) => {
           if(response.status == 200){
+              if(location.state.url){
+                navigate('/restauran/' + location.state.url, {state: location.state})
+              }
+              else
               navigate('/profile')
           }
           return response.json()
@@ -77,7 +86,12 @@ function Login() {
       console.log(data)
       if (data.token) {
         localStorage.setItem('accessToken', data.token)
-        navigate("/profile")
+        if(location.state.url){
+          navigate('/restauran/' + location.state.url, {state: location.state})
+        }
+        else {
+          navigate("/profile")
+        }
       }
     })
     // }).then((response) => {

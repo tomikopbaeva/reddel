@@ -248,10 +248,10 @@ function CerfModal({ onClose, prices }) {
             <h5 className="h5">{t("На срок")}</h5>
             <div className='price'>
                         <span className={month === 3 ? 'selected-price' : ''} onClick={()  => handleMonth(3)}>
-                            <p>3 месяца</p>
+                            <p>3 {t("месяца")}</p>
                         </span>
                 <span className={month === 6 ? 'selected-price' : ''} onClick={()  => handleMonth(6)}>
-                            <p>6 месяцев</p>
+                            <p>6 {t("месяцев")}</p>
                         </span>
             </div>
             <div className='certificate'>

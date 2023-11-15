@@ -6,13 +6,20 @@ import CartMain from "../../components/cartMain/CartMain";
 import MobileCartHeader from "../../components/mobileCartHeader/MobileCartHeader";
 import MobileCartMain from "../../components/mobileCartMain/MobileCartMain";
 import { useParams } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+
 import {useEffect, useState} from "react";
 
 function Restauran() {
+    const location = useLocation();
+
     let { id } = useParams();
     const [data,setData] = useState(0)
     let logo = 0
     useEffect( () => {
+        console.log("THIS IS STATE : ")
+        console.log(location.state)
+
         fetch("https://api.reddel.kz/api/get_restaurant_by_slug/" + id, {
             method: 'GET',
             headers: {
@@ -53,6 +60,8 @@ function Restauran() {
                     prices={data.prices}
                     menus={data.menus}
                     work_hours={data.work_hours}
+                    slug={data.slug}
+                    state={location.state}
           />
         </div>
       </div>
@@ -73,6 +82,7 @@ function Restauran() {
                           prices={data.prices}
                           menus={data.menus}
                           work_hours={data.work_hours}/>
+                          slug={data.slug}
         </div>
       <Footer />
     </div>
