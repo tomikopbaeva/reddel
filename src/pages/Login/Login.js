@@ -24,9 +24,23 @@ function Login() {
   const location = useLocation();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [openCerf, setOpenCerf] = useState(false)
-  const navigate = useNavigate();
+    const navigate = useNavigate();
   const [validate, setValidate] = useState('1')
-
+  const login = () =>{
+    fetch('https://api.reddel.kz/api/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
+    })
+        .then((response) => {
+          if (response.status == 200) {
+            navigate('/profile')
+          }
+        })
+    navigate('/login')
+  }
 
   const sendAgain = async () => {
     let randomNumber = Math.floor(Math.random() * 10000);
@@ -155,10 +169,10 @@ function Login() {
           <img src={heart} alt="logo" />
           <span>Избранное</span>
         </Link>
-        <Link to="/profile" className="mob-item">
+        <a href="" onClick={login} className="mob-item">
           <img src={profile} alt="logo" />
           <span>Профиль</span>
-        </Link>
+        </a>
       </div>
       </footer>
     </div>

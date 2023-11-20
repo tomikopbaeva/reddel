@@ -1,6 +1,6 @@
 import './Footer.css'; 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 import Logo2 from '../../assets/Logo2.svg';
 import instagram from '../../assets/instagram2.svg';
@@ -19,6 +19,23 @@ import {useTranslation} from "react-i18next";
 
 function Footer() {
     const {t, i18n} = useTranslation();
+    const navigate = useNavigate();
+
+    const login = () =>{
+        fetch('https://api.reddel.kz/api/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
+        })
+            .then((response) => {
+                if (response.status == 200) {
+                    navigate('/profile')
+                }
+            })
+        navigate('/login')
+    }
     return (
     <footer className="footer">
         <div className="desk">
@@ -67,10 +84,10 @@ function Footer() {
             <img src={heart} alt="logo" />
             <span>Избранное</span>
           </Link>
-          <Link to="/profile" className="mob-item">
+          <a href="" onClick={login} className="mob-item">
             <img src={profile} alt="logo" />
             <span>Профиль</span>
-          </Link>
+          </a>
         </div>
     </footer>
   );

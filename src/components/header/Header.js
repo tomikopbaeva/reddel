@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import instagram from "../../assets/instagram.svg";
 import whatsapp from "../../assets/whatsapp.svg";
@@ -16,6 +16,22 @@ import "./Header.css";
 import { useTranslation } from "react-i18next"
 function Header({ favoriteItems }) {
   const {t, i18n} = useTranslation();
+  const navigate = useNavigate();
+  const login = () =>{
+    fetch('https://api.reddel.kz/api/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
+    })
+        .then((response) => {
+          if (response.status == 200) {
+            navigate('/profile')
+          }
+        })
+    navigate('/login')
+  }
   return (
     <header className="header">
       <div className="header-desk">
@@ -69,10 +85,10 @@ function Header({ favoriteItems }) {
               <img src={heart} alt="heart" />
               <span>{t("Избранное")}</span>
             </Link>
-            <Link to="/profile" className="header-right-item">
+            <a href="" onClick={login} className="header-right-item">
               <img src={profile} alt="profile" />
               <span>Профиль</span>
-            </Link>
+            </a>
           </div>
         </div>
       </div>
