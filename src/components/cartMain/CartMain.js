@@ -40,9 +40,6 @@ function CartMain(props) {
     const [userId, setUserId] = useState()
     let number = ''
     useEffect(() => {
-        let a,b,c
-        console.log("THE FUCKING LOG")
-        console.log(props.state)
         if(props.state) {
             if (props.state.iin) {
                 setIIN(props.state.iin)
@@ -58,7 +55,6 @@ function CartMain(props) {
         setIIN(e.target.value);
     };
     const sendAgain = () => {
-        console.log(iin + "  " + number)
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/send-otp', {
             method: 'POST',
             headers: {
@@ -70,13 +66,6 @@ function CartMain(props) {
                 'mobile_phone': '+' + phone_number
             })
         })
-            .then((response) =>{
-                console.log(iin + "  " + phone_number)
-                console.log(response)
-            })
-            .catch((error) =>{
-                console.log(('error'))
-            })
     }
     const handleMonth = (price) => {
         setMonth(price);
@@ -94,7 +83,6 @@ function CartMain(props) {
         setShowIIN(month > 0 && price > 0)
     };
     const waitForRedirect = async (uuid) => {
-        console.log("HERE WE GO AGAIN")
         try{
             await fetch('https://api.reddel.kz/api/redirect_user/' + uuid, {
                 method: 'GET',
@@ -107,7 +95,6 @@ function CartMain(props) {
                 })
                 .then((data) => {
                     const url = data.url;
-                    console.log(url)
                     setShowLoader(false)
                     if (url) {
                         if (url['0'] == 'h')
@@ -119,7 +106,6 @@ function CartMain(props) {
                     }
                 })
                 .catch (async (error) => {
-                    console.log("error")
                     setTimeout(() => {
                         waitForRedirect()
                     }, 10000);
@@ -136,7 +122,6 @@ function CartMain(props) {
       setActiveIndex(index);
     };
     const handleVerification = async (inputValues) => {
-        console.log("VALIDATE")
         const response = await fetch('https://api.ffin.credit/ffc-api-public/universal/general/validate-otp', {
             method: 'POST',
             headers: {
@@ -150,11 +135,7 @@ function CartMain(props) {
             })
         })
         .catch((error) => {
-            console.log(error)
         })
-        console.log(response)
-        console.log(response.json())
-        console.log(response.status)
         let flag = false
         if(response.status != '200'){
             alert('Неверый код')
@@ -190,7 +171,6 @@ function CartMain(props) {
                 return response.json();
             })
             .then(data => {
-                console.log(data.uuid)
                 if(flag) {
                     setShowLoader(true)
                     setTimeout(() => {
@@ -201,8 +181,6 @@ function CartMain(props) {
                 }
             })
             .catch((error) => {
-                console.log()
-                console.log(error.message)
 
             })
     }
@@ -234,7 +212,6 @@ function CartMain(props) {
                 return response.json()
             })
             .then((data) => {
-                console.log(data)
                 user = data
                 setNumber(data.phone_number)
                 setUserId(data.id)
@@ -259,7 +236,6 @@ function CartMain(props) {
         })
             .then(async (response) => {
                 let jwt = await response.json()
-                console.log(jwt.access)
                 localStorage.setItem("jwt", jwt.access)
             })
         fetch('https://api.ffin.credit/ffc-api-public/universal/general/send-otp', {
@@ -275,14 +251,12 @@ function CartMain(props) {
         })
             .then((response) =>{
                 setShowLoader(false)
-                console.log(response)
                 if(showIIN) {
                     setShowVerification(response.ok)
                     setIINOk(response.ok)
                 }
             })
             .catch((error) =>{
-                console.log(('error'))
             })
     };
     const openCarousel = () => {
@@ -374,10 +348,6 @@ function CartMain(props) {
                     <div className='icon'>
                         <h4>{t("Акции")}</h4>
                         <img className="img50" src={Star} alt="book" />
-                    </div>
-                    <div className='icon'>
-                        <h4>Резерв</h4>
-                        <img className="img50" src={Whatsapp} alt="book" />
                     </div>
                 </div>
             </div>

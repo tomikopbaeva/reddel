@@ -52,7 +52,7 @@ function MobileCartMain(props) {
       })
           .then((response) => {
               if(response.status != '200')
-                  navigate(`/login`, {state:{url:"RYBA MOEI"}})
+                  navigate(`/login`, {state:{url:props.slug}})
               return response.json();
           })
       if(selectedPrice != null){

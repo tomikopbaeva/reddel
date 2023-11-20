@@ -29,9 +29,10 @@
 .carousel-status{
     display: none;
 }
-.close_div{
+.close_div img{
     position: absolute;
-    width: 5%;
+    width: 4%;
+    left: 100%;
     z-index: 1;
 }
 .image{
@@ -48,7 +49,10 @@
 @media screen and (max-width: 970px) {
     .carousel-content {
         width: 100%;
-        top: 20%;
+        top: 5%;
         left: 0;
+    }
+    .close_div img{
+        left: 95%;
     }
 }

@@ -82,9 +82,10 @@
 }
 .cart-main-left-bottom{
     display: flex;
+    justify-content: space-between;
     align-items: flex-end;
-    gap: 20%;
-    padding: 24px 40px;
+    gap: 10%;
+    padding: 3% 3%;
 }
 .card-info{
     display: flex;
@@ -156,7 +157,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 50px;
+    /*gap: 50px;*/
     border-radius: 24px; 
     border: 0.50px #91A3E2 solid;
     padding: 14px;

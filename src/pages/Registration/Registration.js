@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 import "./Registration.css";
 import TermsAndConditions from "../TermsAndConditions/TermsAndConditions";
 import api from "../../api";
@@ -11,8 +11,11 @@ import heart from "../../assets/heart.svg";
 import profile from "../../assets/profile.svg";
 
 function Registration() {
+  const location = useLocation();
+  const [url, setUrl] = useState('')
   useEffect(() => {
-    document.title = 'Reddel.kz'; // Set the page title here
+    setUrl(location.state.url)
+    document.title = 'Reddel';
   }, []);
   const [formData, setFormData] = useState({
     "first_name": "",
@@ -61,7 +64,6 @@ function Registration() {
     try {
       // Make a POST request using the api.post method
       formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
-      console.log(formData)
       fetch("https://api.reddel.kz/api/register", {
         method: 'POST',
         headers: {
@@ -71,7 +73,6 @@ function Registration() {
         body: JSON.stringify(formData)
       })
           .then((response) => {
-            console.log(response)
             if(response.status == 200){
               return response.json()
             }
@@ -83,12 +84,10 @@ function Registration() {
           .then(data => {
             if(data) {
               localStorage.setItem('accessToken', data.token)
-              navigate("/profile")
+              navigate('/restauran/' + url, {state: location.state})
             }
           })
     } catch (error) {
-      console.log()
-      console.error("Error:", error);
     }
 
   }
@@ -102,7 +101,6 @@ function Registration() {
       return;
     }
     formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
-    console.log(formData)
     fetch("https://api.reddel.kz/api/checkUser", {
       method: 'POST',
       headers: {
@@ -112,12 +110,10 @@ function Registration() {
       body: JSON.stringify(formData)
     })
         .then(async (response) => {
-          console.log(response)
           if (response.status == 200) {
             let randomNumber = Math.floor(Math.random() * 10000);
             let code = randomNumber.toString().padStart(4, '0')
             setValidate(code)
-            console.log(validate + " " + code)
             await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + formData.phone_number + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
             setShowVerificationCode(true)
           } else {

@@ -27,10 +27,6 @@ function Login() {
   const navigate = useNavigate();
   const [validate, setValidate] = useState('1')
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials({ ...credentials, [name]: value });
-  };
 
   const sendAgain = async () => {
     let randomNumber = Math.floor(Math.random() * 10000);
@@ -39,12 +35,11 @@ function Login() {
     let data = phoneNumber.replaceAll(/[^0-9]/g, '')
     await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
   }
-
+  const toRegister = () =>{
+    navigate('/registration', {state: location.state})
+  }
   useEffect(() => {
-    console.log("THIS IS STATE" )
-    console.log(location.state)
 
-    console.log(localStorage.getItem('accessToken'))
     fetch('https://api.reddel.kz/api/user', {
       method: 'POST',
       headers: {
@@ -63,12 +58,10 @@ function Login() {
           return response.json()
         })
         .catch((error) => {
-          console.log(error)
         })
   }, []);
   const handleVerification = async (code) => {
     code = code[0] + code[1] + code[2] + code[3]
-    console.log(code + " " + validate)
     if (code != validate) {
       alert("Неверный код, попробуйте еще раз!")
       window.location.reload(false)
@@ -83,7 +76,6 @@ function Login() {
     }).then((response) => {
       return response.json()
     }).then((data) => {
-      console.log(data)
       if (data.token) {
         localStorage.setItem('accessToken', data.token)
         if(location.state.url){
@@ -94,14 +86,6 @@ function Login() {
         }
       }
     })
-    // }).then((response) => {
-    //   console.log(response);
-    //   localStorage.setItem('accessToken', response.data);
-    //   navigate('/profile')
-    // }).catch((error) => {
-    //   console.log(error);
-    //   alert('Неверный код');
-    // });
   };
   const handleLogin = async (e) => {
 
@@ -109,7 +93,6 @@ function Login() {
     if(phoneNumber.replaceAll(/[^0-9]/g, '').length < 11){
       return
     }
-    console.log(phoneNumber.replaceAll(/[^0-9]/g, ''))
     let flag = false
     fetch('https://api.reddel.kz/api/login', {
       method: 'POST',
@@ -119,7 +102,6 @@ function Login() {
       },
       body: JSON.stringify({"phone_number": phoneNumber.replaceAll(/[^0-9]/g, '')})
     }).then((response) => {
-      console.log(response.status)
       flag = response.status==200
         if(!flag) {
           alert('Номер не зарегистрирован')
@@ -156,7 +138,7 @@ function Login() {
           />
           {openCerf && <VerificationCode  handleVerification={handleVerification} sendAgain={sendAgain}/>}
             <button className="registration-button" type="submit">Продолжить</button>
-          <p>У вас еще нет аккаунта? <Link to="/registration"> Зарегистрироваться</Link></p>
+          <p>У вас еще нет аккаунта? <a href='#' onClick={toRegister}> Зарегистрироваться</a></p>
         </form>
       </section>
       <footer className="footer">
