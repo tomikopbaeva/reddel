@@ -12,9 +12,14 @@ import profile from "../../assets/profile.svg";
 
 function Registration() {
   const location = useLocation();
-  const [url, setUrl] = useState('')
+  const [url, setUrl] = useState('/profile')
   useEffect(() => {
-    setUrl(location.state.url)
+    try{
+      setUrl(location.state.url)
+    }
+    catch{
+
+    }
     document.title = 'Reddel';
   }, []);
   const [formData, setFormData] = useState({
