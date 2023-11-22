@@ -33,8 +33,11 @@ function Footer() {
                 if (response.status == 200) {
                     navigate('/profile')
                 }
+                else{
+                    navigate('/login')
+                }
             })
-        navigate('/login')
+
     }
     return (
     <footer className="footer">
@@ -84,7 +87,7 @@ function Footer() {
             <img src={heart} alt="logo" />
             <span>Избранное</span>
           </Link>
-          <a href="" onClick={login} className="mob-item">
+          <a href="#" onClick={login} className="mob-item">
             <img src={profile} alt="logo" />
             <span>Профиль</span>
           </a>

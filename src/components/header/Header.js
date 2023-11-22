@@ -29,8 +29,10 @@ function Header({ favoriteItems }) {
           if (response.status == 200) {
             navigate('/profile')
           }
+          else{
+            navigate('/login')
+          }
         })
-    navigate('/login')
   }
   return (
     <header className="header">
@@ -85,7 +87,7 @@ function Header({ favoriteItems }) {
               <img src={heart} alt="heart" />
               <span>{t("Избранное")}</span>
             </Link>
-            <a href="" onClick={login} className="header-right-item">
+            <a href="#" onClick={login} className="header-right-item">
               <img src={profile} alt="profile" />
               <span>Профиль</span>
             </a>

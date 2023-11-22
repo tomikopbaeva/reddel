@@ -38,8 +38,9 @@ function Login() {
           if (response.status == 200) {
             navigate('/profile')
           }
+          else
+            navigate('/login')
         })
-    navigate('/login')
   }
 
   const sendAgain = async () => {
@@ -63,11 +64,18 @@ function Login() {
     })
         .then((response) => {
           if(response.status == 200){
-              if(location.state.url){
+            try {
+              if(location.state.url)
                 navigate('/restauran/' + location.state.url, {state: location.state})
+
+              else {
+                navigate('/profile')
               }
-              else
-              navigate('/profile')
+            }
+             catch {
+               navigate('/profile')
+
+             }
           }
           return response.json()
         })
@@ -92,11 +100,16 @@ function Login() {
     }).then((data) => {
       if (data.token) {
         localStorage.setItem('accessToken', data.token)
-        if(location.state.url){
-          navigate('/restauran/' + location.state.url, {state: location.state})
+        try {
+          if (location.state.url) {
+            navigate('/restauran/' + location.state.url, {state: location.state})
+          } else {
+            navigate("/profile")
+          }
         }
-        else {
+        catch {
           navigate("/profile")
+
         }
       }
     })
@@ -125,6 +138,7 @@ function Login() {
           if(flag){
             let randomNumber = Math.floor(Math.random() * 10000);
             let code = randomNumber.toString().padStart(4, '0')
+            // console.log(code)
             setValidate(code)
             let data = phoneNumber.replaceAll(/[^0-9]/g, '')
             await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
@@ -169,7 +183,7 @@ function Login() {
           <img src={heart} alt="logo" />
           <span>Избранное</span>
         </Link>
-        <a href="" onClick={login} className="mob-item">
+        <a href="#" onClick={login} className="mob-item">
           <img src={profile} alt="logo" />
           <span>Профиль</span>
         </a>

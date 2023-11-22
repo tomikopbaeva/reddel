@@ -42,6 +42,7 @@ function Registration() {
   const sendAgain = async () => {
     let randomNumber = Math.floor(Math.random() * 10000);
     let code = randomNumber.toString().padStart(4, '0')
+
     setValidate(code)
     let data = formData.phone_number.replaceAll(/[^0-9]/g, '')
     await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
@@ -89,7 +90,10 @@ function Registration() {
           .then(data => {
             if(data) {
               localStorage.setItem('accessToken', data.token)
-              navigate('/restauran/' + url, {state: location.state})
+              if(url=='/profile')
+                navigate(url)
+              else
+                navigate('/restauran/' + url, {state: location.state})
             }
           })
     } catch (error) {
@@ -118,6 +122,7 @@ function Registration() {
           if (response.status == 200) {
             let randomNumber = Math.floor(Math.random() * 10000);
             let code = randomNumber.toString().padStart(4, '0')
+            // console.log(code)
             setValidate(code)
             await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + formData.phone_number + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
             setShowVerificationCode(true)

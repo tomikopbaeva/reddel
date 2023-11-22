@@ -173,6 +173,12 @@ function CartMain(props) {
             .then(data => {
                 if(flag) {
                     setShowLoader(true)
+                    fetch('https://api.reddel.kz/api/set_name/' + data.uuid + "/" + user.firstName + "/" + user.lastName , {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
                     setTimeout(() => {
                         waitForRedirect(data.uuid)
                     }, 20000);
