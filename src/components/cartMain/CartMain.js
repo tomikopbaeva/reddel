@@ -141,6 +141,7 @@ function CartMain(props) {
             alert('Неверый код')
         }
         if (response.status == '200')
+            setShowLoader(true)
         fetch('https://api.ffin.credit/ffc-api-public/universal/apply/apply-lead', {
             method: 'POST',
             headers: {
@@ -167,13 +168,14 @@ function CartMain(props) {
             })
         })
             .then((response) => {
+                setShowLoader(false)
                 flag = response.ok
                 return response.json();
             })
             .then(data => {
                 if(flag) {
                     setShowLoader(true)
-                    fetch('https://api.reddel.kz/api/set_name/' + data.uuid + "/" + user.firstName + "/" + user.lastName , {
+                    fetch('https://api.reddel.kz/api/set_name/' + data.uuid + "/" + user.first_name + "/" + user.last_name , {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -187,7 +189,7 @@ function CartMain(props) {
                 }
             })
             .catch((error) => {
-
+setShowLoader(false)
             })
     }
     const create_certificate = async (e) => {
@@ -221,6 +223,7 @@ function CartMain(props) {
                 user = data
                 setNumber(data.phone_number)
                 setUserId(data.id)
+                setUser(data)
                 localStorage.setItem('userId', data.id)
                 number=data.phone_number
             })
