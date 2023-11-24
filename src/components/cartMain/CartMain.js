@@ -73,8 +73,8 @@ function CartMain(props) {
     };
     let [user, setUser] = useState({
         "email": "",
-        "firstName": "",
-        "lastName": "",
+        "first_name": "",
+        "last_name": "",
         "username": "",
         "phone_number": ""
     });

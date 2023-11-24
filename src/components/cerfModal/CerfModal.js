@@ -9,7 +9,7 @@ import InputMask from "react-input-mask";
 import Loading from "react-fullscreen-loading";
 import {useTranslation} from "react-i18next";
 
-function CerfModal({ onClose, prices }) {
+function  CerfModal({ onClose, prices }) {
     const {t, i18n} = useTranslation();
     const modalRef = useRef(null);
     const navigate = useNavigate();
@@ -24,6 +24,13 @@ function CerfModal({ onClose, prices }) {
     const [showLoader, setShowLoader] = useState(false)
     const [userId, setId] = useState(null)
     let number = ''
+    let [user, setUser] = useState({
+        "email": "",
+        "first_name": "",
+        "last_name": "",
+        "username": "",
+        "phone_number": ""
+    });
     const [phone_number, setNumber] = useState('')
     const sendAgain = () => {
         console.log(iin + "  " + number)
@@ -153,6 +160,12 @@ function CerfModal({ onClose, prices }) {
                         console.log(data.uuid)
                         if(flag) {
                             setShowLoader(true)
+                            fetch('https://api.reddel.kz/api/set_name/' + data.uuid + "/" + user.first_name + "/" + user.last_name , {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            })
                             setTimeout(() => {
                                 waitForRedirect(data.uuid)
                             }, 20000);
@@ -182,6 +195,7 @@ function CerfModal({ onClose, prices }) {
                 console.log(data)
                 setNumber(data.phone_number)
                 setId(data.id)
+                setUser(data)
                 localStorage.setItem('userId', data.id)
                 number=data.phone_number
             })
