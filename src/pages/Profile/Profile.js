@@ -20,7 +20,7 @@ function Profile() {
         "username": ""
     });
     useEffect(() => {
-        fetch('https://api.reddel.kz/api/getAllRestaurants', {
+        fetch('https://api.reddel.kz/getAllRestaurants', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ function Profile() {
                 console.error(error);
             });
         console.log(localStorage.getItem('accessToken'))
-        fetch('https://api.reddel.kz/api/user', {
+        fetch('https://api.reddel.kz/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ function Profile() {
             .then((data) => {
                 console.log(data)
                 setUser(data)
-                fetch('https://api.reddel.kz/api/get_certificates_by_id/' + data.id, {
+                fetch('https://api.reddel.kz/get_certificates_by_id/' + data.id, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

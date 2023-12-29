@@ -27,7 +27,7 @@ function Login() {
     const navigate = useNavigate();
   const [validate, setValidate] = useState('1')
   const login = () =>{
-    fetch('https://api.reddel.kz/api/user', {
+    fetch('https://api.reddel.kz/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ function Login() {
   }
   useEffect(() => {
 
-    fetch('https://api.reddel.kz/api/user', {
+    fetch('https://api.reddel.kz/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function Login() {
       alert("Неверный код, попробуйте еще раз!")
       window.location.reload(false)
     }
-    fetch('https://api.reddel.kz/api/login', {
+    fetch('https://api.reddel.kz/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -121,7 +121,7 @@ function Login() {
       return
     }
     let flag = false
-    fetch('https://api.reddel.kz/api/login', {
+    fetch('https://api.reddel.kz/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

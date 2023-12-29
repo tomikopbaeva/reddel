@@ -20,7 +20,7 @@ function Restauran() {
         console.log("THIS IS STATE : ")
         console.log(location.state)
 
-        fetch("https://api.reddel.kz/api/get_restaurant_by_slug/" + id, {
+        fetch("https://api.reddel.kz/get_restaurant_by_slug/" + id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

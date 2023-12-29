@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://127.0.0.1:8000/',
+    baseURL: 'https://api.reddel.kz/',
 });
 
 // Add a request interceptor to include the token in the headers

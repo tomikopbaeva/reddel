@@ -18,7 +18,7 @@ function Header({ favoriteItems }) {
   const {t, i18n} = useTranslation();
   const navigate = useNavigate();
   const login = () =>{
-    fetch('https://api.reddel.kz/api/user', {
+    fetch('https://api.reddel.kz/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

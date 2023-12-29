@@ -43,7 +43,7 @@ function MobileCartMain(props) {
         setIsFullScreenOpen(false);
     };
   const handleCertificateButtonClick = () => {
-      fetch('https://api.reddel.kz/api/user', {
+      fetch('https://api.reddel.kz/user', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',

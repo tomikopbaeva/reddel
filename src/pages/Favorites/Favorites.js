@@ -13,7 +13,7 @@ function Favorites() {
     const navigate = useNavigate ();
     let id = -1
     useEffect(() => {
-        fetch('https://api.reddel.kz/api/user', {
+        fetch('https://api.reddel.kz/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ function Favorites() {
                 id = data.id
             })
             .then(() => {
-                fetch('https://api.reddel.kz/api/get_favourites/' + id, {
+                fetch('https://api.reddel.kz/get_favourites/' + id, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

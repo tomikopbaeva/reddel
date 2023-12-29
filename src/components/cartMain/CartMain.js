@@ -84,7 +84,7 @@ function CartMain(props) {
     };
     const waitForRedirect = async (uuid) => {
         try{
-            await fetch('https://api.reddel.kz/api/redirect_user/' + uuid, {
+            await fetch('https://api.reddel.kz/redirect_user/' + uuid, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ function CartMain(props) {
                     'principal': selectedPrice,
                 },
                 'additional_information': {
-                    'hook_url': 'https://api.reddel.kz/api/handle',
+                    'hook_url': 'https://api.reddel.kz/handle',
                     'success_url': 'https://reddel.kz/profile',
                     'failure_url': 'https://reddel.kz/profile'
                 },
@@ -175,7 +175,7 @@ function CartMain(props) {
             .then(data => {
                 if(flag) {
                     setShowLoader(true)
-                    fetch('https://api.reddel.kz/api/set_name/' + data.uuid + "/" + user.first_name + "/" + user.last_name , {
+                    fetch('https://api.reddel.kz/set_name/' + data.uuid + "/" + user.first_name + "/" + user.last_name , {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ setShowLoader(false)
         if(month)
             state['month'] = month
         setShowLoader(true)
-        fetch('https://api.reddel.kz/api/user', {
+        fetch('https://api.reddel.kz/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

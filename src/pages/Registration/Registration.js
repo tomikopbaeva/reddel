@@ -70,7 +70,7 @@ function Registration() {
     try {
       // Make a POST request using the api.post method
       formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
-      fetch("https://api.reddel.kz/api/register", {
+      fetch("https://api.reddel.kz/register", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -110,7 +110,7 @@ function Registration() {
       return;
     }
     formData.phone_number = phone.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')
-    fetch("https://api.reddel.kz/api/checkUser", {
+    fetch("https://api.reddel.kz/checkUser", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

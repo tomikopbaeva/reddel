@@ -28,7 +28,7 @@ function MobSearch() {
         setFilteredSuggestions(filtered);
     };
     useEffect(() => {
-        fetch('https://api.reddel.kz/api/getAllRestaurants', {
+        fetch('https://api.reddel.kz/getAllRestaurants', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

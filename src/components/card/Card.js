@@ -21,7 +21,7 @@ function Card(props) {
     const handleLikeClick = (id: any) => {
         console.log(id)
         try {
-            fetch('https://api.reddel.kz/api/user', {
+            fetch('https://api.reddel.kz/user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ function Card(props) {
                     }
                 })
                 .then((data) => {
-                    fetch("https://api.reddel.kz/api/add_to_favorite/" + data.id + "/" + id, {
+                    fetch("https://api.reddel.kz/add_to_favorite/" + data.id + "/" + id, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
