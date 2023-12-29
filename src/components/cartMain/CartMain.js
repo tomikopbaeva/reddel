@@ -174,12 +174,26 @@ function CartMain(props) {
             })
             .then(data => {
                 if(flag) {
+                    console.log({
+                        uuid: data.uuid,
+                        user_id: user.id,
+                        restaurant_id: props.id,
+                        sum: selectedPrice,
+                        period: month
+                    })
                     setShowLoader(true)
-                    fetch('https://api.reddel.kz/set_name/' + data.uuid + "/" + user.first_name + "/" + user.last_name , {
+                    fetch('https://api.reddel.kz/set_status_data' , {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
+                        body:JSON.stringify({
+                            uuid: data.uuid,
+                            user_id: user.id,
+                            restaurant_id: props.id,
+                            sum: selectedPrice,
+                            period: month
+                        })
                     })
                     setTimeout(() => {
                         waitForRedirect(data.uuid)
@@ -338,12 +352,14 @@ setShowLoader(false)
                     </div>
                     <h3>{t("Часы работы")}:</h3>
                     <div className='times'>
-                        {props.work_hours && props.work_hours.map((item) => (
-                            <div className='time'>
-                                <p>{item.split(',')[0]}</p>
-                                <p>{item.split(',')[1]}</p>
-                            </div>
-                        ))}
+                        <div className='time'>
+                            <p>{props.work_days_1}</p>
+                            <p>{props.work_hours_1}</p>
+                        </div>
+                        <div className='time'>
+                            <p>{props.work_days_2}</p>
+                            <p>{props.work_hours_2}</p>
+                        </div>
                     </div>
                 </div>
                 <div className='card-icon'>

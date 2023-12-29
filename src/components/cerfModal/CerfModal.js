@@ -160,7 +160,7 @@ function  CerfModal({ onClose, prices }) {
                         console.log(data.uuid)
                         if(flag) {
                             setShowLoader(true)
-                            fetch('https://api.reddel.kz/set_name/' + data.uuid + "/" + user.first_name + "/" + user.last_name , {
+                            fetch('https://api.reddel.kz/set_status_data/' + data.uuid + "/" + user.first_name + "/" + user.last_name , {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',

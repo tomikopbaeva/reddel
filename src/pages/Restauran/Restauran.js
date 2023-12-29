@@ -49,7 +49,8 @@ function Restauran() {
           <CartHeader title={data.title}
                       logo={"https://api.reddel.kz"+data.logo}
                       tags={data.tags}/>
-          <CartMain description={data.description}
+          <CartMain id={data.id}
+                    description={data.description}
                     title={data.title}
                     item_image={"https://api.reddel.kz"+data.image}
                     images={data.images}
@@ -59,7 +60,10 @@ function Restauran() {
                     average={data.average}
                     prices={data.prices}
                     menus={data.menus}
-                    work_hours={data.work_hours}
+                    work_days_1={data.work_days_1}
+                    work_days_2={data.work_days_2}
+                    work_hours_1={data.work_hours_1}
+                    work_hours_2={data.work_hours_2}
                     slug={data.slug}
                     state={location.state}
           />
@@ -82,7 +86,12 @@ function Restauran() {
                           prices={data.prices}
                           menus={data.menus}
                           slug={id}
-                          work_hours={data.work_hours}/>
+                          work_days_1={data.work_days_1}
+                          work_days_2={data.work_days_2}
+                          work_hours_1={data.work_hours_1}
+                          work_hours_2={data.work_hours_2}
+
+          />
 
         </div>
       <Footer />
