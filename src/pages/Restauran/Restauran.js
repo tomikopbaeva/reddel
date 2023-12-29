@@ -90,7 +90,7 @@ function Restauran() {
                           work_days_2={data.work_days_2}
                           work_hours_1={data.work_hours_1}
                           work_hours_2={data.work_hours_2}
-
+                          restaurant_id={data.id}
           />
 
         </div>

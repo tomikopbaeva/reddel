@@ -107,7 +107,7 @@ function CartMain(props) {
                 })
                 .catch (async (error) => {
                     setTimeout(() => {
-                        waitForRedirect()
+                        waitForRedirect(uuid)
                     }, 10000);
                 })
         }

@@ -9,7 +9,7 @@ import InputMask from "react-input-mask";
 import Loading from "react-fullscreen-loading";
 import {useTranslation} from "react-i18next";
 
-function  CerfModal({ onClose, prices }) {
+function  CerfModal({ onClose, prices, restaurant_id }) {
     const {t, i18n} = useTranslation();
     const modalRef = useRef(null);
     const navigate = useNavigate();
@@ -83,7 +83,7 @@ function  CerfModal({ onClose, prices }) {
                 })
                 .catch (async (error) => {
                     setTimeout(() => {
-                        waitForRedirect()
+                        waitForRedirect(uuid)
                     }, 10000);
                 })
         }
@@ -160,11 +160,18 @@ function  CerfModal({ onClose, prices }) {
                         console.log(data.uuid)
                         if(flag) {
                             setShowLoader(true)
-                            fetch('https://api.reddel.kz/set_status_data/' + data.uuid + "/" + user.first_name + "/" + user.last_name , {
+                            fetch('https://api.reddel.kz/set_status_data', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
                                 },
+                                body:JSON.stringify({
+                                    uuid: data.uuid,
+                                    user_id: user.id,
+                                    restaurant_id: restaurant_id,
+                                    sum: selectedPrice,
+                                    period: month
+                                })
                             })
                             setTimeout(() => {
                                 waitForRedirect(data.uuid)

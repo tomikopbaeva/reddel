@@ -164,7 +164,7 @@ function MobileCartMain(props) {
             {t("Оформить")}
         </button>
           {isModalOpen && <CerfModal onClose={() => setIsModalOpen(false)}
-                                     prices={props.prices}/>}
+                                     prices={props.prices} id={props.id} restaurant_id={props.restaurant_id}/>}
 
       </div>
   );
