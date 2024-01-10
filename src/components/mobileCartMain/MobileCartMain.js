@@ -77,7 +77,7 @@ function MobileCartMain(props) {
           <div className="card-body">
             <img src={props.logo} alt="" width="60px" />
             <div>
-              <h3>{props.title}</h3>
+              <h1>{props.title}</h1>
               <div className='card-tags'>
                   {props.tags && props.tags.map((item, index) => (
                       <span key={index} className='tag'>{item}</span>
@@ -101,24 +101,24 @@ function MobileCartMain(props) {
           </div>
           <div>
               <img src={isFavorite ? heart2 : heart} alt="heart" onClick={handleFavoriteClick} />
-              <span>{t("В избранное")}</span>
+              <a>{t("В избранное")}</a>
           </div>
         </div>
         <div className="card-main-info">
           <h2>{t("О заведении")}:</h2>
           <p className='main-info-p'>{props.description}</p>
         </div>
-        <div className="card-main-item">
-          <button className='icon-item'>
-              <h4>🔥 {t("Акции")}</h4>
-          </button>
-          <button className='icon-item' onClick={openCarousel}>
-              <h4>🌟 {t("Меню")}</h4>
-          </button>
-            {isCarouselOpen && (
-                <MenuCarousel menus={props.menus} onClose={closeCarousel} />
-            )}
-        </div>
+        {/*<div className="card-main-item">*/}
+        {/*  <button className='icon-item'>*/}
+        {/*      <h4>🔥 {t("Акции")}</h4>*/}
+        {/*  </button>*/}
+        {/*  <button className='icon-item' onClick={openCarousel}>*/}
+        {/*      <h4>🌟 {t("Меню")}</h4>*/}
+        {/*  </button>*/}
+        {/*    {isCarouselOpen && (*/}
+        {/*        <MenuCarousel menus={props.menus} onClose={closeCarousel} />*/}
+        {/*    )}*/}
+        {/*</div>*/}
         <div className="card-main-body"></div>
         <div className='info'>
             <h5>{t("Cредний чек")}:</h5>

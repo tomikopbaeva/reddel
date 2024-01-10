@@ -61,7 +61,7 @@ function Card(props) {
     <div className={`card ${isLiked ? 'liked' : ''}`}>
       <span className='card-header'>0-0-6</span>
       <div className="card-img">
-        <img src={props.item_image} alt="random"/>
+        <img src={props.item_image} alt="random" width="100%" height="100%"/>
       </div>
       <div className='tags'>
           {props.tags && props.tags.map((item, index) => (

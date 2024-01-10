@@ -15,24 +15,25 @@ function Header(props) {
     const {t, i18n} = useTranslation();
 
     return (
-    <div className="header-card">
-      <div className="card-body">
-        <img src={props.logo} alt="" width="60px" />
-        {/*<h3>{props.title}</h3>*/}
-      </div>
-      <div className='tags-card'>
-          {props.tags && props.tags.map((item, index) => (
-              <span key={index} className='tag-item'>{item}</span>
-          ))}
-        {/*<span className='tag'>Тег 1</span>*/}
-        {/*<span className='tag'>Тег 2</span>*/}
-      </div>
-      <button className="card-button" onClick={toggleFavorite}>
-        <img src={isFavorite ? heard5 : heard3} alt="heart" />
-          {t("В избранное")}
-      </button>
-    </div>
-  );
+        <div className="header-card">
+          <div className="card-body">
+            <img src={props.logo} alt="" width="60px"/>
+            <div>
+              <h1>{props.title}</h1>
+              <div className='tags-card'>
+                {props.tags && props.tags.map((item, index) => (
+                    <span key={index} className='tag-item'>{item}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <button className="card-button" onClick={toggleFavorite}>
+            <img src={isFavorite ? heard5 : heard3} alt="heart"/>
+            {t("В избранное")}
+          </button>
+        </div>
+    );
 }
 
 export default Header;

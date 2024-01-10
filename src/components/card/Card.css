@@ -85,8 +85,9 @@
     border-radius: 8px;
 }
 
-.card-body h3{
-    font-size: 14px;
+.card-body h1{
+    font-size: 28px;
+    margin-bottom: 10px;
 }
 
 .card-text{
