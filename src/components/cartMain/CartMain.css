@@ -91,11 +91,11 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    width: 70%;
+    width: 100%;
 }
 
 .card-info .location{
-    width: 50%;
+    width: max-content;
     font-size: 70%;
 }
 

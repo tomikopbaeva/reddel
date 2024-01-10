@@ -332,7 +332,7 @@ setShowLoader(false)
                     <p>{props.description}</p>
                     <div className="location">
                         <img src={location} alt="random" />
-                        <span>{props.location}</span>
+                        <span>Адрес: {props.location}</span>
                     </div>
                     <div className='info'>
                         <h5>{t("Название")}:</h5>
@@ -362,19 +362,19 @@ setShowLoader(false)
                         </div>
                     </div>
                 </div>
-                <div className='card-icon'>
-                    <div className="icon" onClick={openCarousel}>
-                        <h4>{t("Меню")}</h4>
-                        <img className="img50" src={Book} alt="book" />
-                    </div>
-                    {isCarouselOpen && (
-                        <MenuCarousel menus={props.menus} onClose={closeCarousel} />
-                    )}
-                    <div className='icon'>
-                        <h4>{t("Акции")}</h4>
-                        <img className="img50" src={Star} alt="book" />
-                    </div>
-                </div>
+                {/*<div className='card-icon'>*/}
+                {/*    <div className="icon" onClick={openCarousel}>*/}
+                {/*        <h4>{t("Меню")}</h4>*/}
+                {/*        <img className="img50" src={Book} alt="book" />*/}
+                {/*    </div>*/}
+                {/*    {isCarouselOpen && (*/}
+                {/*        <MenuCarousel menus={props.menus} onClose={closeCarousel} />*/}
+                {/*    )}*/}
+                {/*    <div className='icon'>*/}
+                {/*        <h4>{t("Акции")}</h4>*/}
+                {/*        <img className="img50" src={Star} alt="book" />*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         </div>
         <div className="cart-main-right">
