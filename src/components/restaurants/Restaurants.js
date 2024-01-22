@@ -31,7 +31,9 @@ function Restaurants() {
         id=""
         slug="#"
         tags=""
-        description="████████████████████████████████████"
+        description="███████████████████████
+        █████████████████████████████
+        ██████████████████████████"
         key="1"
         location="████████"
         logo="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAAC8CAMAAAC672BgAAAAA1BMVEWxrq37BefPAAAARklEQVR4nO3BAQEAAACAkP6v7ggKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAbFjAAB3KzK6gAAAABJRU5ErkJggg=="
@@ -41,7 +43,9 @@ function Restaurants() {
         id=""
         slug="#"
         tags=""
-        description="████████████████████████████████████"
+        description="███████████████████████
+        █████████████████████████████
+        ██████████████████████████"
         key="2"
         location="████████"
         logo="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAAC8CAMAAAC672BgAAAAA1BMVEWxrq37BefPAAAARklEQVR4nO3BAQEAAACAkP6v7ggKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAbFjAAB3KzK6gAAAABJRU5ErkJggg=="
