@@ -60,17 +60,18 @@ function Card(props) {
   return (
     <div className={`card ${isLiked ? 'liked' : ''}`}>
       <span className='card-header'>0-0-6</span>
-      <div className="card-img">
-        <img src={props.item_image} alt="random" width="100%" height="100%"/>
-      </div>
-      <div className='tags'>
-          {props.tags && props.tags.map((item, index) => (
-              <span key={index} className='tag'><p>{item}</p></span>
-          ))}
-      </div>
+        <div className="card-img">
+            <img src={props.item_image} alt="random" width="100%" height="100%"/>
+            <div className='tags'>
+                {props.tags && props.tags.map((item, index) => (
+                    <span key={index} className='tag'><p>{item}</p></span>
+                ))}
+            </div>
+        </div>
+
         <Link to={props.slug} className="card-body">
-          <img src={props.logo} alt="" width="50px"/>
-          <h3>{props.title} </h3>
+            <img src={props.logo} alt="" width="50px"/>
+            <h3>{props.title} </h3>
         </Link>
         <Link to={props.slug} className="card-text">{props.description}</Link>
         <Link to={props.slug} className="location">

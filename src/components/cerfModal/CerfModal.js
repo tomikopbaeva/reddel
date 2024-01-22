@@ -144,7 +144,7 @@ function  CerfModal({ onClose, prices, restaurant_id }) {
                             'principal' : selectedPrice,
                         },
                         'additional_information': {
-                            'hook_url': 'https://api.reddel.kz/handle',
+                            'hook_url': 'http://api.reddel.kz:8000/handle',
                             'success_url': 'https://reddel.kz/profile',
                             'failure_url': 'https://reddel.kz/profile'
                         },
