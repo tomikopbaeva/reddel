@@ -14,10 +14,12 @@ function Banner() {
         </div>
         <div className="banner2-contacts">
             <a href="https://wa.me/77077528313"><img src={whatsapp} className='desk' alt="whatsapp" /></a>
-            <button className="banner2-button">{t("Заполнить заявку")}</button>
+            <a href="https://wa.me/77077528313">
+                <button className="banner2-button">{t("Заполнить заявку")}</button>
+            </a>
         </div>
     </div>
-  );
+);
 }
 
 export default Banner;
