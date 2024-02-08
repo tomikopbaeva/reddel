@@ -48,7 +48,7 @@ function Login() {
     let code = randomNumber.toString().padStart(4, '0')
     setValidate(code)
     let data = phoneNumber.replaceAll(/[^0-9]/g, '')
-    await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+    await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код для входа на сайт https://reddel.kz: " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
   }
   const toRegister = () =>{
     navigate('/registration', {state: location.state})
@@ -141,7 +141,7 @@ function Login() {
             // console.log(code)
             setValidate(code)
             let data = phoneNumber.replaceAll(/[^0-9]/g, '')
-            await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код валидации : " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
+            await fetch("https://api.mobizon.kz/service/message/sendsmsmessage?recipient=" + data + "&text=Код для входа на сайт https://reddel.kz: " + code + "&apiKey=kz0502f56621750a9ca3ac636e8301e235c2b647839531f2994222514c786fb6ff2178")
             setOpenCerf(true)
           }
         })
