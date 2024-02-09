@@ -34,6 +34,23 @@ function Header({ favoriteItems }) {
           }
         })
   }
+  const favorites = () =>{
+    fetch('https://api.reddel.kz/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({'jwt': localStorage.getItem('accessToken')})
+    })
+        .then((response) => {
+          if (response.status == 200) {
+            navigate('/favorites')
+          }
+          else{
+            navigate('/login')
+          }
+        })
+  }
   return (
     <header className="header">
       <div className="header-desk">
@@ -83,10 +100,10 @@ function Header({ favoriteItems }) {
             </div>
           </div>
           <div className="header-right">
-            <Link to="/favorites" className="header-right-item">
+            <a href="#" onClick={favorites} className="header-right-item">
               <img src={heart} alt="heart" />
               <span>{t("Избранное")}</span>
-            </Link>
+            </a>
             <a href="#" onClick={login} className="header-right-item">
               <img src={profile} alt="profile" />
               <span>Профиль</span>
