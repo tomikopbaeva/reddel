@@ -20,12 +20,12 @@
 }
 
 .profile-cert{
-    padding: 16px;
+    padding: 22px;
     border: 1px solid #3153CA;
-    border-radius: 12px;
+    border-radius: 25px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 24px;
     cursor: pointer;
 }
 
@@ -39,11 +39,15 @@
     align-items: center;
     gap: 4px;
 }
+.profile-cert-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-.profile-cert h4{
+.profile-cert h1{
     color: #3153CA;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 36px;
 }
 
 .profile .p{
@@ -70,5 +74,18 @@
     }
     .profile-header-link{
         display: none;
+    }
+}
+@media screen and (max-width: 500px) {
+    .profile-cert-info{
+        flex-direction: column;
+        gap: 24px;
+        align-items: start;
+    }
+    .profile-cert{
+        gap: 12px;
+    }
+    .profile-cert h1{
+        font-size: 30px;
     }
 }

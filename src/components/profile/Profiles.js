@@ -44,11 +44,14 @@ function Profiles(props) {
                     certificate.status ?
                     <div className="profile-cert" onClick={() => handleCertificateClick(certificate.id)}>
                         <h3 className="h3">В ресторане { certificate.restaurant}</h3>
-                        <div className="profile-cert-img">
-                            <img src={done2} alt="done"/>
-                            <span>{t("Воспользуйтесь до")} {certificate.end_date.substring(0,10).replaceAll('-', '.')} {t("дейін іске қосылды")}</span>
+                        <div className="profile-cert-info">
+                            <div className="profile-cert-img">
+                                <img src={done2} alt="done"/>
+                                <span>{t("Воспользуйтесь до")} {certificate.end_date.substring(0, 10).replaceAll('-', '.')} {t("дейін іске қосылды")}</span>
+                            </div>
+
+                            <h1>{certificate.sum} ₸</h1>
                         </div>
-                        <h4>{certificate.sum}₸</h4>
                     </div> :
                         <div className="profile-cert" onClick={() => handleCertificateClick(certificate.id)}>
                             <h3 className="h3">{t("Выберите ресторан из списка доступных")}</h3>
