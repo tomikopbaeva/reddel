@@ -76,7 +76,7 @@ function MobileCartMain(props) {
         <div className="card-main-header">
           <div className="card-body">
             <img src={props.logo} alt="" width="60px" />
-            <div>
+            <div className='header-title'>
               <h1>{props.title}</h1>
               <div className='card-tags'>
                   {props.tags && props.tags.map((item, index) => (
